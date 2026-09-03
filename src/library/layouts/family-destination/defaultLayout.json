@@ -1,0 +1,2373 @@
+{
+  "root": {
+    "type": "root",
+    "props": {
+      "title": {
+        "field": "name",
+        "constantValue": "Yext Family Destination Pages",
+        "constantValueEnabled": false
+      },
+      "version": 78,
+      "description": {
+        "field": "description",
+        "constantValue": "",
+        "constantValueEnabled": false
+      }
+    }
+  },
+  "zones": {},
+  "content": [
+    {
+      "type": "FamilyDestinationHeader",
+      "props": {
+        "id": "FamilyDestinationHeader-08f8e50a-b8d7-4527-a2da-55549febd2d5",
+        "cta": {
+          "show": true,
+          "items": [
+            {
+              "cta": {
+                "data": {
+                  "cta": {
+                    "field": "",
+                    "selectedType": "textAndLink",
+                    "constantValue": {
+                      "link": {
+                        "defaultValue": "#"
+                      },
+                      "label": {
+                        "defaultValue": "Check Availability"
+                      },
+                      "ctaType": "textAndLink",
+                      "linkType": "URL"
+                    },
+                    "constantValueEnabled": true
+                  },
+                  "customId": "",
+                  "ariaLabel": {
+                    "defaultValue": "Check Availability"
+                  },
+                  "actionType": "link",
+                  "buttonText": {
+                    "defaultValue": "Check Availability"
+                  },
+                  "customClass": "",
+                  "openInNewTab": false,
+                  "dataAttributes": []
+                },
+                "styles": {
+                  "link": {
+                    "fontSize": "default",
+                    "fontStyle": "default",
+                    "fontFamily": "default",
+                    "fontWeight": "default",
+                    "includeCaret": "none",
+                    "letterSpacing": "default",
+                    "textTransform": "default"
+                  },
+                  "button": {
+                    "fontSize": "default",
+                    "fontStyle": "default",
+                    "fontFamily": "default",
+                    "fontWeight": "default",
+                    "borderRadius": "default",
+                    "letterSpacing": "default",
+                    "textTransform": "default"
+                  },
+                  "variant": "link"
+                }
+              }
+            }
+          ]
+        },
+        "section": {
+          "backgroundColor": {
+            "selectedColor": "white",
+            "contrastingColor": "black"
+          },
+          "visibleOnLivePage": true
+        },
+        "variant": "logoLeftInlineNav",
+        "logoImage": {
+          "url": {
+            "field": "",
+            "constantValue": {
+              "defaultValue": ""
+            },
+            "constantValueEnabled": true
+          },
+          "show": true,
+          "image": {
+            "field": "",
+            "constantValue": {
+              "url": "",
+              "width": 0,
+              "height": 0
+            },
+            "constantValueEnabled": true
+          },
+          "styles": {
+            "borderRadius": "default"
+          },
+          "aspectRatio": 1,
+          "imageConstrain": "fixed"
+        },
+        "utilities": {
+          "show": true,
+          "items": [
+            {
+              "link": "#",
+              "label": "Item 1",
+              "linkType": "URL",
+              "iconImage": {
+                "image": {
+                  "field": "",
+                  "constantValue": {
+                    "url": "",
+                    "width": 0,
+                    "height": 0
+                  },
+                  "constantValueEnabled": true
+                },
+                "styles": {
+                  "borderRadius": "default"
+                },
+                "aspectRatio": 1,
+                "imageConstrain": "fixed"
+              },
+              "openInNewTab": false,
+              "normalizeLink": false
+            },
+            {
+              "link": "#",
+              "label": "Item 2",
+              "linkType": "URL",
+              "iconImage": {
+                "image": {
+                  "field": "",
+                  "constantValue": {
+                    "url": "",
+                    "width": 0,
+                    "height": 0
+                  },
+                  "constantValueEnabled": true
+                },
+                "styles": {
+                  "borderRadius": "default"
+                },
+                "aspectRatio": 1,
+                "imageConstrain": "fixed"
+              },
+              "openInNewTab": false,
+              "normalizeLink": false
+            },
+            {
+              "link": "#",
+              "label": "Item 3",
+              "linkType": "URL",
+              "iconImage": {
+                "image": {
+                  "field": "",
+                  "constantValue": {
+                    "url": "",
+                    "width": 0,
+                    "height": 0
+                  },
+                  "constantValueEnabled": true
+                },
+                "styles": {
+                  "borderRadius": "default"
+                },
+                "aspectRatio": 1,
+                "imageConstrain": "fixed"
+              },
+              "openInNewTab": false,
+              "normalizeLink": false
+            }
+          ]
+        },
+        "navigation": {
+          "show": true,
+          "links": [
+            {
+              "link": "#",
+              "label": "Rooms",
+              "linkType": "URL",
+              "openInNewTab": false,
+              "normalizeLink": false
+            },
+            {
+              "link": "#",
+              "label": "Amenities & Dining",
+              "linkType": "URL",
+              "openInNewTab": false,
+              "normalizeLink": false
+            },
+            {
+              "link": "#",
+              "label": "Offers",
+              "linkType": "URL",
+              "openInNewTab": false,
+              "normalizeLink": false
+            },
+            {
+              "link": "#",
+              "label": "Locations",
+              "linkType": "URL",
+              "openInNewTab": false,
+              "normalizeLink": false
+            },
+            {
+              "link": "#",
+              "label": "Rewards",
+              "linkType": "URL",
+              "openInNewTab": false,
+              "normalizeLink": false
+            }
+          ],
+          "styles": {
+            "fontSize": "default",
+            "fontStyle": "default",
+            "fontFamily": "default",
+            "fontWeight": "default",
+            "includeCaret": "default",
+            "letterSpacing": "default",
+            "textTransform": "default"
+          }
+        }
+      }
+    },
+    {
+      "type": "MainContent",
+      "props": {
+        "id": "MainContent-default",
+        "content": [
+          {
+            "type": "FamilyDestinationBreadcrumbs",
+            "props": {
+              "id": "FamilyDestinationBreadcrumbs-b1aee2fd-0644-41a0-b6b5-4bbe59d972d5",
+              "section": {
+                "backgroundColor": {
+                  "selectedColor": "white",
+                  "contrastingColor": "black"
+                },
+                "visibleOnLivePage": true
+              },
+              "rootLabel": {
+                "text": {
+                  "field": "",
+                  "constantValue": {
+                    "defaultValue": "All Locations",
+                    "hasLocalizedValue": "true"
+                  },
+                  "constantValueEnabled": true
+                },
+                "styles": {
+                  "fontSize": "default",
+                  "fontStyle": "default",
+                  "fontFamily": "default",
+                  "fontWeight": "default",
+                  "textTransform": "default"
+                }
+              },
+              "includeCurrentLocation": true
+            }
+          },
+          {
+            "type": "FamilyDestinationHero",
+            "props": {
+              "id": "FamilyDestinationHero-244ac72c-9f41-44b3-877d-1fade0aed324",
+              "body": {
+                "text": {
+                  "field": "",
+                  "constantValue": {
+                    "defaultValue": {
+                      "html": "<p dir=\"ltr\" style=\"font-size: 14.67px; font-weight: 400; line-height: 18.67px; margin: 0; padding: 3px 2px 3px 2px; position: relative;\"><span>[[name]] - [[geomodifier]] [[address.city]] is a luxury boutique hotel offering a curated blend of historic Southern charm, modern amenities, and sophisticated comfort. Experience personalized concierge services, a chef-driven culinary program, and an unmatched location in the heart of [[address.city]].</span></p>",
+                      "json": "{\"root\":{\"children\":[{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"\",\"text\":\"[[name]] - [[geomodifier]] [[address.city]] is a luxury boutique hotel offering a curated blend of historic Southern charm, modern amenities, and sophisticated comfort. Experience personalized concierge services, a chef-driven culinary program, and an unmatched location in the heart of [[address.city]].\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"root\",\"version\":1}}"
+                    },
+                    "hasLocalizedValue": "true"
+                  },
+                  "constantValueEnabled": true
+                },
+                "styles": {
+                  "fontSize": "default",
+                  "fontStyle": "default",
+                  "fontFamily": "default",
+                  "fontWeight": "default",
+                  "textTransform": "default"
+                }
+              },
+              "badge": {
+                "text": {
+                  "field": "",
+                  "constantValue": {
+                    "defaultValue": "Rooms Available for Booking",
+                    "hasLocalizedValue": "true"
+                  },
+                  "constantValueEnabled": true
+                },
+                "styles": {
+                  "fontSize": "default",
+                  "fontStyle": "default",
+                  "fontFamily": "default",
+                  "fontWeight": "default",
+                  "textTransform": "default"
+                }
+              },
+              "image": {
+                "image": {
+                  "field": "",
+                  "constantValue": {
+                    "url": "https://a.mktgcdn.com/p/vQqhmnexQfZueJGyh5M_j5W4EcTkTyZlW93eIoqjjvQ/1900x1267.jpg",
+                    "width": 1900,
+                    "height": 1267
+                  },
+                  "constantValueEnabled": true
+                },
+                "styles": {
+                  "borderRadius": "default"
+                },
+                "imageConstrain": "filled"
+              },
+              "eyebrow": {
+                "text": {
+                  "field": "geomodifier",
+                  "constantValue": {
+                    "defaultValue": ""
+                  },
+                  "constantValueEnabled": false
+                },
+                "styles": {
+                  "fontSize": "default",
+                  "fontStyle": "default",
+                  "fontFamily": "default",
+                  "fontWeight": "default",
+                  "textTransform": "default"
+                }
+              },
+              "heading": {
+                "text": {
+                  "field": "name",
+                  "constantValue": {
+                    "defaultValue": ""
+                  },
+                  "constantValueEnabled": false
+                },
+                "styles": {
+                  "fontSize": "default",
+                  "fontStyle": "default",
+                  "fontFamily": "default",
+                  "fontWeight": "default",
+                  "textTransform": "default"
+                }
+              },
+              "section": {
+                "backgroundColor": {
+                  "selectedColor": "white",
+                  "contrastingColor": "black"
+                },
+                "visibleOnLivePage": true,
+                "badgeBackgroundColor": {
+                  "selectedColor": "palette-primary",
+                  "contrastingColor": "palette-primary-contrast"
+                }
+              },
+              "primaryCta": {
+                "data": {
+                  "cta": {
+                    "field": "",
+                    "selectedType": "textAndLink",
+                    "constantValue": {
+                      "link": {
+                        "defaultValue": "#",
+                        "hasLocalizedValue": "true"
+                      },
+                      "label": {
+                        "defaultValue": "Book A Room",
+                        "hasLocalizedValue": "true"
+                      },
+                      "ctaType": "textAndLink",
+                      "linkType": "URL"
+                    },
+                    "constantValueEnabled": true
+                  },
+                  "actionType": "link",
+                  "openInNewTab": false
+                },
+                "styles": {
+                  "link": {
+                    "fontSize": "default",
+                    "fontStyle": "default",
+                    "fontFamily": "default",
+                    "fontWeight": "default",
+                    "includeCaret": "none",
+                    "letterSpacing": "default",
+                    "textTransform": "default"
+                  },
+                  "color": {
+                    "selectedColor": "palette-primary",
+                    "contrastingColor": "palette-primary-contrast"
+                  },
+                  "button": {
+                    "fontSize": "default",
+                    "fontStyle": "default",
+                    "fontFamily": "default",
+                    "fontWeight": "default",
+                    "borderRadius": "default",
+                    "letterSpacing": "default",
+                    "textTransform": "default"
+                  },
+                  "variant": "primary"
+                }
+              },
+              "secondaryCta": {
+                "data": {
+                  "cta": {
+                    "field": "",
+                    "selectedType": "textAndLink",
+                    "constantValue": {
+                      "link": {
+                        "defaultValue": "#",
+                        "hasLocalizedValue": "true"
+                      },
+                      "label": {
+                        "defaultValue": "Explore Special Offers",
+                        "hasLocalizedValue": "true"
+                      },
+                      "ctaType": "textAndLink",
+                      "linkType": "URL"
+                    },
+                    "constantValueEnabled": true
+                  },
+                  "actionType": "link",
+                  "openInNewTab": false
+                },
+                "styles": {
+                  "link": {
+                    "fontSize": "default",
+                    "fontStyle": "default",
+                    "fontFamily": "default",
+                    "fontWeight": "default",
+                    "includeCaret": "none",
+                    "letterSpacing": "default",
+                    "textTransform": "default"
+                  },
+                  "variant": "link"
+                }
+              }
+            }
+          },
+          {
+            "type": "FamilyDestinationInfoSection",
+            "props": {
+              "id": "FamilyDestinationInfoSection-ee457669-962f-4ec4-8353-64da80d8f1be",
+              "styles": {
+                "body": {
+                  "styles": {
+                    "fontSize": "default",
+                    "fontStyle": "default",
+                    "fontFamily": "default",
+                    "fontWeight": "default",
+                    "textTransform": "default"
+                  }
+                },
+                "headings": {
+                  "styles": {
+                    "fontSize": "24px",
+                    "fontStyle": "default",
+                    "fontFamily": "default",
+                    "fontWeight": "default",
+                    "textTransform": "default"
+                  }
+                },
+                "subheadings": {
+                  "styles": {
+                    "fontSize": "default",
+                    "fontStyle": "default",
+                    "fontFamily": "default",
+                    "fontWeight": "default",
+                    "textTransform": "default"
+                  }
+                }
+              },
+              "section": {
+                "backgroundColor": {
+                  "selectedColor": "palette-primary",
+                  "contrastingColor": "palette-primary-contrast"
+                },
+                "panelBorderColor": {
+                  "selectedColor": "white",
+                  "contrastingColor": "black"
+                },
+                "visibleOnLivePage": true
+              },
+              "summary": {
+                "phone": {
+                  "subheading": {
+                    "field": "",
+                    "constantValue": {
+                      "defaultValue": "Main Reservations",
+                      "hasLocalizedValue": "true"
+                    },
+                    "constantValueEnabled": true
+                  },
+                  "phoneNumbers": {
+                    "items": [
+                      {
+                        "label": "",
+                        "number": {
+                          "field": "mainPhone",
+                          "constantValue": "",
+                          "constantValueEnabled": false
+                        }
+                      }
+                    ],
+                    "phoneFormat": "international",
+                    "includeHyperlink": false
+                  }
+                },
+                "address": {
+                  "address": {
+                    "field": "address",
+                    "constantValue": {
+                      "city": "",
+                      "line1": "",
+                      "region": "",
+                      "postalCode": "",
+                      "countryCode": ""
+                    },
+                    "constantValueEnabled": false
+                  },
+                  "showRegion": true,
+                  "subheading": {
+                    "field": "",
+                    "constantValue": {
+                      "defaultValue": "Address",
+                      "hasLocalizedValue": "true"
+                    },
+                    "constantValueEnabled": true
+                  },
+                  "showCountry": false
+                },
+                "heading": {
+                  "field": "",
+                  "constantValue": {
+                    "defaultValue": "Hotel Summary",
+                    "hasLocalizedValue": "true"
+                  },
+                  "constantValueEnabled": true
+                },
+                "checkInOut": {
+                  "text": {
+                    "field": "",
+                    "constantValue": {
+                      "defaultValue": {
+                        "html": "<p dir=\"ltr\" style=\"font-size: 14.67px; font-weight: 400; line-height: 18.67px; margin: 0; padding: 3px 2px 3px 2px; position: relative;\"><span>Standard Check-In: 4:00 PM | Standard Check-Out: 11:00 AM</span></p>",
+                        "json": "{\"root\":{\"children\":[{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"\",\"text\":\"Standard Check-In: 4:00 PM | Standard Check-Out: 11:00 AM\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"root\",\"version\":1}}"
+                      },
+                      "hasLocalizedValue": "true"
+                    },
+                    "constantValueEnabled": true
+                  },
+                  "subheading": {
+                    "field": "",
+                    "constantValue": {
+                      "defaultValue": "Check-In/Out",
+                      "hasLocalizedValue": "true"
+                    },
+                    "constantValueEnabled": true
+                  }
+                },
+                "primaryCta": {
+                  "data": {
+                    "cta": {
+                      "field": "",
+                      "selectedType": "textAndLink",
+                      "constantValue": {
+                        "link": {
+                          "defaultValue": "#",
+                          "hasLocalizedValue": "true"
+                        },
+                        "label": {
+                          "defaultValue": "Visit Website",
+                          "hasLocalizedValue": "true"
+                        },
+                        "ctaType": "textAndLink",
+                        "linkType": "URL"
+                      },
+                      "constantValueEnabled": true
+                    },
+                    "actionType": "link",
+                    "openInNewTab": false
+                  },
+                  "styles": {
+                    "link": {
+                      "fontSize": "default",
+                      "fontStyle": "default",
+                      "fontFamily": "default",
+                      "fontWeight": "default",
+                      "includeCaret": "none",
+                      "letterSpacing": "default",
+                      "textTransform": "default"
+                    },
+                    "variant": "link"
+                  }
+                },
+                "secondaryCta": {
+                  "data": {
+                    "cta": {
+                      "field": "",
+                      "selectedType": "textAndLink",
+                      "constantValue": {
+                        "link": {
+                          "defaultValue": "#",
+                          "hasLocalizedValue": "true"
+                        },
+                        "label": {
+                          "defaultValue": "Check Availability",
+                          "hasLocalizedValue": "true"
+                        },
+                        "ctaType": "textAndLink",
+                        "linkType": "URL"
+                      },
+                      "constantValueEnabled": true
+                    },
+                    "actionType": "link",
+                    "openInNewTab": false
+                  },
+                  "styles": {
+                    "link": {
+                      "fontSize": "default",
+                      "fontStyle": "default",
+                      "fontFamily": "default",
+                      "fontWeight": "default",
+                      "includeCaret": "none",
+                      "letterSpacing": "default",
+                      "textTransform": "default"
+                    },
+                    "variant": "link"
+                  }
+                },
+                "accessibility": {
+                  "text": {
+                    "field": "",
+                    "constantValue": {
+                      "defaultValue": {
+                        "html": "<p dir=\"ltr\" style=\"font-size: 14.67px; font-weight: 400; line-height: 18.67px; margin: 0; padding: 3px 2px 3px 2px; position: relative;\"><span>Step-free main entrance, ADA-compliant accessible rooms, elevator access to all floors, braille signage</span></p>",
+                        "json": "{\"root\":{\"children\":[{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"\",\"text\":\"Step-free main entrance, ADA-compliant accessible rooms, elevator access to all floors, braille signage\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"root\",\"version\":1}}"
+                      },
+                      "hasLocalizedValue": "true"
+                    },
+                    "constantValueEnabled": true
+                  },
+                  "subheading": {
+                    "field": "",
+                    "constantValue": {
+                      "defaultValue": "Accessibility",
+                      "hasLocalizedValue": "true"
+                    },
+                    "constantValueEnabled": true
+                  }
+                }
+              },
+              "serviceHours": {
+                "items": [
+                  {
+                    "label": {
+                      "field": "",
+                      "constantValue": {
+                        "defaultValue": "Front Desk",
+                        "hasLocalizedValue": "true"
+                      },
+                      "constantValueEnabled": true
+                    },
+                    "value": {
+                      "field": "",
+                      "constantValue": {
+                        "defaultValue": "24 Hours / 7 Days",
+                        "hasLocalizedValue": "true"
+                      },
+                      "constantValueEnabled": true
+                    }
+                  },
+                  {
+                    "label": {
+                      "field": "",
+                      "constantValue": {
+                        "defaultValue": "Concierge Desk",
+                        "hasLocalizedValue": "true"
+                      },
+                      "constantValueEnabled": true
+                    },
+                    "value": {
+                      "field": "",
+                      "constantValue": {
+                        "defaultValue": "7:00 AM - 10:00 PM Daily",
+                        "hasLocalizedValue": "true"
+                      },
+                      "constantValueEnabled": true
+                    }
+                  },
+                  {
+                    "label": {
+                      "field": "",
+                      "constantValue": {
+                        "defaultValue": "Room Service",
+                        "hasLocalizedValue": "true"
+                      },
+                      "constantValueEnabled": true
+                    },
+                    "value": {
+                      "field": "",
+                      "constantValue": {
+                        "defaultValue": "6:00 AM - Midnight Daily",
+                        "hasLocalizedValue": "true"
+                      },
+                      "constantValueEnabled": true
+                    }
+                  },
+                  {
+                    "label": {
+                      "field": "",
+                      "constantValue": {
+                        "defaultValue": "Housekeeping",
+                        "hasLocalizedValue": "true"
+                      },
+                      "constantValueEnabled": true
+                    },
+                    "value": {
+                      "field": "",
+                      "constantValue": {
+                        "defaultValue": "Daily service 8:00 AM - 4:00 PM (Turndown service upon request)",
+                        "hasLocalizedValue": "true"
+                      },
+                      "constantValueEnabled": true
+                    }
+                  },
+                  {
+                    "label": {
+                      "field": "",
+                      "constantValue": {
+                        "defaultValue": "Valet Parking",
+                        "hasLocalizedValue": "true"
+                      },
+                      "constantValueEnabled": true
+                    },
+                    "value": {
+                      "field": "",
+                      "constantValue": {
+                        "defaultValue": "24 Hours / 7 Days",
+                        "hasLocalizedValue": "true"
+                      },
+                      "constantValueEnabled": true
+                    }
+                  }
+                ],
+                "heading": {
+                  "field": "",
+                  "constantValue": {
+                    "defaultValue": "Desk & Service Hours",
+                    "hasLocalizedValue": "true"
+                  },
+                  "constantValueEnabled": true
+                }
+              },
+              "complimentaryServices": {
+                "items": {
+                  "field": "",
+                  "constantValue": [
+                    "High-Speed Wi-Fi (Property-Wide)",
+                    "Morning Artisanal Coffee & Tea Station",
+                    "Evening Social Hour (Local Wine & Cheese)",
+                    "Digital Concierge App Access",
+                    "Luxury Bicycle Rentals",
+                    "Free cancellation up to 48 hours prior to arrival for direct bookings"
+                  ],
+                  "constantValueEnabled": true
+                },
+                "heading": {
+                  "field": "",
+                  "constantValue": {
+                    "defaultValue": "Complimentary Services",
+                    "hasLocalizedValue": "true"
+                  },
+                  "constantValueEnabled": true
+                }
+              }
+            }
+          },
+          {
+            "type": "FamilyDestinationAccommodations",
+            "props": {
+              "id": "FamilyDestinationAccommodations-3a7a14ee-aa1b-4476-a11a-d5a89437bac7",
+              "rooms": {
+                "data": {
+                  "field": "",
+                  "mappings": {
+                    "image": {
+                      "field": "",
+                      "constantValueEnabled": false
+                    },
+                    "title": {
+                      "field": "",
+                      "constantValueEnabled": false
+                    },
+                    "description": {
+                      "field": "",
+                      "constantValueEnabled": false
+                    }
+                  },
+                  "constantValue": [
+                    {
+                      "cta": {
+                        "data": {
+                          "cta": {
+                            "field": "",
+                            "selectedType": "textAndLink",
+                            "constantValue": {
+                              "link": {
+                                "defaultValue": "#",
+                                "hasLocalizedValue": "true"
+                              },
+                              "label": {
+                                "defaultValue": "Check Availability",
+                                "hasLocalizedValue": "true"
+                              },
+                              "ctaType": "textAndLink",
+                              "linkType": "URL"
+                            },
+                            "constantValueEnabled": true
+                          },
+                          "actionType": "link",
+                          "openInNewTab": false
+                        },
+                        "styles": {
+                          "link": {
+                            "fontSize": "default",
+                            "fontStyle": "default",
+                            "fontFamily": "default",
+                            "fontWeight": "default",
+                            "includeCaret": "none",
+                            "letterSpacing": "default",
+                            "textTransform": "default"
+                          },
+                          "variant": "link"
+                        }
+                      },
+                      "image": {
+                        "field": "",
+                        "constantValue": {
+                          "url": "https://a.mktgcdn.com/p/UHR6VTEvcR-yDMqPSOS7LyK87Qt56EOrmfNbhLQxI08/1267x1900.jpg",
+                          "width": 1267,
+                          "height": 1900
+                        },
+                        "constantValueEnabled": true
+                      },
+                      "title": {
+                        "field": "",
+                        "constantValue": {
+                          "defaultValue": "Deluxe King Room",
+                          "hasLocalizedValue": "true"
+                        },
+                        "constantValueEnabled": true
+                      },
+                      "description": {
+                        "field": "",
+                        "constantValue": {
+                          "defaultValue": "A spacious, light-filled room featuring a plush king-size bed, a dedicated workspace, and a spa-inspired marble bathroom.",
+                          "hasLocalizedValue": "true"
+                        },
+                        "constantValueEnabled": true
+                      }
+                    },
+                    {
+                      "cta": {
+                        "data": {
+                          "cta": {
+                            "field": "",
+                            "selectedType": "textAndLink",
+                            "constantValue": {
+                              "link": {
+                                "defaultValue": "#",
+                                "hasLocalizedValue": "true"
+                              },
+                              "label": {
+                                "defaultValue": "Check Availability",
+                                "hasLocalizedValue": "true"
+                              },
+                              "ctaType": "textAndLink",
+                              "linkType": "URL"
+                            },
+                            "constantValueEnabled": true
+                          },
+                          "actionType": "link",
+                          "openInNewTab": false
+                        },
+                        "styles": {
+                          "link": {
+                            "fontSize": "default",
+                            "fontStyle": "default",
+                            "fontFamily": "default",
+                            "fontWeight": "default",
+                            "includeCaret": "none",
+                            "letterSpacing": "default",
+                            "textTransform": "default"
+                          },
+                          "variant": "link"
+                        }
+                      },
+                      "image": {
+                        "field": "",
+                        "constantValue": {
+                          "url": "https://a.mktgcdn.com/p/fbSbItkZpsHpkc8qHH7GxvQkWzxsfm6mGc0k4Lmfl-A/1267x1900.jpg",
+                          "width": 1267,
+                          "height": 1900
+                        },
+                        "constantValueEnabled": true
+                      },
+                      "title": {
+                        "field": "",
+                        "constantValue": {
+                          "defaultValue": "Executive Double Queen",
+                          "hasLocalizedValue": "true"
+                        },
+                        "constantValueEnabled": true
+                      },
+                      "description": {
+                        "field": "",
+                        "constantValue": {
+                          "defaultValue": "Perfect for families or small groups, offering two queen-size beds, a comfortable seating area, and luxury bath amenities.",
+                          "hasLocalizedValue": "true"
+                        },
+                        "constantValueEnabled": true
+                      }
+                    },
+                    {
+                      "cta": {
+                        "data": {
+                          "cta": {
+                            "field": "",
+                            "selectedType": "textAndLink",
+                            "constantValue": {
+                              "link": {
+                                "defaultValue": "#",
+                                "hasLocalizedValue": "true"
+                              },
+                              "label": {
+                                "defaultValue": "Check Availability",
+                                "hasLocalizedValue": "true"
+                              },
+                              "ctaType": "textAndLink",
+                              "linkType": "URL"
+                            },
+                            "constantValueEnabled": true
+                          },
+                          "actionType": "link",
+                          "openInNewTab": false
+                        },
+                        "styles": {
+                          "link": {
+                            "fontSize": "default",
+                            "fontStyle": "default",
+                            "fontFamily": "default",
+                            "fontWeight": "default",
+                            "includeCaret": "none",
+                            "letterSpacing": "default",
+                            "textTransform": "default"
+                          },
+                          "variant": "link"
+                        }
+                      },
+                      "image": {
+                        "field": "",
+                        "constantValue": {
+                          "url": "https://a.mktgcdn.com/p/Qdlacb36DqN5Lt3q6V9jw-qSMmbPyl_AeMEI_CyDkHc/1267x1900.jpg",
+                          "width": 1267,
+                          "height": 1900
+                        },
+                        "constantValueEnabled": true
+                      },
+                      "title": {
+                        "field": "",
+                        "constantValue": {
+                          "defaultValue": "The [[name]] King Suite",
+                          "hasLocalizedValue": "true"
+                        },
+                        "constantValueEnabled": true
+                      },
+                      "description": {
+                        "field": "",
+                        "constantValue": {
+                          "defaultValue": "Our signature penthouse suite featuring a separate living parlor, a private balcony overlooking the skyline, and a soaking tub.",
+                          "hasLocalizedValue": "true"
+                        },
+                        "constantValueEnabled": true
+                      }
+                    }
+                  ],
+                  "constantValueEnabled": true
+                },
+                "styles": {
+                  "image": {
+                    "styles": {
+                      "borderRadius": "default"
+                    },
+                    "aspectRatio": 1.67,
+                    "imageConstrain": "filled"
+                  },
+                  "heading": {
+                    "styles": {
+                      "fontSize": "default",
+                      "fontStyle": "default",
+                      "fontFamily": "default",
+                      "fontWeight": "default",
+                      "textTransform": "default"
+                    }
+                  },
+                  "description": {
+                    "styles": {
+                      "fontSize": "default",
+                      "fontStyle": "default",
+                      "fontFamily": "default",
+                      "fontWeight": "default",
+                      "textTransform": "default"
+                    }
+                  }
+                }
+              },
+              "heading": {
+                "text": {
+                  "field": "",
+                  "constantValue": {
+                    "defaultValue": "Featured Accommodations",
+                    "hasLocalizedValue": "true"
+                  },
+                  "constantValueEnabled": true
+                },
+                "styles": {
+                  "fontSize": "default",
+                  "fontStyle": "default",
+                  "fontFamily": "default",
+                  "fontWeight": "default",
+                  "textTransform": "default"
+                }
+              },
+              "section": {
+                "backgroundColor": {
+                  "selectedColor": "white",
+                  "contrastingColor": "black"
+                },
+                "visibleOnLivePage": true
+              },
+              "description": {
+                "text": {
+                  "field": "",
+                  "constantValue": {
+                    "defaultValue": "Explore our beautifully appointed guest rooms and suites, designed with custom furnishings and plush bedding for ultimate relaxation.",
+                    "hasLocalizedValue": "true"
+                  },
+                  "constantValueEnabled": true
+                },
+                "styles": {
+                  "fontSize": "default",
+                  "fontStyle": "default",
+                  "fontFamily": "default",
+                  "fontWeight": "default",
+                  "textTransform": "default"
+                }
+              }
+            }
+          },
+          {
+            "type": "FamilyDestinationAbout",
+            "props": {
+              "id": "FamilyDestinationAbout-8edd91b4-3631-4df3-b590-7fd038931b3e",
+              "cta": {
+                "data": {
+                  "cta": {
+                    "field": "",
+                    "selectedType": "textAndLink",
+                    "constantValue": {
+                      "link": {
+                        "defaultValue": "#",
+                        "hasLocalizedValue": "true"
+                      },
+                      "label": {
+                        "defaultValue": "Book A Room",
+                        "hasLocalizedValue": "true"
+                      },
+                      "ctaType": "textAndLink",
+                      "linkType": "URL"
+                    },
+                    "constantValueEnabled": true
+                  },
+                  "actionType": "link",
+                  "openInNewTab": false
+                },
+                "styles": {
+                  "link": {
+                    "fontSize": "default",
+                    "fontStyle": "default",
+                    "fontFamily": "default",
+                    "fontWeight": "default",
+                    "includeCaret": "none",
+                    "letterSpacing": "default",
+                    "textTransform": "default"
+                  },
+                  "color": {
+                    "selectedColor": "white",
+                    "contrastingColor": "palette-primary"
+                  },
+                  "button": {
+                    "fontSize": "default",
+                    "fontStyle": "default",
+                    "fontFamily": "default",
+                    "fontWeight": "default",
+                    "borderRadius": "default",
+                    "letterSpacing": "default",
+                    "textTransform": "default"
+                  },
+                  "variant": "primary"
+                }
+              },
+              "image": {
+                "image": {
+                  "field": "",
+                  "constantValue": {
+                    "url": "https://a.mktgcdn.com/p/fbSbItkZpsHpkc8qHH7GxvQkWzxsfm6mGc0k4Lmfl-A/1267x1900.jpg",
+                    "width": 1267,
+                    "height": 1900
+                  },
+                  "constantValueEnabled": true
+                },
+                "imageConstrain": "filled"
+              },
+              "heading": {
+                "text": {
+                  "field": "",
+                  "constantValue": {
+                    "defaultValue": "About This Hotel",
+                    "hasLocalizedValue": "true"
+                  },
+                  "constantValueEnabled": true
+                },
+                "styles": {
+                  "fontSize": "default",
+                  "fontStyle": "default",
+                  "fontFamily": "default",
+                  "fontWeight": "default",
+                  "textTransform": "default"
+                }
+              },
+              "section": {
+                "backgroundColor": {
+                  "selectedColor": "palette-primary",
+                  "contrastingColor": "palette-primary-contrast"
+                },
+                "visibleOnLivePage": true
+              },
+              "description": {
+                "text": {
+                  "field": "",
+                  "constantValue": {
+                    "defaultValue": {
+                      "html": "<p dir=\"ltr\" style=\"font-size: 14.67px; font-weight: 400; line-height: 18.67px; margin: 0; padding: 3px 2px 3px 2px; position: relative;\"><span>[[name]] is located at [[address.line1]], serving as the perfect launchpad for exploring [[address.city]]'s rich history and vibrant culture. Our boutique property offers an elevated stay, seamlessly combining historic architecture with high-tech guest convenience. The hotel features beautifully restored architectural details, an expansive art collection highlighting local creators, a quiet library lounge for remote work, and contactless digital key entry to save you time.</span></p>",
+                      "json": "{\"root\":{\"children\":[{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"\",\"text\":\"[[name]] is located at [[address.line1]], serving as the perfect launchpad for exploring [[address.city]]'s rich history and vibrant culture. Our boutique property offers an elevated stay, seamlessly combining historic architecture with high-tech guest convenience. The hotel features beautifully restored architectural details, an expansive art collection highlighting local creators, a quiet library lounge for remote work, and contactless digital key entry to save you time.\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"root\",\"version\":1}}"
+                    },
+                    "hasLocalizedValue": "true"
+                  },
+                  "constantValueEnabled": true
+                },
+                "styles": {
+                  "fontSize": "default",
+                  "fontStyle": "default",
+                  "fontFamily": "default",
+                  "fontWeight": "default",
+                  "textTransform": "default"
+                }
+              }
+            }
+          },
+          {
+            "type": "FamilyDestinationAmenities",
+            "props": {
+              "id": "FamilyDestinationAmenities-de672090-9960-4ee5-8e0c-7bd011e4b5c0",
+              "image": {
+                "image": {
+                  "field": "",
+                  "constantValue": {
+                    "url": "https://a.mktgcdn.com/p/Qdlacb36DqN5Lt3q6V9jw-qSMmbPyl_AeMEI_CyDkHc/1267x1900.jpg",
+                    "width": 1267,
+                    "height": 1900
+                  },
+                  "constantValueEnabled": true
+                },
+                "imageConstrain": "filled"
+              },
+              "heading": {
+                "text": {
+                  "field": "",
+                  "constantValue": {
+                    "defaultValue": "Resort Amenities",
+                    "hasLocalizedValue": "true"
+                  },
+                  "constantValueEnabled": true
+                },
+                "styles": {
+                  "fontSize": "default",
+                  "fontStyle": "default",
+                  "fontFamily": "default",
+                  "fontWeight": "default",
+                  "textTransform": "default"
+                }
+              },
+              "section": {
+                "backgroundColor": {
+                  "selectedColor": "white",
+                  "contrastingColor": "black"
+                },
+                "visibleOnLivePage": true
+              },
+              "amenities": {
+                "data": {
+                  "field": "",
+                  "mappings": {
+                    "title": {
+                      "field": "",
+                      "constantValueEnabled": false
+                    },
+                    "iconImage": {
+                      "field": "",
+                      "constantValueEnabled": false
+                    },
+                    "description": {
+                      "field": "",
+                      "constantValueEnabled": false
+                    }
+                  },
+                  "constantValue": [
+                    {
+                      "title": {
+                        "field": "",
+                        "constantValue": {
+                          "defaultValue": "The Courtyard Lounge & Bar",
+                          "hasLocalizedValue": "true"
+                        },
+                        "constantValueEnabled": true
+                      },
+                      "action": {
+                        "data": {
+                          "cta": {
+                            "field": "",
+                            "selectedType": "textAndLink",
+                            "constantValue": {
+                              "link": {
+                                "defaultValue": "#",
+                                "hasLocalizedValue": "true"
+                              },
+                              "label": {
+                                "defaultValue": "View Drink Menu",
+                                "hasLocalizedValue": "true"
+                              },
+                              "ctaType": "textAndLink",
+                              "linkType": "URL"
+                            },
+                            "constantValueEnabled": true
+                          },
+                          "actionType": "link",
+                          "openInNewTab": false
+                        },
+                        "styles": {
+                          "link": {
+                            "fontSize": "default",
+                            "fontStyle": "default",
+                            "fontFamily": "default",
+                            "fontWeight": "default",
+                            "includeCaret": "none",
+                            "letterSpacing": "default",
+                            "textTransform": "default"
+                          },
+                          "variant": "link"
+                        }
+                      },
+                      "iconImage": {
+                        "field": "",
+                        "constantValue": {
+                          "url": "https://placehold.co/60x60",
+                          "width": 60,
+                          "height": 60
+                        },
+                        "constantValueEnabled": true
+                      },
+                      "description": {
+                        "field": "",
+                        "constantValue": {
+                          "defaultValue": {
+                            "html": "<p dir=\"ltr\" style=\"font-size: 14.67px; font-weight: 400; line-height: 18.67px; margin: 0; padding: 3px 2px 3px 2px; position: relative;\"><span>Sip masterfully crafted cocktails, local craft beers, and small plates in our intimate, open-air garden courtyard.</span></p>",
+                            "json": "{\"root\":{\"children\":[{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"\",\"text\":\"Sip masterfully crafted cocktails, local craft beers, and small plates in our intimate, open-air garden courtyard.\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"root\",\"version\":1}}"
+                          },
+                          "hasLocalizedValue": "true"
+                        },
+                        "constantValueEnabled": true
+                      }
+                    },
+                    {
+                      "title": {
+                        "field": "",
+                        "constantValue": {
+                          "defaultValue": "Elite Fitness Center",
+                          "hasLocalizedValue": "true"
+                        },
+                        "constantValueEnabled": true
+                      },
+                      "action": {
+                        "data": {
+                          "cta": {
+                            "field": "",
+                            "selectedType": "textAndLink",
+                            "constantValue": {
+                              "link": {
+                                "defaultValue": "#",
+                                "hasLocalizedValue": "true"
+                              },
+                              "label": {
+                                "defaultValue": "See Equipment List",
+                                "hasLocalizedValue": "true"
+                              },
+                              "ctaType": "textAndLink",
+                              "linkType": "URL"
+                            },
+                            "constantValueEnabled": true
+                          },
+                          "actionType": "link",
+                          "openInNewTab": false
+                        },
+                        "styles": {
+                          "link": {
+                            "fontSize": "default",
+                            "fontStyle": "default",
+                            "fontFamily": "default",
+                            "fontWeight": "default",
+                            "includeCaret": "none",
+                            "letterSpacing": "default",
+                            "textTransform": "default"
+                          },
+                          "variant": "link"
+                        }
+                      },
+                      "iconImage": {
+                        "field": "",
+                        "constantValue": {
+                          "url": "https://placehold.co/60x60",
+                          "width": 60,
+                          "height": 60
+                        },
+                        "constantValueEnabled": true
+                      },
+                      "description": {
+                        "field": "",
+                        "constantValue": {
+                          "defaultValue": {
+                            "html": "<p dir=\"ltr\" style=\"font-size: 14.67px; font-weight: 400; line-height: 18.67px; margin: 0; padding: 3px 2px 3px 2px; position: relative;\"><span>Maintain your routine with state-of-the-art cardio machines, free weights, Peloton bikes, and complimentary yoga mats.</span></p>",
+                            "json": "{\"root\":{\"children\":[{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"\",\"text\":\"Maintain your routine with state-of-the-art cardio machines, free weights, Peloton bikes, and complimentary yoga mats.\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"root\",\"version\":1}}"
+                          },
+                          "hasLocalizedValue": "true"
+                        },
+                        "constantValueEnabled": true
+                      }
+                    },
+                    {
+                      "title": {
+                        "field": "",
+                        "constantValue": {
+                          "defaultValue": "Rooftop Oasis Pool",
+                          "hasLocalizedValue": "true"
+                        },
+                        "constantValueEnabled": true
+                      },
+                      "action": {
+                        "data": {
+                          "cta": {
+                            "field": "",
+                            "selectedType": "textAndLink",
+                            "constantValue": {
+                              "link": {
+                                "defaultValue": "#",
+                                "hasLocalizedValue": "true"
+                              },
+                              "label": {
+                                "defaultValue": "Reserve a Cabana",
+                                "hasLocalizedValue": "true"
+                              },
+                              "ctaType": "textAndLink",
+                              "linkType": "URL"
+                            },
+                            "constantValueEnabled": true
+                          },
+                          "actionType": "link",
+                          "openInNewTab": false
+                        },
+                        "styles": {
+                          "link": {
+                            "fontSize": "default",
+                            "fontStyle": "default",
+                            "fontFamily": "default",
+                            "fontWeight": "default",
+                            "includeCaret": "none",
+                            "letterSpacing": "default",
+                            "textTransform": "default"
+                          },
+                          "variant": "link"
+                        }
+                      },
+                      "iconImage": {
+                        "field": "",
+                        "constantValue": {
+                          "url": "https://placehold.co/60x60/png",
+                          "width": 60,
+                          "height": 60
+                        },
+                        "constantValueEnabled": true
+                      },
+                      "description": {
+                        "field": "",
+                        "constantValue": {
+                          "defaultValue": {
+                            "html": "<p dir=\"ltr\" style=\"font-size: 14.67px; font-weight: 400; line-height: 18.67px; margin: 0; padding: 3px 2px 3px 2px; position: relative;\"><span>Relax and unwind by our heated outdoor pool, featuring premium lounge chairs, private cabanas, and poolside beverage service.</span></p>",
+                            "json": "{\"root\":{\"children\":[{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"\",\"text\":\"Relax and unwind by our heated outdoor pool, featuring premium lounge chairs, private cabanas, and poolside beverage service.\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"root\",\"version\":1}}"
+                          },
+                          "hasLocalizedValue": "true"
+                        },
+                        "constantValueEnabled": true
+                      }
+                    }
+                  ],
+                  "constantValueEnabled": true
+                },
+                "styles": {
+                  "itemTitle": {
+                    "styles": {
+                      "fontSize": "default",
+                      "fontStyle": "default",
+                      "fontFamily": "default",
+                      "fontWeight": "default",
+                      "textTransform": "default"
+                    }
+                  },
+                  "iconBorderColor": {
+                    "selectedColor": "palette-secondary",
+                    "contrastingColor": "palette-secondary-contrast"
+                  },
+                  "itemDescription": {
+                    "styles": {
+                      "fontSize": "default",
+                      "fontStyle": "default",
+                      "fontFamily": "default",
+                      "fontWeight": "default",
+                      "textTransform": "default"
+                    }
+                  },
+                  "iconBackgroundColor": {
+                    "selectedColor": "white",
+                    "contrastingColor": "black"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "FamilyDestinationFaq",
+            "props": {
+              "id": "FamilyDestinationFaq-04e95c12-4ac5-4561-8d2c-4227ea4a88df",
+              "items": {
+                "data": {
+                  "field": "",
+                  "mappings": {
+                    "answer": {
+                      "field": "",
+                      "constantValueEnabled": false
+                    },
+                    "question": {
+                      "field": "",
+                      "constantValueEnabled": false
+                    }
+                  },
+                  "constantValue": [
+                    {
+                      "answer": {
+                        "field": "",
+                        "constantValue": {
+                          "defaultValue": {
+                            "html": "<p dir=\"ltr\" style=\"font-size: 14.67px; font-weight: 400; line-height: 18.67px; margin: 0; padding: 3px 2px 3px 2px; position: relative;\"><span>We offer free cancellation up to 48 hours prior to your scheduled arrival date for all direct bookings made through our website or reservation desk.</span></p>",
+                            "json": "{\"root\":{\"children\":[{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"\",\"text\":\"We offer free cancellation up to 48 hours prior to your scheduled arrival date for all direct bookings made through our website or reservation desk.\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"root\",\"version\":1}}"
+                          },
+                          "hasLocalizedValue": "true"
+                        },
+                        "constantValueEnabled": true
+                      },
+                      "question": {
+                        "field": "",
+                        "constantValue": {
+                          "defaultValue": "What is the cancellation policy at [[name]]?",
+                          "hasLocalizedValue": "true"
+                        },
+                        "constantValueEnabled": true
+                      }
+                    },
+                    {
+                      "answer": {
+                        "field": "",
+                        "constantValue": {
+                          "defaultValue": {
+                            "html": "<p dir=\"ltr\" style=\"font-size: 14.67px; font-weight: 400; line-height: 18.67px; margin: 0; padding: 3px 2px 3px 2px; position: relative;\"><span>Valet parking is available 24/7. Self-parking options may be available nearby; please contact the front desk for current rates and availability.</span></p>",
+                            "json": "{\"root\":{\"children\":[{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"\",\"text\":\"Valet parking is available 24/7. Self-parking options may be available nearby; please contact the front desk for current rates and availability.\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"root\",\"version\":1}}"
+                          },
+                          "hasLocalizedValue": "true"
+                        },
+                        "constantValueEnabled": true
+                      },
+                      "question": {
+                        "field": "",
+                        "constantValue": {
+                          "defaultValue": "Is parking available on-site, and what is the cost?",
+                          "hasLocalizedValue": "true"
+                        },
+                        "constantValueEnabled": true
+                      }
+                    },
+                    {
+                      "answer": {
+                        "field": "",
+                        "constantValue": {
+                          "defaultValue": {
+                            "html": "<p dir=\"ltr\" style=\"font-size: 14.67px; font-weight: 400; line-height: 18.67px; margin: 0; padding: 3px 2px 3px 2px; position: relative;\"><span>We welcome well-behaved pets in select pet-friendly rooms. A nightly pet fee applies. Please notify us at booking so we can prepare your room.</span></p>",
+                            "json": "{\"root\":{\"children\":[{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"\",\"text\":\"We welcome well-behaved pets in select pet-friendly rooms. A nightly pet fee applies. Please notify us at booking so we can prepare your room.\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"root\",\"version\":1}}"
+                          },
+                          "hasLocalizedValue": "true"
+                        },
+                        "constantValueEnabled": true
+                      },
+                      "question": {
+                        "field": "",
+                        "constantValue": {
+                          "defaultValue": "Does [[name]] allow pets?",
+                          "hasLocalizedValue": "true"
+                        },
+                        "constantValueEnabled": true
+                      }
+                    },
+                    {
+                      "answer": {
+                        "field": "",
+                        "constantValue": {
+                          "defaultValue": {
+                            "html": "<p dir=\"ltr\" style=\"font-size: 14.67px; font-weight: 400; line-height: 18.67px; margin: 0; padding: 3px 2px 3px 2px; position: relative;\"><span>We can arrange private airport transfers through our concierge team. Shared shuttle schedules vary by season; inquire at check-in for details.</span></p>",
+                            "json": "{\"root\":{\"children\":[{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"\",\"text\":\"We can arrange private airport transfers through our concierge team. Shared shuttle schedules vary by season; inquire at check-in for details.\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"root\",\"version\":1}}"
+                          },
+                          "hasLocalizedValue": "true"
+                        },
+                        "constantValueEnabled": true
+                      },
+                      "question": {
+                        "field": "",
+                        "constantValue": {
+                          "defaultValue": "Do you offer an airport shuttle?",
+                          "hasLocalizedValue": "true"
+                        },
+                        "constantValueEnabled": true
+                      }
+                    },
+                    {
+                      "answer": {
+                        "field": "",
+                        "constantValue": {
+                          "defaultValue": {
+                            "html": "<p dir=\"ltr\" style=\"font-size: 14.67px; font-weight: 400; line-height: 18.67px; margin: 0; padding: 3px 2px 3px 2px; position: relative;\"><span>Early check-in and late check-out are subject to availability. Contact the front desk on your arrival day and we will do our best to accommodate your request.</span></p>",
+                            "json": "{\"root\":{\"children\":[{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"\",\"text\":\"Early check-in and late check-out are subject to availability. Contact the front desk on your arrival day and we will do our best to accommodate your request.\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"root\",\"version\":1}}"
+                          },
+                          "hasLocalizedValue": "true"
+                        },
+                        "constantValueEnabled": true
+                      },
+                      "question": {
+                        "field": "",
+                        "constantValue": {
+                          "defaultValue": "Can I request an early check-in or late check-out?",
+                          "hasLocalizedValue": "true"
+                        },
+                        "constantValueEnabled": true
+                      }
+                    }
+                  ],
+                  "constantValueEnabled": true
+                },
+                "styles": {
+                  "answer": {
+                    "styles": {
+                      "fontSize": "default",
+                      "fontStyle": "default",
+                      "fontFamily": "default",
+                      "fontWeight": "default",
+                      "textTransform": "default"
+                    }
+                  },
+                  "question": {
+                    "styles": {
+                      "fontSize": "default",
+                      "fontStyle": "default",
+                      "fontFamily": "default",
+                      "fontWeight": "default",
+                      "textTransform": "default"
+                    }
+                  }
+                }
+              },
+              "heading": {
+                "text": {
+                  "field": "",
+                  "constantValue": {
+                    "defaultValue": "Frequently Asked Questions",
+                    "hasLocalizedValue": "true"
+                  },
+                  "constantValueEnabled": true
+                },
+                "styles": {
+                  "fontSize": "default",
+                  "fontStyle": "default",
+                  "fontFamily": "default",
+                  "fontWeight": "default",
+                  "textTransform": "default"
+                }
+              },
+              "section": {
+                "backgroundColor": {
+                  "selectedColor": "white",
+                  "contrastingColor": "black"
+                },
+                "visibleOnLivePage": true
+              }
+            }
+          },
+          {
+            "type": "FamilyDestinationReviews",
+            "props": {
+              "id": "FamilyDestinationReviews-1cba2c46-3e2d-4164-9edf-46dcbedf618e",
+              "heading": {
+                "text": {
+                  "field": "",
+                  "constantValue": {
+                    "defaultValue": "What Guests Are Saying",
+                    "hasLocalizedValue": "true"
+                  },
+                  "constantValueEnabled": true
+                },
+                "styles": {
+                  "fontSize": "default",
+                  "fontStyle": "default",
+                  "fontFamily": "default",
+                  "fontWeight": "default",
+                  "textTransform": "default"
+                }
+              },
+              "section": {
+                "backgroundColor": {
+                  "selectedColor": "white",
+                  "contrastingColor": "black"
+                },
+                "visibleOnLivePage": true
+              },
+              "reviewCard": {
+                "stars": {
+                  "styles": {
+                    "fontSize": "default",
+                    "fontStyle": "default",
+                    "fontFamily": "default",
+                    "fontWeight": "default",
+                    "textTransform": "default"
+                  }
+                },
+                "reviewName": {
+                  "styles": {
+                    "fontSize": "default",
+                    "fontStyle": "default",
+                    "fontFamily": "default",
+                    "fontWeight": "default",
+                    "textTransform": "default"
+                  }
+                },
+                "reviewText": {
+                  "styles": {
+                    "fontSize": "default",
+                    "fontStyle": "default",
+                    "fontFamily": "default",
+                    "fontWeight": "default",
+                    "textTransform": "default"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "FamilyDestinationEvents",
+            "props": {
+              "id": "FamilyDestinationEvents-6da24810-6aae-4c51-bdb3-4e315e04d7ba",
+              "cta": {
+                "data": {
+                  "cta": {
+                    "field": "",
+                    "selectedType": "textAndLink",
+                    "constantValue": {
+                      "link": {
+                        "defaultValue": "#",
+                        "hasLocalizedValue": "true"
+                      },
+                      "label": {
+                        "defaultValue": "Contact Us",
+                        "hasLocalizedValue": "true"
+                      },
+                      "ctaType": "textAndLink",
+                      "linkType": "URL"
+                    },
+                    "constantValueEnabled": true
+                  },
+                  "actionType": "link",
+                  "openInNewTab": false
+                },
+                "styles": {
+                  "link": {
+                    "fontSize": "default",
+                    "fontStyle": "default",
+                    "fontFamily": "default",
+                    "fontWeight": "700",
+                    "includeCaret": "none",
+                    "letterSpacing": "default",
+                    "textTransform": "default"
+                  },
+                  "color": {
+                    "selectedColor": "white",
+                    "contrastingColor": "palette-primary"
+                  },
+                  "variant": "primary"
+                }
+              },
+              "image": {
+                "image": {
+                  "field": "",
+                  "constantValue": {
+                    "url": "https://a.mktgcdn.com/p/vQqhmnexQfZueJGyh5M_j5W4EcTkTyZlW93eIoqjjvQ/1900x1267.jpg",
+                    "width": 1900,
+                    "height": 1267
+                  },
+                  "constantValueEnabled": true
+                }
+              },
+              "heading": {
+                "text": {
+                  "field": "",
+                  "constantValue": {
+                    "defaultValue": "Special Events & Celebrations",
+                    "hasLocalizedValue": "true"
+                  },
+                  "constantValueEnabled": true
+                },
+                "styles": {
+                  "fontSize": "default",
+                  "fontStyle": "default",
+                  "fontFamily": "default",
+                  "fontWeight": "default",
+                  "textTransform": "default"
+                }
+              },
+              "section": {
+                "visibleOnLivePage": true,
+                "panelBackgroundColor": {
+                  "selectedColor": "palette-primary",
+                  "contrastingColor": "palette-primary-contrast"
+                }
+              },
+              "description": {
+                "text": {
+                  "field": "",
+                  "constantValue": {
+                    "defaultValue": {
+                      "html": "<p dir=\"ltr\" style=\"font-size: 14.67px; font-weight: 400; line-height: 18.67px; margin: 0; padding: 3px 2px 3px 2px; position: relative;\"><span>Host your next unforgettable milestone at [[name]]. From romantic courtyard weddings and elegant proms to upscale corporate galas, our historic venue provides a breathtaking backdrop paired with full-service event planning, customizable floor plans, state-of-the-art audiovisual setups, and bespoke catering menus crafted by our executive chef.</span></p>",
+                      "json": "{\"root\":{\"children\":[{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"\",\"text\":\"Host your next unforgettable milestone at [[name]]. From romantic courtyard weddings and elegant proms to upscale corporate galas, our historic venue provides a breathtaking backdrop paired with full-service event planning, customizable floor plans, state-of-the-art audiovisual setups, and bespoke catering menus crafted by our executive chef.\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"root\",\"version\":1}}"
+                    },
+                    "hasLocalizedValue": "true"
+                  },
+                  "constantValueEnabled": true
+                },
+                "styles": {
+                  "fontSize": "default",
+                  "fontStyle": "default",
+                  "fontFamily": "default",
+                  "fontWeight": "default",
+                  "textTransform": "default"
+                }
+              }
+            }
+          },
+          {
+            "type": "FamilyDestinationBlog",
+            "props": {
+              "id": "FamilyDestinationBlog-6099c997-23f5-42dc-b766-a74fe63d8ad6",
+              "heading": {
+                "text": {
+                  "field": "",
+                  "constantValue": {
+                    "defaultValue": "From the Blog: [[address.city]] Travel Guide",
+                    "hasLocalizedValue": "true"
+                  },
+                  "constantValueEnabled": true
+                },
+                "styles": {
+                  "fontSize": "default",
+                  "fontStyle": "default",
+                  "fontFamily": "default",
+                  "fontWeight": "default",
+                  "textTransform": "default"
+                }
+              },
+              "section": {
+                "backgroundColor": {
+                  "selectedColor": "palette-primary",
+                  "contrastingColor": "palette-primary-contrast"
+                },
+                "visibleOnLivePage": true
+              },
+              "articles": {
+                "data": {
+                  "field": "",
+                  "mappings": {
+                    "image": {
+                      "field": "",
+                      "constantValueEnabled": false
+                    },
+                    "title": {
+                      "field": "",
+                      "constantValueEnabled": false
+                    },
+                    "description": {
+                      "field": "",
+                      "constantValueEnabled": false
+                    }
+                  },
+                  "constantValue": [
+                    {
+                      "cta": {
+                        "data": {
+                          "cta": {
+                            "field": "",
+                            "selectedType": "textAndLink",
+                            "constantValue": {
+                              "link": {
+                                "defaultValue": "#",
+                                "hasLocalizedValue": "true"
+                              },
+                              "label": {
+                                "defaultValue": "Read Article",
+                                "hasLocalizedValue": "true"
+                              },
+                              "ctaType": "textAndLink",
+                              "linkType": "URL"
+                            },
+                            "constantValueEnabled": true
+                          },
+                          "actionType": "link",
+                          "openInNewTab": false
+                        },
+                        "styles": {
+                          "link": {
+                            "fontSize": "default",
+                            "fontStyle": "default",
+                            "fontFamily": "default",
+                            "fontWeight": "default",
+                            "includeCaret": "none",
+                            "letterSpacing": "default",
+                            "textTransform": "default"
+                          },
+                          "variant": "link"
+                        }
+                      },
+                      "image": {
+                        "field": "",
+                        "constantValue": {
+                          "url": "https://a.mktgcdn.com/p/UHR6VTEvcR-yDMqPSOS7LyK87Qt56EOrmfNbhLQxI08/1267x1900.jpg",
+                          "width": 1267,
+                          "height": 1900
+                        },
+                        "constantValueEnabled": true
+                      },
+                      "title": {
+                        "field": "",
+                        "constantValue": {
+                          "defaultValue": "48 Hours in [[address.city]]: The Ultimate Weekend Itinerary",
+                          "hasLocalizedValue": "true"
+                        },
+                        "constantValueEnabled": true
+                      },
+                      "description": {
+                        "field": "",
+                        "constantValue": {
+                          "defaultValue": {
+                            "html": "<p dir=\"ltr\" style=\"font-size: 14.67px; font-weight: 400; line-height: 18.67px; margin: 0; padding: 3px 2px 3px 2px; position: relative;\"><span>Discover how to make the most of a short trip, from sunrise walks under moss-draped oaks to candlelit southern dinners.</span></p>",
+                            "json": "{\"root\":{\"children\":[{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"\",\"text\":\"Discover how to make the most of a short trip, from sunrise walks under moss-draped oaks to candlelit southern dinners.\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"root\",\"version\":1}}"
+                          },
+                          "hasLocalizedValue": "true"
+                        },
+                        "constantValueEnabled": true
+                      }
+                    },
+                    {
+                      "cta": {
+                        "data": {
+                          "cta": {
+                            "field": "",
+                            "selectedType": "textAndLink",
+                            "constantValue": {
+                              "link": {
+                                "defaultValue": "#",
+                                "hasLocalizedValue": "true"
+                              },
+                              "label": {
+                                "defaultValue": "Read Article",
+                                "hasLocalizedValue": "true"
+                              },
+                              "ctaType": "textAndLink",
+                              "linkType": "URL"
+                            },
+                            "constantValueEnabled": true
+                          },
+                          "actionType": "link",
+                          "openInNewTab": false
+                        },
+                        "styles": {
+                          "link": {
+                            "fontSize": "default",
+                            "fontStyle": "default",
+                            "fontFamily": "default",
+                            "fontWeight": "default",
+                            "includeCaret": "none",
+                            "letterSpacing": "default",
+                            "textTransform": "default"
+                          },
+                          "variant": "link"
+                        }
+                      },
+                      "image": {
+                        "field": "",
+                        "constantValue": {
+                          "url": "https://a.mktgcdn.com/p/fbSbItkZpsHpkc8qHH7GxvQkWzxsfm6mGc0k4Lmfl-A/1267x1900.jpg",
+                          "width": 1267,
+                          "height": 1900
+                        },
+                        "constantValueEnabled": true
+                      },
+                      "title": {
+                        "field": "",
+                        "constantValue": {
+                          "defaultValue": "Hidden Gems: The Best Boutique Shops and Cafes Near [[address.line1]]",
+                          "hasLocalizedValue": "true"
+                        },
+                        "constantValueEnabled": true
+                      },
+                      "description": {
+                        "field": "",
+                        "constantValue": {
+                          "defaultValue": {
+                            "html": "<p dir=\"ltr\" style=\"font-size: 14.67px; font-weight: 400; line-height: 18.67px; margin: 0; padding: 3px 2px 3px 2px; position: relative;\"><span>Skip the tourist traps. Our local concierge team shares their favorite local boutiques, bookstores, and artisan coffee shops.</span></p>",
+                            "json": "{\"root\":{\"children\":[{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"\",\"text\":\"Skip the tourist traps. Our local concierge team shares their favorite local boutiques, bookstores, and artisan coffee shops.\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"root\",\"version\":1}}"
+                          },
+                          "hasLocalizedValue": "true"
+                        },
+                        "constantValueEnabled": true
+                      }
+                    }
+                  ],
+                  "constantValueEnabled": true
+                },
+                "styles": {
+                  "image": {
+                    "styles": {
+                      "borderRadius": "default"
+                    },
+                    "aspectRatio": 1.67,
+                    "imageConstrain": "filled"
+                  },
+                  "itemHeading": {
+                    "styles": {
+                      "fontSize": "default",
+                      "fontStyle": "default",
+                      "fontFamily": "default",
+                      "fontWeight": "default",
+                      "textTransform": "default"
+                    }
+                  },
+                  "itemDescription": {
+                    "styles": {
+                      "fontSize": "default",
+                      "fontStyle": "default",
+                      "fontFamily": "default",
+                      "fontWeight": "default",
+                      "textTransform": "default"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "FamilyDestinationNearby",
+            "props": {
+              "id": "FamilyDestinationNearby-db734291-d0e8-49de-a69d-e05f582d46ed",
+              "map": {
+                "zoom": 10,
+                "mapStyle": "dark-v11",
+                "coordinate": {
+                  "field": "yextDisplayCoordinate",
+                  "constantValue": {
+                    "latitude": 0,
+                    "longitude": 0
+                  },
+                  "constantValueEnabled": false
+                }
+              },
+              "limit": 3,
+              "radius": 10,
+              "heading": {
+                "text": {
+                  "field": "",
+                  "constantValue": {
+                    "defaultValue": "Nearby Hotels & Sister Properties",
+                    "hasLocalizedValue": "true"
+                  },
+                  "constantValueEnabled": true
+                },
+                "styles": {
+                  "fontSize": "default",
+                  "fontStyle": "default",
+                  "fontFamily": "default",
+                  "fontWeight": "default",
+                  "textTransform": "default"
+                }
+              },
+              "section": {
+                "backgroundColor": {
+                  "selectedColor": "white",
+                  "contrastingColor": "black"
+                },
+                "visibleOnLivePage": true
+              },
+              "locationCard": {
+                "nearbyLocationBody": {
+                  "styles": {
+                    "fontSize": "default",
+                    "fontStyle": "default",
+                    "fontFamily": "default",
+                    "fontWeight": "default",
+                    "textTransform": "default"
+                  }
+                },
+                "nearbyLocationHeading": {
+                  "styles": {
+                    "fontSize": "default",
+                    "fontStyle": "default",
+                    "fontFamily": "default",
+                    "fontWeight": "default",
+                    "textTransform": "default"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "FamilyDestinationFooter",
+      "props": {
+        "id": "FamilyDestinationFooter-d9c5a848-4e55-4f69-8a4a-a3cdd2f21eea",
+        "logo": {
+          "text": {
+            "field": "",
+            "constantValue": {
+              "defaultValue": "[[name]]",
+              "hasLocalizedValue": "true"
+            },
+            "constantValueEnabled": true
+          },
+          "styles": {
+            "fontSize": "default",
+            "fontStyle": "default",
+            "fontFamily": "default",
+            "fontWeight": "default",
+            "textTransform": "default"
+          }
+        },
+        "phone": {
+          "items": [
+            {
+              "label": {
+                "field": "",
+                "constantValue": {
+                  "defaultValue": "",
+                  "hasLocalizedValue": "true"
+                },
+                "constantValueEnabled": true
+              },
+              "number": {
+                "field": "mainPhone",
+                "constantValue": "",
+                "constantValueEnabled": false
+              }
+            }
+          ],
+          "phoneFormat": "domestic",
+          "includeHyperlink": true
+        },
+        "address": {
+          "styles": {
+            "styles": {
+              "fontSize": "default",
+              "fontStyle": "default",
+              "fontFamily": "default",
+              "fontWeight": "default",
+              "textTransform": "default"
+            }
+          },
+          "address": {
+            "field": "address",
+            "constantValue": {
+              "city": "",
+              "line1": "",
+              "region": "",
+              "postalCode": "",
+              "countryCode": ""
+            },
+            "constantValueEnabled": false
+          },
+          "showRegion": true,
+          "showCountry": false
+        },
+        "section": {
+          "backgroundColor": {
+            "selectedColor": "white",
+            "contrastingColor": "black"
+          },
+          "visibleOnLivePage": true
+        },
+        "quickLinks": {
+          "data": [
+            {
+              "link": {
+                "field": "",
+                "constantValue": {
+                  "defaultValue": "#",
+                  "hasLocalizedValue": "true"
+                },
+                "constantValueEnabled": true
+              },
+              "label": {
+                "field": "",
+                "constantValue": {
+                  "defaultValue": "Accommodations",
+                  "hasLocalizedValue": "true"
+                },
+                "constantValueEnabled": true
+              }
+            },
+            {
+              "link": {
+                "field": "",
+                "constantValue": {
+                  "defaultValue": "#",
+                  "hasLocalizedValue": "true"
+                },
+                "constantValueEnabled": true
+              },
+              "label": {
+                "field": "",
+                "constantValue": {
+                  "defaultValue": "Amenities",
+                  "hasLocalizedValue": "true"
+                },
+                "constantValueEnabled": true
+              }
+            },
+            {
+              "link": {
+                "field": "",
+                "constantValue": {
+                  "defaultValue": "#",
+                  "hasLocalizedValue": "true"
+                },
+                "constantValueEnabled": true
+              },
+              "label": {
+                "field": "",
+                "constantValue": {
+                  "defaultValue": "Special Offers",
+                  "hasLocalizedValue": "true"
+                },
+                "constantValueEnabled": true
+              }
+            },
+            {
+              "link": {
+                "field": "",
+                "constantValue": {
+                  "defaultValue": "#",
+                  "hasLocalizedValue": "true"
+                },
+                "constantValueEnabled": true
+              },
+              "label": {
+                "field": "",
+                "constantValue": {
+                  "defaultValue": "Careers",
+                  "hasLocalizedValue": "true"
+                },
+                "constantValueEnabled": true
+              }
+            },
+            {
+              "link": {
+                "field": "",
+                "constantValue": {
+                  "defaultValue": "#",
+                  "hasLocalizedValue": "true"
+                },
+                "constantValueEnabled": true
+              },
+              "label": {
+                "field": "",
+                "constantValue": {
+                  "defaultValue": "Contact",
+                  "hasLocalizedValue": "true"
+                },
+                "constantValueEnabled": true
+              }
+            }
+          ],
+          "title": {
+            "text": {
+              "field": "",
+              "constantValue": {
+                "defaultValue": "Quick Links",
+                "hasLocalizedValue": "true"
+              },
+              "constantValueEnabled": true
+            },
+            "styles": {
+              "fontSize": "default",
+              "fontStyle": "default",
+              "fontFamily": "default",
+              "fontWeight": "default",
+              "textTransform": "default"
+            }
+          }
+        },
+        "websiteUrl": {
+          "field": "",
+          "constantValue": {
+            "defaultValue": "https://www.grandviewsuites.com/locations/downtown-savannah",
+            "hasLocalizedValue": "true"
+          },
+          "constantValueEnabled": true
+        },
+        "socialLinks": {
+          "data": [
+            {
+              "link": {
+                "field": "",
+                "constantValue": {
+                  "defaultValue": "#",
+                  "hasLocalizedValue": "true"
+                },
+                "constantValueEnabled": true
+              },
+              "label": {
+                "field": "",
+                "constantValue": {
+                  "defaultValue": "Instagram",
+                  "hasLocalizedValue": "true"
+                },
+                "constantValueEnabled": true
+              }
+            },
+            {
+              "link": {
+                "field": "",
+                "constantValue": {
+                  "defaultValue": "#",
+                  "hasLocalizedValue": "true"
+                },
+                "constantValueEnabled": true
+              },
+              "label": {
+                "field": "",
+                "constantValue": {
+                  "defaultValue": "Facebook",
+                  "hasLocalizedValue": "true"
+                },
+                "constantValueEnabled": true
+              }
+            },
+            {
+              "link": {
+                "field": "",
+                "constantValue": {
+                  "defaultValue": "#",
+                  "hasLocalizedValue": "true"
+                },
+                "constantValueEnabled": true
+              },
+              "label": {
+                "field": "",
+                "constantValue": {
+                  "defaultValue": "Pinterest",
+                  "hasLocalizedValue": "true"
+                },
+                "constantValueEnabled": true
+              }
+            },
+            {
+              "link": {
+                "field": "",
+                "constantValue": {
+                  "defaultValue": "#",
+                  "hasLocalizedValue": "true"
+                },
+                "constantValueEnabled": true
+              },
+              "label": {
+                "field": "",
+                "constantValue": {
+                  "defaultValue": "LinkedIn",
+                  "hasLocalizedValue": "true"
+                },
+                "constantValueEnabled": true
+              }
+            }
+          ],
+          "title": {
+            "text": {
+              "field": "",
+              "constantValue": {
+                "defaultValue": "Social Links",
+                "hasLocalizedValue": "true"
+              },
+              "constantValueEnabled": true
+            },
+            "styles": {
+              "fontSize": "default",
+              "fontStyle": "default",
+              "fontFamily": "default",
+              "fontWeight": "default",
+              "textTransform": "default"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

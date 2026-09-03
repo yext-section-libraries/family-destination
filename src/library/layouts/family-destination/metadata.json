@@ -1,0 +1,11 @@
+{
+  "id": "family-destination",
+  "displayName": "Family Destination",
+  "vertical": [
+    "HOSPITALITY"
+  ],
+  "purpose": [
+    "LOCATION"
+  ],
+  "pageSetType": "ENTITY"
+}
