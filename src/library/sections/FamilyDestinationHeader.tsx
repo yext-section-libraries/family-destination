@@ -34,78 +34,14 @@ import {
   normalizeLink,
   normalizeThemeColorToken,
   resolveComponentData,
-  ThemeOptions,
   useDocument,
 } from "@yext/visual-editor";
 
-const typographyStyles = `
-.yext-family-destination-header p,
-.yext-family-destination-header li {
-  font-family: var(--fontFamily-body-fontFamily);
-  font-size: var(--fontSize-body-fontSize);
-  line-height: 1.5;
-  font-weight: var(--fontWeight-body-fontWeight);
-  font-style: var(--fontStyle-body-fontStyle);
-  text-transform: var(--textTransform-body-textTransform);
-}
-.yext-family-destination-header h1 {
-  font-family: var(--fontFamily-h1-fontFamily);
-  font-size: var(--fontSize-h1-fontSize);
-  line-height: 1.2;
-  font-weight: var(--fontWeight-h1-fontWeight);
-  font-style: var(--fontStyle-h1-fontStyle);
-  text-transform: var(--textTransform-h1-textTransform);
-}
-.yext-family-destination-header h2 {
-  font-family: var(--fontFamily-h2-fontFamily);
-  font-size: var(--fontSize-h2-fontSize);
-  line-height: 1.2;
-  font-weight: var(--fontWeight-h2-fontWeight);
-  font-style: var(--fontStyle-h2-fontStyle);
-  text-transform: var(--textTransform-h2-textTransform);
-}
-.yext-family-destination-header h3 {
-  font-family: var(--fontFamily-h3-fontFamily);
-  font-size: var(--fontSize-h3-fontSize);
-  line-height: 1.2;
-  font-weight: var(--fontWeight-h3-fontWeight);
-  font-style: var(--fontStyle-h3-fontStyle);
-  text-transform: var(--textTransform-h3-textTransform);
-}
-.yext-family-destination-header h4 {
-  font-family: var(--fontFamily-h4-fontFamily);
-  font-size: var(--fontSize-h4-fontSize);
-  line-height: 1.2;
-  font-weight: var(--fontWeight-h4-fontWeight);
-  font-style: var(--fontStyle-h4-fontStyle);
-  text-transform: var(--textTransform-h4-textTransform);
-}
-.yext-family-destination-header h5 {
-  font-family: var(--fontFamily-h5-fontFamily);
-  font-size: var(--fontSize-h5-fontSize);
-  line-height: 1.2;
-  font-weight: var(--fontWeight-h5-fontWeight);
-  font-style: var(--fontStyle-h5-fontStyle);
-  text-transform: var(--textTransform-h5-textTransform);
-}
-.yext-family-destination-header h6 {
-  font-family: var(--fontFamily-h6-fontFamily);
-  font-size: var(--fontSize-h6-fontSize);
-  line-height: 1.2;
-  font-weight: var(--fontWeight-h6-fontWeight);
-  font-style: var(--fontStyle-h6-fontStyle);
-  text-transform: var(--textTransform-h6-textTransform);
-}
-:where(.yext-family-destination-header) a {
-  font-family: var(--fontFamily-link-fontFamily);
-  font-size: var(--fontSize-link-fontSize);
-  font-weight: var(--fontWeight-link-fontWeight);
-  font-style: var(--fontStyle-link-fontStyle);
-  line-height: 1.5;
-  text-transform: var(--textTransform-link-textTransform);
-  letter-spacing: var(--letterSpacing-link-letterSpacing);
-}
-`;
+import { aspectRatioOptions } from "../shared/fieldOptions";
+import { hasImageSource } from "../shared/imageUtils";
+import { getScopedTypographyCss } from "../shared/sectionStyles";
+
+const typographyStyles = getScopedTypographyCss("yext-family-destination-header");
 
 type SharedHeaderVariant =
   | "centerLogoSplitNav"
@@ -310,30 +246,6 @@ const normalizeResolvedLink = ({
   return normalizeLink(link, linkType);
 };
 
-const hasImageSource = (
-  image: ImageType | ComplexImageType | TranslatableAssetImage | undefined,
-): boolean => {
-  if (!image || typeof image !== "object") {
-    return false;
-  }
-
-  if ("url" in image && typeof image.url === "string" && image.url.trim()) {
-    return true;
-  }
-
-  if (
-    "image" in image &&
-    image.image &&
-    typeof image.image === "object" &&
-    "url" in image.image &&
-    typeof image.image.url === "string" &&
-    image.image.url.trim()
-  ) {
-    return true;
-  }
-
-  return false;
-};
 
 const SharedHeaderDefaultUtilityIcon = () => (
   <svg
@@ -485,7 +397,7 @@ const FamilyDestinationHeaderFields: YextFields<FamilyDestinationHeaderProps> =
                 aspectRatio: {
                   label: "Aspect Ratio",
                   type: "basicSelector",
-                  options: ThemeOptions.ASPECT_RATIO,
+                  options: aspectRatioOptions,
                 },
                 imageConstrain: {
                   label: "Image Constrain",
@@ -636,7 +548,7 @@ const FamilyDestinationHeaderFields: YextFields<FamilyDestinationHeaderProps> =
         aspectRatio: {
           label: "Aspect Ratio",
           type: "basicSelector",
-          options: ThemeOptions.ASPECT_RATIO,
+          options: aspectRatioOptions,
         },
         imageConstrain: {
           label: "Image Constrain",

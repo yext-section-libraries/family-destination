@@ -16,7 +16,6 @@ import {
   getSurfaceColorStyle,
   getThemeColorCssValue,
   Image,
-  MaybeRTF,
   resolveComponentData,
   type ComprehensiveCTAValue,
   type StyledTextValue,
@@ -31,75 +30,17 @@ import {
   type YextEntityField,
   type YextFields,
 } from "@yext/visual-editor";
+import {
+  defaultTextStyles,
+  getScopedTypographyCss,
+  renderRichText,
+  resolveStyledTextStyles,
+} from "../shared/sectionStyles";
+import { hasImageSource } from "../shared/imageUtils";
 
-const typographyStyles = `
-.yext-family-destination-about p,
-.yext-family-destination-about li {
-  font-family: var(--fontFamily-body-fontFamily);
-  font-size: var(--fontSize-body-fontSize);
-  line-height: 1.5;
-  font-weight: var(--fontWeight-body-fontWeight);
-  font-style: var(--fontStyle-body-fontStyle);
-  text-transform: var(--textTransform-body-textTransform);
-}
-.yext-family-destination-about h1 {
-  font-family: var(--fontFamily-h1-fontFamily);
-  font-size: var(--fontSize-h1-fontSize);
-  line-height: 1.2;
-  font-weight: var(--fontWeight-h1-fontWeight);
-  font-style: var(--fontStyle-h1-fontStyle);
-  text-transform: var(--textTransform-h1-textTransform);
-}
-.yext-family-destination-about h2 {
-  font-family: var(--fontFamily-h2-fontFamily);
-  font-size: var(--fontSize-h2-fontSize);
-  line-height: 1.2;
-  font-weight: var(--fontWeight-h2-fontWeight);
-  font-style: var(--fontStyle-h2-fontStyle);
-  text-transform: var(--textTransform-h2-textTransform);
-}
-.yext-family-destination-about h3 {
-  font-family: var(--fontFamily-h3-fontFamily);
-  font-size: var(--fontSize-h3-fontSize);
-  line-height: 1.2;
-  font-weight: var(--fontWeight-h3-fontWeight);
-  font-style: var(--fontStyle-h3-fontStyle);
-  text-transform: var(--textTransform-h3-textTransform);
-}
-.yext-family-destination-about h4 {
-  font-family: var(--fontFamily-h4-fontFamily);
-  font-size: var(--fontSize-h4-fontSize);
-  line-height: 1.2;
-  font-weight: var(--fontWeight-h4-fontWeight);
-  font-style: var(--fontStyle-h4-fontStyle);
-  text-transform: var(--textTransform-h4-textTransform);
-}
-.yext-family-destination-about h5 {
-  font-family: var(--fontFamily-h5-fontFamily);
-  font-size: var(--fontSize-h5-fontSize);
-  line-height: 1.2;
-  font-weight: var(--fontWeight-h5-fontWeight);
-  font-style: var(--fontStyle-h5-fontStyle);
-  text-transform: var(--textTransform-h5-textTransform);
-}
-.yext-family-destination-about h6 {
-  font-family: var(--fontFamily-h6-fontFamily);
-  font-size: var(--fontSize-h6-fontSize);
-  line-height: 1.2;
-  font-weight: var(--fontWeight-h6-fontWeight);
-  font-style: var(--fontStyle-h6-fontStyle);
-  text-transform: var(--textTransform-h6-textTransform);
-}
-:where(.yext-family-destination-about) a {
-  font-family: var(--fontFamily-link-fontFamily);
-  font-size: var(--fontSize-link-fontSize);
-  font-weight: var(--fontWeight-link-fontWeight);
-  font-style: var(--fontStyle-link-fontStyle);
-  line-height: 1.5;
-  text-transform: var(--textTransform-link-textTransform);
-  letter-spacing: var(--letterSpacing-link-letterSpacing);
-}
-`;
+const typographyStyles = getScopedTypographyCss(
+  "yext-family-destination-about",
+);
 
 type StyledTextProps = {
   text: YextEntityField<TranslatableString>;
@@ -126,69 +67,7 @@ export type FamilyDestinationAboutProps = {
   section: { visibleOnLivePage: boolean; backgroundColor: ThemeColor };
 };
 
-const defaultTextStyles: StyledTextValue = {
-  fontFamily: "default",
-  fontSize: "default",
-  fontWeight: "default",
-  fontStyle: "default",
-  textTransform: "default",
-};
 
-const resolveStyledTextStyles = (
-  styles: StyledTextValue,
-  fontColor: ThemeColor | undefined,
-  fallbackColor: string,
-  fallbackFontFamily: string,
-  fallbackFontSize: string,
-  fallbackFontWeight: React.CSSProperties["fontWeight"],
-) => ({
-  color: getThemeColorCssValue(fontColor) ?? fallbackColor,
-  fontFamily:
-    styles.fontFamily === "default" ? fallbackFontFamily : styles.fontFamily,
-  fontSize: styles.fontSize === "default" ? fallbackFontSize : styles.fontSize,
-  fontWeight:
-    styles.fontWeight === "default" ? fallbackFontWeight : styles.fontWeight,
-  fontStyle: styles.fontStyle === "default" ? undefined : styles.fontStyle,
-  textTransform:
-    styles.textTransform === "default" ? undefined : styles.textTransform,
-});
-
-const renderResolvedRichText = (value: unknown, style: React.CSSProperties) => {
-  if (React.isValidElement(value)) {
-    return <div style={style}>{value}</div>;
-  }
-
-  if (typeof value === "string" || (value && typeof value === "object")) {
-    return (
-      <div style={style}>
-        <MaybeRTF data={value as string | { html: string }} />
-      </div>
-    );
-  }
-
-  return null;
-};
-
-const hasImageSource = (
-  image: unknown,
-): image is ImageType | ComplexImageType | TranslatableAssetImage => {
-  if (!image || typeof image !== "object") {
-    return false;
-  }
-
-  if ("url" in image && typeof image.url === "string" && image.url.trim()) {
-    return true;
-  }
-
-  return Boolean(
-    "image" in image &&
-    image.image &&
-    typeof image.image === "object" &&
-    "url" in image.image &&
-    typeof image.image.url === "string" &&
-    image.image.url.trim(),
-  );
-};
 
 const fields: YextFields<FamilyDestinationAboutProps> = {
   section: {
@@ -298,14 +177,6 @@ const Component: PuckComponent<FamilyDestinationAboutProps> = (props) => {
     props.description.text,
     locale,
     streamDocument,
-    {
-      richTextStyleOverrides: {
-        ...props.description.styles,
-        color:
-          getThemeColorCssValue(props.description?.fontColor) ??
-          sectionDefaultForeground,
-      },
-    },
   );
   const ctaValue: Partial<ComprehensiveCTAValue> = {
     data: props.cta.data,
@@ -361,8 +232,9 @@ const Component: PuckComponent<FamilyDestinationAboutProps> = (props) => {
                   props.description.text.constantValueEnabled
                 }
               >
-                <div className="m-0 leading-[30px] tracking-[0.25px]">
-                  {renderResolvedRichText(resolvedDescription, {
+                <div
+                  className="m-0 leading-[30px] tracking-[0.25px]"
+                  style={{
                     ...resolveStyledTextStyles(
                       props.description.styles,
                       props.description?.fontColor,
@@ -373,7 +245,9 @@ const Component: PuckComponent<FamilyDestinationAboutProps> = (props) => {
                     ),
                     lineHeight: "30px",
                     letterSpacing: "0.25px",
-                  })}
+                  }}
+                >
+                  {renderRichText(resolvedDescription)}
                 </div>
               </EntityField>
               <EntityField
@@ -426,7 +300,7 @@ const Component: PuckComponent<FamilyDestinationAboutProps> = (props) => {
 export const FamilyDestinationAbout: YextComponentConfig<FamilyDestinationAboutProps> =
   {
     label: "About",
-    fields: toPuckFields(fields),
+    fields: toPuckFields<FamilyDestinationAboutProps>(fields),
     defaultProps: {
       heading: {
         text: {

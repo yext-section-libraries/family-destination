@@ -20,6 +20,7 @@ import {
   type YextEntityField,
   type YextFields,
 } from "@yext/visual-editor";
+import { defaultTextStyles } from "../shared/sectionStyles";
 
 type StyledTextProps = {
   text: YextEntityField<TranslatableString>;
@@ -35,13 +36,6 @@ export type FamilyDestinationBannerProps = {
   };
 };
 
-const defaultTextStyles: StyledTextValue = {
-  fontFamily: "default",
-  fontSize: "default",
-  fontWeight: "default",
-  fontStyle: "default",
-  textTransform: "default",
-};
 
 const fields: YextFields<FamilyDestinationBannerProps> = {
   section: {
@@ -153,7 +147,7 @@ const Component: PuckComponent<FamilyDestinationBannerProps> = (props) => {
 export const FamilyDestinationBanner: YextComponentConfig<FamilyDestinationBannerProps> =
   {
     label: "Banner",
-    fields: toPuckFields(fields),
+    fields: toPuckFields<FamilyDestinationBannerProps>(fields),
     defaultProps: {
       bannerText: {
         text: {

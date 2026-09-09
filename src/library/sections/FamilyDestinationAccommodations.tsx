@@ -14,7 +14,6 @@ import {
   EntityField,
   getAnalyticsScopeHash,
   getSurfaceColorStyle,
-  getThemeColorCssValue,
   Image,
   isLocalizedAssetImage,
   resolveComponentData,
@@ -32,75 +31,18 @@ import {
   type YextEntityField,
   type YextFields,
 } from "@yext/visual-editor";
+import { createCta, createTextField } from "../shared/sectionDefaults";
+import { aspectRatioOptions } from "../shared/fieldOptions";
+import { hasImageSource } from "../shared/imageUtils";
+import {
+  defaultTextStyles,
+  getScopedTypographyCss,
+  resolveStyledTextStyles,
+} from "../shared/sectionStyles";
 
-const typographyStyles = `
-.yext-family-destination-accommodations p,
-.yext-family-destination-accommodations li {
-  font-family: var(--fontFamily-body-fontFamily);
-  font-size: var(--fontSize-body-fontSize);
-  line-height: 1.5;
-  font-weight: var(--fontWeight-body-fontWeight);
-  font-style: var(--fontStyle-body-fontStyle);
-  text-transform: var(--textTransform-body-textTransform);
-}
-.yext-family-destination-accommodations h1 {
-  font-family: var(--fontFamily-h1-fontFamily);
-  font-size: var(--fontSize-h1-fontSize);
-  line-height: 1.2;
-  font-weight: var(--fontWeight-h1-fontWeight);
-  font-style: var(--fontStyle-h1-fontStyle);
-  text-transform: var(--textTransform-h1-textTransform);
-}
-.yext-family-destination-accommodations h2 {
-  font-family: var(--fontFamily-h2-fontFamily);
-  font-size: var(--fontSize-h2-fontSize);
-  line-height: 1.2;
-  font-weight: var(--fontWeight-h2-fontWeight);
-  font-style: var(--fontStyle-h2-fontStyle);
-  text-transform: var(--textTransform-h2-textTransform);
-}
-.yext-family-destination-accommodations h3 {
-  font-family: var(--fontFamily-h3-fontFamily);
-  font-size: var(--fontSize-h3-fontSize);
-  line-height: 1.2;
-  font-weight: var(--fontWeight-h3-fontWeight);
-  font-style: var(--fontStyle-h3-fontStyle);
-  text-transform: var(--textTransform-h3-textTransform);
-}
-.yext-family-destination-accommodations h4 {
-  font-family: var(--fontFamily-h4-fontFamily);
-  font-size: var(--fontSize-h4-fontSize);
-  line-height: 1.2;
-  font-weight: var(--fontWeight-h4-fontWeight);
-  font-style: var(--fontStyle-h4-fontStyle);
-  text-transform: var(--textTransform-h4-textTransform);
-}
-.yext-family-destination-accommodations h5 {
-  font-family: var(--fontFamily-h5-fontFamily);
-  font-size: var(--fontSize-h5-fontSize);
-  line-height: 1.2;
-  font-weight: var(--fontWeight-h5-fontWeight);
-  font-style: var(--fontStyle-h5-fontStyle);
-  text-transform: var(--textTransform-h5-textTransform);
-}
-.yext-family-destination-accommodations h6 {
-  font-family: var(--fontFamily-h6-fontFamily);
-  font-size: var(--fontSize-h6-fontSize);
-  line-height: 1.2;
-  font-weight: var(--fontWeight-h6-fontWeight);
-  font-style: var(--fontStyle-h6-fontStyle);
-  text-transform: var(--textTransform-h6-textTransform);
-}
-:where(.yext-family-destination-accommodations) a {
-  font-family: var(--fontFamily-link-fontFamily);
-  font-size: var(--fontSize-link-fontSize);
-  font-weight: var(--fontWeight-link-fontWeight);
-  font-style: var(--fontStyle-link-fontStyle);
-  line-height: 1.5;
-  text-transform: var(--textTransform-link-textTransform);
-  letter-spacing: var(--letterSpacing-link-letterSpacing);
-}
-`;
+const typographyStyles = getScopedTypographyCss(
+  "yext-family-destination-accommodations",
+);
 
 type StyledTextProps = {
   text: YextEntityField<TranslatableString>;
@@ -139,61 +81,13 @@ type RoomStyles = {
 const placeholder =
   "https://a.mktgcdn.com/p/UHR6VTEvcR-yDMqPSOS7LyK87Qt56EOrmfNbhLQxI08/1267x1900.jpg";
 
-const defaultTextStyles: StyledTextValue = {
-  fontFamily: "default",
-  fontSize: "default",
-  fontWeight: "default",
-  fontStyle: "default",
-  textTransform: "default",
-};
-
 const defaultImageStyles: StyledImageValue = {
   borderRadius: "default",
 };
 
-const createTextField = (
-  value: string,
-): YextEntityField<TranslatableString> => ({
-  field: "",
-  constantValue: {
-    defaultValue: value,
-    hasLocalizedValue: "true",
-  },
-  constantValueEnabled: true,
-});
 
-const createCtaDefault = (label: string): AuthoredComprehensiveCTAValue => ({
-  data: {
-    actionType: "link",
-    cta: {
-      field: "",
-      constantValue: {
-        label: {
-          defaultValue: label,
-          hasLocalizedValue: "true",
-        },
-        link: { defaultValue: "#", hasLocalizedValue: "true" },
-        linkType: "URL",
-        ctaType: "textAndLink",
-      },
-      constantValueEnabled: true,
-      selectedType: "textAndLink",
-    },
-    openInNewTab: false,
-  },
-  styles: {
-    variant: "link",
-    link: {
-      fontFamily: "default",
-      fontSize: "default",
-      fontWeight: "default",
-      fontStyle: "default",
-      textTransform: "default",
-      letterSpacing: "default",
-      includeCaret: "none",
-    },
-  },
-});
+const createCtaDefault = (label: string): AuthoredComprehensiveCTAValue =>
+  createCta({ label, variant: "link", includeCaret: "none" });
 
 const roomSource = createItemSource<RoomItemProps>({
   label: "Rooms",
@@ -216,7 +110,6 @@ const roomSource = createItemSource<RoomItemProps>({
     cta: {
       label: "CTA",
       type: "comprehensiveCTA",
-      ...{ showIncludeCaretField: false },
     },
   },
   defaultValues: [
@@ -383,7 +276,7 @@ const fields: YextFields<FamilyDestinationAccommodationsProps> = {
               aspectRatio: {
                 label: "Aspect Ratio",
                 type: "basicSelector",
-                options: "ASPECT_RATIO",
+                options: aspectRatioOptions,
               },
               imageConstrain: {
                 label: "Image Constrain",
@@ -405,60 +298,6 @@ const fields: YextFields<FamilyDestinationAccommodationsProps> = {
   },
 };
 
-const resolveStyledTextStyles = (
-  styles: StyledTextValue,
-  fontColor: ThemeColor | undefined,
-  fallbackColor: string,
-  fallbackFontFamily: string,
-  fallbackFontSize: string,
-  fallbackFontWeight: React.CSSProperties["fontWeight"],
-) => ({
-  color: getThemeColorCssValue(fontColor) ?? fallbackColor,
-  fontFamily:
-    styles.fontFamily === "default" ? fallbackFontFamily : styles.fontFamily,
-  fontSize: styles.fontSize === "default" ? fallbackFontSize : styles.fontSize,
-  fontWeight:
-    styles.fontWeight === "default" ? fallbackFontWeight : styles.fontWeight,
-  fontStyle: styles.fontStyle === "default" ? undefined : styles.fontStyle,
-  textTransform:
-    styles.textTransform === "default" ? undefined : styles.textTransform,
-});
-
-const resolveTranslatableString = (
-  value: TranslatableString | undefined,
-  locale: string,
-) => {
-  if (typeof value === "string") {
-    return value;
-  }
-
-  if (!value) {
-    return "";
-  }
-
-  return value[locale] ?? value.defaultValue ?? "";
-};
-
-const hasImageSource = (
-  image: unknown,
-): image is ImageType | ComplexImageType | TranslatableAssetImage => {
-  if (!image || typeof image !== "object") {
-    return false;
-  }
-
-  if ("url" in image && typeof image.url === "string" && image.url.trim()) {
-    return true;
-  }
-
-  return Boolean(
-    "image" in image &&
-    image.image &&
-    typeof image.image === "object" &&
-    "url" in image.image &&
-    typeof image.image.url === "string" &&
-    image.image.url.trim(),
-  );
-};
 
 const RoomImage = ({
   image,
@@ -563,11 +402,12 @@ const Component: PuckComponent<FamilyDestinationAccommodationsProps> = (
             className="flex w-full flex-col gap-8"
           >
             {rooms.map((room, index) => {
-              const title = resolveTranslatableString(room.title, locale);
-              const roomDescription = resolveTranslatableString(
-                room.description,
-                locale,
-              );
+              const title = room.title
+                ? resolveComponentData(room.title, locale)
+                : "";
+              const roomDescription = room.description
+                ? resolveComponentData(room.description, locale)
+                : "";
               const authoredRoom = authoredRooms[index];
               const roomImage = isLocalizedAssetImage(room.image)
                 ? resolveLocalizedAssetImage(room.image, locale)
@@ -679,7 +519,7 @@ const Component: PuckComponent<FamilyDestinationAccommodationsProps> = (
 export const FamilyDestinationAccommodations: YextComponentConfig<FamilyDestinationAccommodationsProps> =
   {
     label: "Accommodations",
-    fields: toPuckFields(fields),
+    fields: toPuckFields<FamilyDestinationAccommodationsProps>(fields),
     defaultProps: {
       heading: {
         text: createTextField("Featured Accommodations"),

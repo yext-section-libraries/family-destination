@@ -22,74 +22,13 @@ import {
   type YextFields,
 } from "@yext/visual-editor";
 
-const typographyStyles = `
-.yext-family-destination-reviews p,
-.yext-family-destination-reviews li {
-  font-family: var(--fontFamily-body-fontFamily);
-  font-size: var(--fontSize-body-fontSize);
-  line-height: 1.5;
-  font-weight: var(--fontWeight-body-fontWeight);
-  font-style: var(--fontStyle-body-fontStyle);
-  text-transform: var(--textTransform-body-textTransform);
-}
-.yext-family-destination-reviews h1 {
-  font-family: var(--fontFamily-h1-fontFamily);
-  font-size: var(--fontSize-h1-fontSize);
-  line-height: 1.2;
-  font-weight: var(--fontWeight-h1-fontWeight);
-  font-style: var(--fontStyle-h1-fontStyle);
-  text-transform: var(--textTransform-h1-textTransform);
-}
-.yext-family-destination-reviews h2 {
-  font-family: var(--fontFamily-h2-fontFamily);
-  font-size: var(--fontSize-h2-fontSize);
-  line-height: 1.2;
-  font-weight: var(--fontWeight-h2-fontWeight);
-  font-style: var(--fontStyle-h2-fontStyle);
-  text-transform: var(--textTransform-h2-textTransform);
-}
-.yext-family-destination-reviews h3 {
-  font-family: var(--fontFamily-h3-fontFamily);
-  font-size: var(--fontSize-h3-fontSize);
-  line-height: 1.2;
-  font-weight: var(--fontWeight-h3-fontWeight);
-  font-style: var(--fontStyle-h3-fontStyle);
-  text-transform: var(--textTransform-h3-textTransform);
-}
-.yext-family-destination-reviews h4 {
-  font-family: var(--fontFamily-h4-fontFamily);
-  font-size: var(--fontSize-h4-fontSize);
-  line-height: 1.2;
-  font-weight: var(--fontWeight-h4-fontWeight);
-  font-style: var(--fontStyle-h4-fontStyle);
-  text-transform: var(--textTransform-h4-textTransform);
-}
-.yext-family-destination-reviews h5 {
-  font-family: var(--fontFamily-h5-fontFamily);
-  font-size: var(--fontSize-h5-fontSize);
-  line-height: 1.2;
-  font-weight: var(--fontWeight-h5-fontWeight);
-  font-style: var(--fontStyle-h5-fontStyle);
-  text-transform: var(--textTransform-h5-textTransform);
-}
-.yext-family-destination-reviews h6 {
-  font-family: var(--fontFamily-h6-fontFamily);
-  font-size: var(--fontSize-h6-fontSize);
-  line-height: 1.2;
-  font-weight: var(--fontWeight-h6-fontWeight);
-  font-style: var(--fontStyle-h6-fontStyle);
-  text-transform: var(--textTransform-h6-textTransform);
-}
-:where(.yext-family-destination-reviews) a {
-  font-family: var(--fontFamily-link-fontFamily);
-  font-size: var(--fontSize-link-fontSize);
-  font-weight: var(--fontWeight-link-fontWeight);
-  font-style: var(--fontStyle-link-fontStyle);
-  line-height: 1.5;
-  text-transform: var(--textTransform-link-textTransform);
-  letter-spacing: var(--letterSpacing-link-letterSpacing);
-}
-`;
+import {
+  defaultTextStyles,
+  getScopedTypographyCss,
+  resolveStyledTextStyles,
+} from "../shared/sectionStyles";
+
+const typographyStyles = getScopedTypographyCss("yext-family-destination-reviews");
 
 type StyledTextProps = {
   text: YextEntityField<TranslatableString>;
@@ -118,32 +57,7 @@ export type FamilyDestinationReviewsProps = {
   section: { visibleOnLivePage: boolean; backgroundColor: ThemeColor };
 };
 
-const defaultTextStyles: StyledTextValue = {
-  fontFamily: "default",
-  fontSize: "default",
-  fontWeight: "default",
-  fontStyle: "default",
-  textTransform: "default",
-};
 
-const resolveStyledTextStyles = (
-  styles: StyledTextValue,
-  fontColor: ThemeColor | undefined,
-  fallbackColor: string,
-  fallbackFontFamily: string,
-  fallbackFontSize: string,
-  fallbackFontWeight: React.CSSProperties["fontWeight"],
-) => ({
-  color: getThemeColorCssValue(fontColor) ?? fallbackColor,
-  fontFamily:
-    styles.fontFamily === "default" ? fallbackFontFamily : styles.fontFamily,
-  fontSize: styles.fontSize === "default" ? fallbackFontSize : styles.fontSize,
-  fontWeight:
-    styles.fontWeight === "default" ? fallbackFontWeight : styles.fontWeight,
-  fontStyle: styles.fontStyle === "default" ? undefined : styles.fontStyle,
-  textTransform:
-    styles.textTransform === "default" ? undefined : styles.textTransform,
-});
 
 const fields: YextFields<FamilyDestinationReviewsProps> = {
   section: {
@@ -413,7 +327,7 @@ const Component: PuckComponent<FamilyDestinationReviewsProps> = (props) => {
 export const FamilyDestinationReviews: YextComponentConfig<FamilyDestinationReviewsProps> =
   {
     label: "Reviews",
-    fields: toPuckFields(fields),
+    fields: toPuckFields<FamilyDestinationReviewsProps>(fields),
     defaultProps: {
       heading: {
         text: {

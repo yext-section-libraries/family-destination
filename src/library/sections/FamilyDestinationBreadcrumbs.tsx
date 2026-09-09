@@ -22,6 +22,7 @@ import {
   type YextEntityField,
   type YextFields,
 } from "@yext/visual-editor";
+import { defaultTextStyles } from "../shared/sectionStyles";
 
 type StyledTextProps = {
   text: YextEntityField<TranslatableString>;
@@ -43,13 +44,6 @@ export type FamilyDestinationBreadcrumbsProps = {
   };
 };
 
-const defaultTextStyles: StyledTextValue = {
-  fontFamily: "default",
-  fontSize: "default",
-  fontWeight: "default",
-  fontStyle: "default",
-  textTransform: "default",
-};
 
 const fields: YextFields<FamilyDestinationBreadcrumbsProps> = {
   section: {
@@ -264,7 +258,7 @@ const Component: PuckComponent<FamilyDestinationBreadcrumbsProps> = (
 export const FamilyDestinationBreadcrumbs: YextComponentConfig<FamilyDestinationBreadcrumbsProps> =
   {
     label: "Breadcrumbs",
-    fields: toPuckFields(fields),
+    fields: toPuckFields<FamilyDestinationBreadcrumbsProps>(fields),
     defaultProps: {
       rootLabel: {
         text: {

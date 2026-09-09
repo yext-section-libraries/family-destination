@@ -3,13 +3,11 @@ import type { SectionConfig } from "@yext/visual-editor";
 import * as React from "react";
 import type { PuckComponent } from "@puckeditor/core";
 import { Address, AnalyticsScopeProvider, Link } from "@yext/pages-components";
-import { parsePhoneNumber } from "awesome-phonenumber";
 import {
   Background,
   EntityField,
   getSurfaceColorStyle,
   getAnalyticsScopeHash,
-  getThemeColorCssValue,
   MapboxStaticMapComponent,
   mapboxStaticMapStyleOptions,
   mergeMeta,
@@ -27,75 +25,16 @@ import {
   type YextEntityField,
   type YextFields,
 } from "@yext/visual-editor";
+import { createTextField } from "../shared/sectionDefaults";
+import { formatPhoneNumber } from "@yext/visual-editor/section-library-support";
 
-const typographyStyles = `
-.yext-family-destination-nearby p,
-.yext-family-destination-nearby li {
-  font-family: var(--fontFamily-body-fontFamily);
-  font-size: var(--fontSize-body-fontSize);
-  line-height: 1.5;
-  font-weight: var(--fontWeight-body-fontWeight);
-  font-style: var(--fontStyle-body-fontStyle);
-  text-transform: var(--textTransform-body-textTransform);
-}
-.yext-family-destination-nearby h1 {
-  font-family: var(--fontFamily-h1-fontFamily);
-  font-size: var(--fontSize-h1-fontSize);
-  line-height: 1.2;
-  font-weight: var(--fontWeight-h1-fontWeight);
-  font-style: var(--fontStyle-h1-fontStyle);
-  text-transform: var(--textTransform-h1-textTransform);
-}
-.yext-family-destination-nearby h2 {
-  font-family: var(--fontFamily-h2-fontFamily);
-  font-size: var(--fontSize-h2-fontSize);
-  line-height: 1.2;
-  font-weight: var(--fontWeight-h2-fontWeight);
-  font-style: var(--fontStyle-h2-fontStyle);
-  text-transform: var(--textTransform-h2-textTransform);
-}
-.yext-family-destination-nearby h3 {
-  font-family: var(--fontFamily-h3-fontFamily);
-  font-size: var(--fontSize-h3-fontSize);
-  line-height: 1.2;
-  font-weight: var(--fontWeight-h3-fontWeight);
-  font-style: var(--fontStyle-h3-fontStyle);
-  text-transform: var(--textTransform-h3-textTransform);
-}
-.yext-family-destination-nearby h4 {
-  font-family: var(--fontFamily-h4-fontFamily);
-  font-size: var(--fontSize-h4-fontSize);
-  line-height: 1.2;
-  font-weight: var(--fontWeight-h4-fontWeight);
-  font-style: var(--fontStyle-h4-fontStyle);
-  text-transform: var(--textTransform-h4-textTransform);
-}
-.yext-family-destination-nearby h5 {
-  font-family: var(--fontFamily-h5-fontFamily);
-  font-size: var(--fontSize-h5-fontSize);
-  line-height: 1.2;
-  font-weight: var(--fontWeight-h5-fontWeight);
-  font-style: var(--fontStyle-h5-fontStyle);
-  text-transform: var(--textTransform-h5-textTransform);
-}
-.yext-family-destination-nearby h6 {
-  font-family: var(--fontFamily-h6-fontFamily);
-  font-size: var(--fontSize-h6-fontSize);
-  line-height: 1.2;
-  font-weight: var(--fontWeight-h6-fontWeight);
-  font-style: var(--fontStyle-h6-fontStyle);
-  text-transform: var(--textTransform-h6-textTransform);
-}
-:where(.yext-family-destination-nearby) a {
-  font-family: var(--fontFamily-link-fontFamily);
-  font-size: var(--fontSize-link-fontSize);
-  font-weight: var(--fontWeight-link-fontWeight);
-  font-style: var(--fontStyle-link-fontStyle);
-  line-height: 1.5;
-  text-transform: var(--textTransform-link-textTransform);
-  letter-spacing: var(--letterSpacing-link-letterSpacing);
-}
-`;
+import {
+  defaultTextStyles,
+  getScopedTypographyCss,
+  resolveStyledTextStyles,
+} from "../shared/sectionStyles";
+
+const typographyStyles = getScopedTypographyCss("yext-family-destination-nearby");
 
 type SharedTextStyleProps = {
   styles: StyledTextValue;
@@ -129,66 +68,13 @@ type NearbyStreamDocument = {
   yextDisplayCoordinate?: { latitude?: number; longitude?: number };
 };
 
-const defaultTextStyles: StyledTextValue = {
-  fontFamily: "default",
-  fontSize: "default",
-  fontWeight: "default",
-  fontStyle: "default",
-  textTransform: "default",
-};
 
 const defaultSharedTextStyle: SharedTextStyleProps = {
   styles: defaultTextStyles,
   fontColor: undefined,
 };
 
-const createTextField = (
-  value: string,
-): YextEntityField<TranslatableString> => ({
-  field: "",
-  constantValue: {
-    defaultValue: value,
-    hasLocalizedValue: "true",
-  },
-  constantValueEnabled: true,
-});
 
-const resolveStyledTextStyles = (
-  styles: StyledTextValue,
-  fontColor: ThemeColor | undefined,
-  fallbackColor: string,
-  fallbackFontFamily: string,
-  fallbackFontSize: string,
-  fallbackFontWeight: React.CSSProperties["fontWeight"],
-) => ({
-  color: getThemeColorCssValue(fontColor) ?? fallbackColor,
-  fontFamily:
-    styles.fontFamily === "default" ? fallbackFontFamily : styles.fontFamily,
-  fontSize: styles.fontSize === "default" ? fallbackFontSize : styles.fontSize,
-  fontWeight:
-    styles.fontWeight === "default" ? fallbackFontWeight : styles.fontWeight,
-  fontStyle: styles.fontStyle === "default" ? undefined : styles.fontStyle,
-  textTransform:
-    styles.textTransform === "default" ? undefined : styles.textTransform,
-});
-
-const formatPhoneNumber = (
-  phoneNumberString: string,
-  format: "international" | "domestic" = "domestic",
-): string => {
-  const cleanedPhoneNumberString = phoneNumberString.replace(
-    /(?!^\+)\+|[^\d+]/g,
-    "",
-  );
-  const parsedPhoneNumber = parsePhoneNumber(cleanedPhoneNumberString);
-  if (!parsedPhoneNumber.valid || parsedPhoneNumber.number === undefined) {
-    return phoneNumberString;
-  }
-
-  return format === "international"
-    ? parsedPhoneNumber.number.international
-    : parsedPhoneNumber.number.national;
-};
 
 const fields: YextFields<FamilyDestinationNearbyProps> = {
   section: {
@@ -497,7 +383,7 @@ const Component: PuckComponent<FamilyDestinationNearbyProps> = (props) => {
 export const FamilyDestinationNearby: YextComponentConfig<FamilyDestinationNearbyProps> =
   {
     label: "Nearby",
-    fields: toPuckFields(fields),
+    fields: toPuckFields<FamilyDestinationNearbyProps>(fields),
     defaultProps: {
       heading: {
         text: createTextField("Nearby Hotels & Sister Properties"),

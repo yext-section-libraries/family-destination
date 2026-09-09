@@ -17,7 +17,6 @@ import {
   getSurfaceColorStyle,
   getThemeColorCssValue,
   Image,
-  MaybeRTF,
   resolveComponentData,
   type ComprehensiveCTAValue,
   type StyledTextValue,
@@ -32,75 +31,16 @@ import {
   type YextEntityField,
   type YextFields,
 } from "@yext/visual-editor";
+import { hasImageSource } from "../shared/imageUtils";
 
-const typographyStyles = `
-.yext-family-destination-hero p,
-.yext-family-destination-hero li {
-  font-family: var(--fontFamily-body-fontFamily);
-  font-size: var(--fontSize-body-fontSize);
-  line-height: 1.5;
-  font-weight: var(--fontWeight-body-fontWeight);
-  font-style: var(--fontStyle-body-fontStyle);
-  text-transform: var(--textTransform-body-textTransform);
-}
-.yext-family-destination-hero h1 {
-  font-family: var(--fontFamily-h1-fontFamily);
-  font-size: var(--fontSize-h1-fontSize);
-  line-height: 1.2;
-  font-weight: var(--fontWeight-h1-fontWeight);
-  font-style: var(--fontStyle-h1-fontStyle);
-  text-transform: var(--textTransform-h1-textTransform);
-}
-.yext-family-destination-hero h2 {
-  font-family: var(--fontFamily-h2-fontFamily);
-  font-size: var(--fontSize-h2-fontSize);
-  line-height: 1.2;
-  font-weight: var(--fontWeight-h2-fontWeight);
-  font-style: var(--fontStyle-h2-fontStyle);
-  text-transform: var(--textTransform-h2-textTransform);
-}
-.yext-family-destination-hero h3 {
-  font-family: var(--fontFamily-h3-fontFamily);
-  font-size: var(--fontSize-h3-fontSize);
-  line-height: 1.2;
-  font-weight: var(--fontWeight-h3-fontWeight);
-  font-style: var(--fontStyle-h3-fontStyle);
-  text-transform: var(--textTransform-h3-textTransform);
-}
-.yext-family-destination-hero h4 {
-  font-family: var(--fontFamily-h4-fontFamily);
-  font-size: var(--fontSize-h4-fontSize);
-  line-height: 1.2;
-  font-weight: var(--fontWeight-h4-fontWeight);
-  font-style: var(--fontStyle-h4-fontStyle);
-  text-transform: var(--textTransform-h4-textTransform);
-}
-.yext-family-destination-hero h5 {
-  font-family: var(--fontFamily-h5-fontFamily);
-  font-size: var(--fontSize-h5-fontSize);
-  line-height: 1.2;
-  font-weight: var(--fontWeight-h5-fontWeight);
-  font-style: var(--fontStyle-h5-fontStyle);
-  text-transform: var(--textTransform-h5-textTransform);
-}
-.yext-family-destination-hero h6 {
-  font-family: var(--fontFamily-h6-fontFamily);
-  font-size: var(--fontSize-h6-fontSize);
-  line-height: 1.2;
-  font-weight: var(--fontWeight-h6-fontWeight);
-  font-style: var(--fontStyle-h6-fontStyle);
-  text-transform: var(--textTransform-h6-textTransform);
-}
-:where(.yext-family-destination-hero) a {
-  font-family: var(--fontFamily-link-fontFamily);
-  font-size: var(--fontSize-link-fontSize);
-  font-weight: var(--fontWeight-link-fontWeight);
-  font-style: var(--fontStyle-link-fontStyle);
-  line-height: 1.5;
-  text-transform: var(--textTransform-link-textTransform);
-  letter-spacing: var(--letterSpacing-link-letterSpacing);
-}
-`;
+import {
+  defaultTextStyles,
+  getScopedTypographyCss,
+  renderRichText,
+  resolveStyledTextStyles,
+} from "../shared/sectionStyles";
+
+const typographyStyles = getScopedTypographyCss("yext-family-destination-hero");
 
 type StyledTextProps = {
   text: YextEntityField<TranslatableString>;
@@ -134,53 +74,8 @@ export type FamilyDestinationHeroProps = {
   };
 };
 
-const defaultTextStyles: StyledTextValue = {
-  fontFamily: "default",
-  fontSize: "default",
-  fontWeight: "default",
-  fontStyle: "default",
-  textTransform: "default",
-};
 
-const resolveStyledTextStyles = (
-  styles: StyledTextValue,
-  fontColor: ThemeColor | undefined,
-  fallbackColor: string,
-  fallbackFontFamily: string,
-  fallbackFontSize: string,
-  fallbackFontWeight: React.CSSProperties["fontWeight"],
-) => ({
-  color: getThemeColorCssValue(fontColor) ?? fallbackColor,
-  fontFamily:
-    styles.fontFamily === "default" ? fallbackFontFamily : styles.fontFamily,
-  fontSize: styles.fontSize === "default" ? fallbackFontSize : styles.fontSize,
-  fontWeight:
-    styles.fontWeight === "default" ? fallbackFontWeight : styles.fontWeight,
-  fontStyle: styles.fontStyle === "default" ? undefined : styles.fontStyle,
-  textTransform:
-    styles.textTransform === "default" ? undefined : styles.textTransform,
-});
 
-const hasImageSource = (
-  image: unknown,
-): image is ImageType | ComplexImageType | TranslatableAssetImage => {
-  if (!image || typeof image !== "object") {
-    return false;
-  }
-
-  if ("url" in image && typeof image.url === "string" && image.url.trim()) {
-    return true;
-  }
-
-  return Boolean(
-    "image" in image &&
-    image.image &&
-    typeof image.image === "object" &&
-    "url" in image.image &&
-    typeof image.image.url === "string" &&
-    image.image.url.trim(),
-  );
-};
 
 const fields: YextFields<FamilyDestinationHeroProps> = {
   section: {
@@ -362,12 +257,11 @@ const HeroComponent: PuckComponent<FamilyDestinationHeroProps> = (
   );
   const panelForeground = panelStyle?.color ?? "currentColor";
   const badgeForeground = badgeStyle?.color ?? "currentColor";
-  const body = resolveComponentData(props.body.text, locale, streamDocument, {
-    richTextStyleOverrides: {
-      ...props.body.styles,
-      color: getThemeColorCssValue(props.body?.fontColor) ?? panelForeground,
-    },
-  });
+  const body = resolveComponentData(
+    props.body.text,
+    locale,
+    streamDocument,
+  );
   const bodyTextStyle = resolveStyledTextStyles(
     props.body.styles,
     props.body?.fontColor,
@@ -510,12 +404,12 @@ const HeroComponent: PuckComponent<FamilyDestinationHeroProps> = (
               constantValueEnabled={props.body.text.constantValueEnabled}
             >
               <div style={bodyTextStyle}>
-                {React.isValidElement(body) ? (
-                  body
-                ) : typeof body === "string" ||
-                  (body && typeof body === "object" && "html" in body) ? (
-                  <MaybeRTF data={body as string | { html: string }} />
-                ) : null}
+                {renderRichText(body, {
+                  ...props.body.styles,
+                  color:
+                    getThemeColorCssValue(props.body?.fontColor) ??
+                    panelForeground,
+                })}
               </div>
             </EntityField>
             {rating !== undefined && count !== undefined ? (
@@ -574,7 +468,7 @@ const HeroComponent: PuckComponent<FamilyDestinationHeroProps> = (
 export const FamilyDestinationHero: YextComponentConfig<FamilyDestinationHeroProps> =
   {
     label: "Hero",
-    fields: toPuckFields(fields),
+    fields: toPuckFields<FamilyDestinationHeroProps>(fields),
     defaultProps: {
       eyebrow: {
         text: {

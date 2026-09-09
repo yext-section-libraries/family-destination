@@ -8,10 +8,8 @@ import {
   createItemSource,
   EntityField,
   getAnalyticsScopeHash,
-  getDefaultRTF,
   getSurfaceColorStyle,
   getThemeColorCssValue,
-  MaybeRTF,
   resolveComponentData,
   type StyledTextValue,
   type ThemeColor,
@@ -24,75 +22,19 @@ import {
   type YextEntityField,
   type YextFields,
 } from "@yext/visual-editor";
+import {
+  createRichTextField as createRichTextFieldDefault,
+  createTextField as createStringFieldDefault,
+} from "../shared/sectionDefaults";
 
-const typographyStyles = `
-.yext-family-destination-faq p,
-.yext-family-destination-faq li {
-  font-family: var(--fontFamily-body-fontFamily);
-  font-size: var(--fontSize-body-fontSize);
-  line-height: 1.5;
-  font-weight: var(--fontWeight-body-fontWeight);
-  font-style: var(--fontStyle-body-fontStyle);
-  text-transform: var(--textTransform-body-textTransform);
-}
-.yext-family-destination-faq h1 {
-  font-family: var(--fontFamily-h1-fontFamily);
-  font-size: var(--fontSize-h1-fontSize);
-  line-height: 1.2;
-  font-weight: var(--fontWeight-h1-fontWeight);
-  font-style: var(--fontStyle-h1-fontStyle);
-  text-transform: var(--textTransform-h1-textTransform);
-}
-.yext-family-destination-faq h2 {
-  font-family: var(--fontFamily-h2-fontFamily);
-  font-size: var(--fontSize-h2-fontSize);
-  line-height: 1.2;
-  font-weight: var(--fontWeight-h2-fontWeight);
-  font-style: var(--fontStyle-h2-fontStyle);
-  text-transform: var(--textTransform-h2-textTransform);
-}
-.yext-family-destination-faq h3 {
-  font-family: var(--fontFamily-h3-fontFamily);
-  font-size: var(--fontSize-h3-fontSize);
-  line-height: 1.2;
-  font-weight: var(--fontWeight-h3-fontWeight);
-  font-style: var(--fontStyle-h3-fontStyle);
-  text-transform: var(--textTransform-h3-textTransform);
-}
-.yext-family-destination-faq h4 {
-  font-family: var(--fontFamily-h4-fontFamily);
-  font-size: var(--fontSize-h4-fontSize);
-  line-height: 1.2;
-  font-weight: var(--fontWeight-h4-fontWeight);
-  font-style: var(--fontStyle-h4-fontStyle);
-  text-transform: var(--textTransform-h4-textTransform);
-}
-.yext-family-destination-faq h5 {
-  font-family: var(--fontFamily-h5-fontFamily);
-  font-size: var(--fontSize-h5-fontSize);
-  line-height: 1.2;
-  font-weight: var(--fontWeight-h5-fontWeight);
-  font-style: var(--fontStyle-h5-fontStyle);
-  text-transform: var(--textTransform-h5-textTransform);
-}
-.yext-family-destination-faq h6 {
-  font-family: var(--fontFamily-h6-fontFamily);
-  font-size: var(--fontSize-h6-fontSize);
-  line-height: 1.2;
-  font-weight: var(--fontWeight-h6-fontWeight);
-  font-style: var(--fontStyle-h6-fontStyle);
-  text-transform: var(--textTransform-h6-textTransform);
-}
-:where(.yext-family-destination-faq) a {
-  font-family: var(--fontFamily-link-fontFamily);
-  font-size: var(--fontSize-link-fontSize);
-  font-weight: var(--fontWeight-link-fontWeight);
-  font-style: var(--fontStyle-link-fontStyle);
-  line-height: 1.5;
-  text-transform: var(--textTransform-link-textTransform);
-  letter-spacing: var(--letterSpacing-link-letterSpacing);
-}
-`;
+import {
+  defaultTextStyles,
+  getScopedTypographyCss,
+  renderRichText,
+  resolveStyledTextStyles,
+} from "../shared/sectionStyles";
+
+const typographyStyles = getScopedTypographyCss("yext-family-destination-faq");
 
 type StyledTextProps = {
   text: YextEntityField<TranslatableString>;
@@ -131,13 +73,6 @@ export type FamilyDestinationFaqProps = {
   section: { visibleOnLivePage: boolean; backgroundColor: ThemeColor };
 };
 
-const defaultTextStyles: StyledTextValue = {
-  fontFamily: "default",
-  fontSize: "default",
-  fontWeight: "default",
-  fontStyle: "default",
-  textTransform: "default",
-};
 
 const defaultSharedTextStyle: SharedTextStyleProps = {
   styles: defaultTextStyles,
@@ -149,27 +84,7 @@ const defaultSharedRtfStyle: SharedRtfStyleProps = {
   fontColor: undefined,
 };
 
-const createStringFieldDefault = (
-  defaultValue: string,
-): YextEntityField<TranslatableString> => ({
-  field: "",
-  constantValue: {
-    defaultValue,
-    hasLocalizedValue: "true",
-  },
-  constantValueEnabled: true,
-});
 
-const createRichTextFieldDefault = (
-  defaultValue: string,
-): YextEntityField<TranslatableRichText> => ({
-  field: "",
-  constantValue: {
-    defaultValue: getDefaultRTF(defaultValue),
-    hasLocalizedValue: "true",
-  },
-  constantValueEnabled: true,
-});
 
 const createHeadingDefault = (defaultValue: string): StyledTextProps => ({
   text: createStringFieldDefault(defaultValue),
@@ -177,39 +92,7 @@ const createHeadingDefault = (defaultValue: string): StyledTextProps => ({
   fontColor: undefined,
 });
 
-const resolveStyledTextStyles = (
-  styles: StyledTextValue,
-  fontColor: ThemeColor | undefined,
-  fallbackColor: string,
-  fallbackFontFamily: string,
-  fallbackFontSize: string,
-  fallbackFontWeight: React.CSSProperties["fontWeight"],
-) => ({
-  color: getThemeColorCssValue(fontColor) ?? fallbackColor,
-  fontFamily:
-    styles.fontFamily === "default" ? fallbackFontFamily : styles.fontFamily,
-  fontSize: styles.fontSize === "default" ? fallbackFontSize : styles.fontSize,
-  fontWeight:
-    styles.fontWeight === "default" ? fallbackFontWeight : styles.fontWeight,
-  fontStyle: styles.fontStyle === "default" ? undefined : styles.fontStyle,
-  textTransform:
-    styles.textTransform === "default" ? undefined : styles.textTransform,
-});
 
-const resolveTranslatableString = (
-  value: TranslatableString | undefined,
-  locale: string,
-) => {
-  if (typeof value === "string") {
-    return value;
-  }
-
-  if (!value) {
-    return "";
-  }
-
-  return value[locale] ?? value.defaultValue ?? "";
-};
 
 const faqItemsSource = createItemSource<FaqItemProps>({
   label: "FAQ Items",
@@ -368,14 +251,11 @@ const FaqRow = ({
   streamDocument: Record<string, any>;
 }) => {
   const analytics = useAnalytics();
-  const question = resolveTranslatableString(item.question, locale);
+  const question = item.question
+    ? resolveComponentData(item.question, locale)
+    : "";
   const answer = item.answer
-    ? resolveComponentData(item.answer, locale, streamDocument, {
-        richTextStyleOverrides: {
-          ...styles.answer.styles,
-          color: getThemeColorCssValue(styles.answer?.fontColor) ?? textColor,
-        },
-      })
+    ? resolveComponentData(item.answer, locale, streamDocument)
     : null;
 
   return (
@@ -418,12 +298,10 @@ const FaqRow = ({
             lineHeight: "22px",
           }}
         >
-          {React.isValidElement(answer) ? (
-            answer
-          ) : typeof answer === "string" ||
-            (answer && typeof answer === "object" && "html" in answer) ? (
-            <MaybeRTF data={answer as string | { html: string }} />
-          ) : null}
+          {renderRichText(answer, {
+            ...styles.answer.styles,
+            color: getThemeColorCssValue(styles.answer?.fontColor) ?? textColor,
+          })}
         </div>
       </details>
       <hr
@@ -513,7 +391,7 @@ const Component: PuckComponent<FamilyDestinationFaqProps> = (props) => {
 export const FamilyDestinationFaq: YextComponentConfig<FamilyDestinationFaqProps> =
   {
     label: "Faq",
-    fields: toPuckFields(fields),
+    fields: toPuckFields<FamilyDestinationFaqProps>(fields),
     defaultProps: {
       heading: createHeadingDefault("Frequently Asked Questions"),
       items: {

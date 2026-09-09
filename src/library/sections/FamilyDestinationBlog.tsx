@@ -13,12 +13,10 @@ import {
   createItemSource,
   EntityField,
   getAnalyticsScopeHash,
-  getDefaultRTF,
   getSurfaceColorStyle,
   getThemeColorCssValue,
   Image,
   isLocalizedAssetImage,
-  MaybeRTF,
   resolveComponentData,
   resolveLocalizedAssetImage,
   type ComprehensiveCTAValue,
@@ -35,75 +33,22 @@ import {
   type YextEntityField,
   type YextFields,
 } from "@yext/visual-editor";
+import {
+  createCta,
+  createRichTextField as createRichTextFieldDefault,
+  createTextField as createStringFieldDefault,
+} from "../shared/sectionDefaults";
+import { aspectRatioOptions } from "../shared/fieldOptions";
+import { hasImageSource } from "../shared/imageUtils";
 
-const typographyStyles = `
-.yext-family-destination-blog p,
-.yext-family-destination-blog li {
-  font-family: var(--fontFamily-body-fontFamily);
-  font-size: var(--fontSize-body-fontSize);
-  line-height: 1.5;
-  font-weight: var(--fontWeight-body-fontWeight);
-  font-style: var(--fontStyle-body-fontStyle);
-  text-transform: var(--textTransform-body-textTransform);
-}
-.yext-family-destination-blog h1 {
-  font-family: var(--fontFamily-h1-fontFamily);
-  font-size: var(--fontSize-h1-fontSize);
-  line-height: 1.2;
-  font-weight: var(--fontWeight-h1-fontWeight);
-  font-style: var(--fontStyle-h1-fontStyle);
-  text-transform: var(--textTransform-h1-textTransform);
-}
-.yext-family-destination-blog h2 {
-  font-family: var(--fontFamily-h2-fontFamily);
-  font-size: var(--fontSize-h2-fontSize);
-  line-height: 1.2;
-  font-weight: var(--fontWeight-h2-fontWeight);
-  font-style: var(--fontStyle-h2-fontStyle);
-  text-transform: var(--textTransform-h2-textTransform);
-}
-.yext-family-destination-blog h3 {
-  font-family: var(--fontFamily-h3-fontFamily);
-  font-size: var(--fontSize-h3-fontSize);
-  line-height: 1.2;
-  font-weight: var(--fontWeight-h3-fontWeight);
-  font-style: var(--fontStyle-h3-fontStyle);
-  text-transform: var(--textTransform-h3-textTransform);
-}
-.yext-family-destination-blog h4 {
-  font-family: var(--fontFamily-h4-fontFamily);
-  font-size: var(--fontSize-h4-fontSize);
-  line-height: 1.2;
-  font-weight: var(--fontWeight-h4-fontWeight);
-  font-style: var(--fontStyle-h4-fontStyle);
-  text-transform: var(--textTransform-h4-textTransform);
-}
-.yext-family-destination-blog h5 {
-  font-family: var(--fontFamily-h5-fontFamily);
-  font-size: var(--fontSize-h5-fontSize);
-  line-height: 1.2;
-  font-weight: var(--fontWeight-h5-fontWeight);
-  font-style: var(--fontStyle-h5-fontStyle);
-  text-transform: var(--textTransform-h5-textTransform);
-}
-.yext-family-destination-blog h6 {
-  font-family: var(--fontFamily-h6-fontFamily);
-  font-size: var(--fontSize-h6-fontSize);
-  line-height: 1.2;
-  font-weight: var(--fontWeight-h6-fontWeight);
-  font-style: var(--fontStyle-h6-fontStyle);
-  text-transform: var(--textTransform-h6-textTransform);
-}
-:where(.yext-family-destination-blog) a {
-  font-family: var(--fontFamily-link-fontFamily);
-  font-size: var(--fontSize-link-fontSize);
-  font-weight: var(--fontWeight-link-fontWeight);
-  font-style: var(--fontStyle-link-fontStyle);
-  line-height: 1.5;
-  text-transform: var(--textTransform-link-textTransform);
-  letter-spacing: var(--letterSpacing-link-letterSpacing);
-}
-`;
+import {
+  defaultTextStyles,
+  getScopedTypographyCss,
+  renderRichText,
+  resolveStyledTextStyles,
+} from "../shared/sectionStyles";
+
+const typographyStyles = getScopedTypographyCss("yext-family-destination-blog");
 
 type StyledTextProps = {
   text: YextEntityField<TranslatableString>;
@@ -143,13 +88,6 @@ type BlogStyles = {
 const placeholder =
   "https://a.mktgcdn.com/p/UHR6VTEvcR-yDMqPSOS7LyK87Qt56EOrmfNbhLQxI08/1267x1900.jpg";
 
-const defaultTextStyles: StyledTextValue = {
-  fontFamily: "default",
-  fontSize: "default",
-  fontWeight: "default",
-  fontStyle: "default",
-  textTransform: "default",
-};
 
 const defaultImageStyles: StyledImageValue = {
   borderRadius: "default",
@@ -160,82 +98,10 @@ const defaultSharedTextStyle: SharedTextStyleProps = {
   fontColor: undefined,
 };
 
-const resolveStyledTextStyles = (
-  styles: StyledTextValue,
-  fontColor: ThemeColor | undefined,
-  fallbackColor: string,
-  fallbackFontFamily: string,
-  fallbackFontSize: string,
-  fallbackFontWeight: React.CSSProperties["fontWeight"],
-) => ({
-  color: getThemeColorCssValue(fontColor) ?? fallbackColor,
-  fontFamily:
-    styles.fontFamily === "default" ? fallbackFontFamily : styles.fontFamily,
-  fontSize: styles.fontSize === "default" ? fallbackFontSize : styles.fontSize,
-  fontWeight:
-    styles.fontWeight === "default" ? fallbackFontWeight : styles.fontWeight,
-  fontStyle: styles.fontStyle === "default" ? undefined : styles.fontStyle,
-  textTransform:
-    styles.textTransform === "default" ? undefined : styles.textTransform,
-});
 
-const createStringFieldDefault = (
-  defaultValue: string,
-): YextEntityField<TranslatableString> => ({
-  field: "",
-  constantValue: {
-    defaultValue,
-    hasLocalizedValue: "true",
-  },
-  constantValueEnabled: true,
-});
 
-const createRichTextFieldDefault = (
-  defaultValue: string,
-): YextEntityField<TranslatableRichText> => ({
-  field: "",
-  constantValue: {
-    defaultValue: getDefaultRTF(defaultValue),
-    hasLocalizedValue: "true",
-  },
-  constantValueEnabled: true,
-});
 
-const resolveTranslatableString = (
-  value: TranslatableString | undefined,
-  locale: string,
-) => {
-  if (typeof value === "string") {
-    return value;
-  }
 
-  if (!value) {
-    return "";
-  }
-
-  return value[locale] ?? value.defaultValue ?? "";
-};
-
-const hasImageSource = (
-  image: unknown,
-): image is ImageType | ComplexImageType | TranslatableAssetImage => {
-  if (!image || typeof image !== "object") {
-    return false;
-  }
-
-  if ("url" in image && typeof image.url === "string" && image.url.trim()) {
-    return true;
-  }
-
-  return Boolean(
-    "image" in image &&
-    image.image &&
-    typeof image.image === "object" &&
-    "url" in image.image &&
-    typeof image.image.url === "string" &&
-    image.image.url.trim(),
-  );
-};
 
 const createImageDefault = (url: string): ImageField["image"] => ({
   field: "",
@@ -247,38 +113,8 @@ const createImageDefault = (url: string): ImageField["image"] => ({
   constantValueEnabled: true,
 });
 
-const createCtaDefault = (label: string): AuthoredComprehensiveCTAValue => ({
-  data: {
-    actionType: "link",
-    cta: {
-      field: "",
-      constantValue: {
-        label: {
-          defaultValue: label,
-          hasLocalizedValue: "true",
-        },
-        link: { defaultValue: "#", hasLocalizedValue: "true" },
-        linkType: "URL",
-        ctaType: "textAndLink",
-      },
-      constantValueEnabled: true,
-      selectedType: "textAndLink",
-    },
-    openInNewTab: false,
-  },
-  styles: {
-    variant: "link",
-    link: {
-      fontFamily: "default",
-      fontSize: "default",
-      fontWeight: "default",
-      fontStyle: "default",
-      textTransform: "default",
-      letterSpacing: "default",
-      includeCaret: "none",
-    },
-  },
-});
+const createCtaDefault = (label: string): AuthoredComprehensiveCTAValue =>
+  createCta({ label, variant: "link", includeCaret: "none" });
 
 const blogItemsSource = createItemSource<BlogItemProps>({
   label: "Articles",
@@ -296,7 +132,6 @@ const blogItemsSource = createItemSource<BlogItemProps>({
     cta: {
       label: "Call to Action",
       type: "comprehensiveCTA",
-      ...{ showIncludeCaretField: false },
     },
     image: {
       type: "entityField",
@@ -422,7 +257,7 @@ const fields: YextFields<FamilyDestinationBlogProps> = {
               aspectRatio: {
                 label: "Aspect Ratio",
                 type: "basicSelector",
-                options: "ASPECT_RATIO",
+                options: aspectRatioOptions,
               },
               imageConstrain: {
                 label: "Image Constrain",
@@ -547,21 +382,14 @@ const Component: PuckComponent<FamilyDestinationBlogProps> = (props) => {
                 ? resolvedArticleImage
                 : undefined;
               const hasArticleImage = Boolean(articleImage);
-              const title = resolveTranslatableString(article.title, locale);
+              const title = article.title
+                ? resolveComponentData(article.title, locale)
+                : "";
               const description = authoredArticle?.description
                 ? resolveComponentData(
                     authoredArticle.description,
                     locale,
                     streamDocument,
-                    {
-                      richTextStyleOverrides: {
-                        ...props.articles.styles.itemDescription.styles,
-                        color:
-                          getThemeColorCssValue(
-                            props.articles.styles.itemDescription?.fontColor,
-                          ) ?? sectionForeground,
-                      },
-                    },
                   )
                 : null;
 
@@ -601,16 +429,13 @@ const Component: PuckComponent<FamilyDestinationBlogProps> = (props) => {
                         lineHeight: "26px",
                       }}
                     >
-                      {React.isValidElement(description) ? (
-                        description
-                      ) : typeof description === "string" ||
-                        (description &&
-                          typeof description === "object" &&
-                          "html" in description) ? (
-                        <MaybeRTF
-                          data={description as string | { html: string }}
-                        />
-                      ) : null}
+                      {renderRichText(description, {
+                        ...props.articles.styles.itemDescription.styles,
+                        color:
+                          getThemeColorCssValue(
+                            props.articles.styles.itemDescription?.fontColor,
+                          ) ?? sectionForeground,
+                      })}
                     </div>
                     {authoredArticle?.cta ? (
                       <EntityField
@@ -658,7 +483,7 @@ const Component: PuckComponent<FamilyDestinationBlogProps> = (props) => {
 export const FamilyDestinationBlog: YextComponentConfig<FamilyDestinationBlogProps> =
   {
     label: "Blog",
-    fields: toPuckFields(fields),
+    fields: toPuckFields<FamilyDestinationBlogProps>(fields),
     defaultProps: {
       heading: {
         text: {

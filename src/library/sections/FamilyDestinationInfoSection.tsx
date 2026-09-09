@@ -13,12 +13,11 @@ import {
   ComprehensiveCTA,
   EntityField,
   getAnalyticsScopeHash,
-  getDefaultRTF,
   getSurfaceColorStyle,
   getThemeColorCssValue,
-  MaybeRTF,
   resolveComponentData,
   type ComprehensiveCTAValue,
+  type MaybeRTFProps,
   type StyledTextValue,
   type ThemeColor,
   type TranslatableRichText,
@@ -30,7 +29,17 @@ import {
   useDocument,
   VisibilityWrapper,
 } from "@yext/visual-editor";
-import { parsePhoneNumber } from "awesome-phonenumber";
+import {
+  createCta,
+  createRichTextField,
+  createTextField,
+} from "../shared/sectionDefaults";
+import { formatPhoneNumber } from "@yext/visual-editor/section-library-support";
+import {
+  defaultTextStyles,
+  renderRichText,
+  resolveStyledTextStyles,
+} from "../shared/sectionStyles";
 
 type PhoneItemProps = {
   number: YextEntityField<string>;
@@ -98,68 +107,14 @@ export type FamilyDestinationInfoSectionProps = {
 };
 
 type RichTextStyleOverrides = NonNullable<
-  React.ComponentProps<typeof MaybeRTF>["richTextStyleOverrides"]
+  MaybeRTFProps["richTextStyleOverrides"]
 >;
 
-const defaultTextStyles: StyledTextValue = {
-  fontFamily: "default",
-  fontSize: "default",
-  fontWeight: "default",
-  fontStyle: "default",
-  textTransform: "default",
-};
 
-const createTextField = (
-  value: string,
-): YextEntityField<TranslatableString> => ({
-  field: "",
-  constantValue: {
-    defaultValue: value,
-    hasLocalizedValue: "true",
-  },
-  constantValueEnabled: true,
-});
 
-const createRichTextField = (
-  value: string,
-): YextEntityField<TranslatableRichText> => ({
-  field: "",
-  constantValue: {
-    defaultValue: getDefaultRTF(value),
-    hasLocalizedValue: "true",
-  },
-  constantValueEnabled: true,
-});
 
-const createLinkCta = (label: string, link: string): ComprehensiveCTAValue => ({
-  data: {
-    actionType: "link",
-    cta: {
-      field: "",
-      constantValue: {
-        label: { defaultValue: label, hasLocalizedValue: "true" },
-        link: { defaultValue: link, hasLocalizedValue: "true" },
-        linkType: "URL",
-        ctaType: "textAndLink",
-      },
-      constantValueEnabled: true,
-      selectedType: "textAndLink",
-    },
-    openInNewTab: false,
-  },
-  styles: {
-    variant: "link",
-    link: {
-      fontFamily: "default",
-      fontSize: "default",
-      fontWeight: "default",
-      fontStyle: "default",
-      textTransform: "default",
-      letterSpacing: "default",
-      includeCaret: "none",
-    },
-  },
-});
+const createLinkCta = (label: string, link: string): ComprehensiveCTAValue =>
+  createCta({ label, link, variant: "link", includeCaret: "none" });
 
 const getEntityFieldSummary = (
   value: YextEntityField<TranslatableString>,
@@ -170,78 +125,6 @@ const getEntityFieldSummary = (
     : value.constantValue?.defaultValue) ||
   value.field ||
   fallback;
-
-const resolveTextStyles = (
-  value: SharedTextStyles | undefined,
-  fallbackColor: string,
-  fallbackFontFamily: string,
-  fallbackFontSize: string,
-  fallbackFontWeight: React.CSSProperties["fontWeight"],
-): React.CSSProperties => ({
-  color: getThemeColorCssValue(value?.fontColor) ?? fallbackColor,
-  fontFamily:
-    !value?.styles?.fontFamily || value.styles.fontFamily === "default"
-      ? fallbackFontFamily
-      : value.styles.fontFamily,
-  fontSize:
-    !value?.styles?.fontSize || value.styles.fontSize === "default"
-      ? fallbackFontSize
-      : value.styles.fontSize,
-  fontWeight:
-    !value?.styles?.fontWeight || value.styles.fontWeight === "default"
-      ? fallbackFontWeight
-      : value.styles.fontWeight,
-  fontStyle:
-    !value?.styles?.fontStyle || value.styles.fontStyle === "default"
-      ? undefined
-      : value.styles.fontStyle,
-  textTransform:
-    !value?.styles?.textTransform || value.styles.textTransform === "default"
-      ? undefined
-      : value.styles.textTransform,
-});
-
-const formatPhoneNumber = (
-  phoneNumber: string,
-  format: "international" | "domestic",
-) => {
-  const cleanedPhoneNumber = phoneNumber.replace(/(?!^\+)\+|[^\d+]/g, "");
-  const parsedPhoneNumber = parsePhoneNumber(cleanedPhoneNumber);
-
-  if (!parsedPhoneNumber.valid || !parsedPhoneNumber.number) {
-    return phoneNumber;
-  }
-
-  return format === "international"
-    ? parsedPhoneNumber.number.international
-    : parsedPhoneNumber.number.national;
-};
-
-const renderResolvedRichText = (
-  value: unknown,
-  richTextStyleOverrides: RichTextStyleOverrides,
-) => {
-  if (React.isValidElement(value)) {
-    return value;
-  }
-
-  if (typeof value === "string") {
-    return (
-      <MaybeRTF data={value} richTextStyleOverrides={richTextStyleOverrides} />
-    );
-  }
-
-  if (value && typeof value === "object" && "html" in value) {
-    return (
-      <MaybeRTF
-        data={value as { html: string }}
-        richTextStyleOverrides={richTextStyleOverrides}
-      />
-    );
-  }
-
-  return null;
-};
 
 const fields: YextFields<FamilyDestinationInfoSectionProps> = {
   section: {
@@ -511,22 +394,25 @@ const InfoComponent: PuckComponent<FamilyDestinationInfoSectionProps> = (
     streamDocument,
   );
   const sectionForeground = sectionStyle?.color ?? "currentColor";
-  const headingStyles = resolveTextStyles(
-    props.styles?.headings,
+  const headingStyles = resolveStyledTextStyles(
+    props.styles?.headings.styles,
+    props.styles?.headings.fontColor,
     sectionForeground,
     "var(--fontFamily-h2-fontFamily)",
     "var(--fontSize-h2-fontSize)",
     "var(--fontWeight-h2-fontWeight)",
   );
-  const subheadingStyles = resolveTextStyles(
-    props.styles?.subheadings,
+  const subheadingStyles = resolveStyledTextStyles(
+    props.styles?.subheadings.styles,
+    props.styles?.subheadings.fontColor,
     sectionForeground,
     "var(--fontFamily-body-fontFamily)",
     "var(--fontSize-body-fontSize)",
     "var(--fontWeight-body-fontWeight)",
   );
-  const bodyStyles = resolveTextStyles(
-    props.styles?.body,
+  const bodyStyles = resolveStyledTextStyles(
+    props.styles?.body.styles,
+    props.styles?.body.fontColor,
     sectionForeground,
     "var(--fontFamily-body-fontFamily)",
     "var(--fontSize-body-fontSize)",
@@ -572,7 +458,6 @@ const InfoComponent: PuckComponent<FamilyDestinationInfoSectionProps> = (
     props.summary.accessibility.text,
     locale,
     streamDocument,
-    { richTextStyleOverrides },
   );
   const checkInOutSubheading =
     resolveComponentData(
@@ -584,7 +469,6 @@ const InfoComponent: PuckComponent<FamilyDestinationInfoSectionProps> = (
     props.summary.checkInOut.text,
     locale,
     streamDocument,
-    { richTextStyleOverrides },
   );
   const serviceHoursHeading =
     resolveComponentData(props.serviceHours.heading, locale, streamDocument) ||
@@ -767,7 +651,7 @@ const InfoComponent: PuckComponent<FamilyDestinationInfoSectionProps> = (
                 }
               >
                 <div className="tracking-[0.25px]" style={bodyStyles}>
-                  {renderResolvedRichText(
+                  {renderRichText(
                     accessibilityText,
                     richTextStyleOverrides,
                   )}
@@ -795,7 +679,7 @@ const InfoComponent: PuckComponent<FamilyDestinationInfoSectionProps> = (
                 }
               >
                 <div className="tracking-[0.25px]" style={bodyStyles}>
-                  {renderResolvedRichText(
+                  {renderRichText(
                     checkInOutText,
                     richTextStyleOverrides,
                   )}
@@ -934,7 +818,7 @@ const InfoComponent: PuckComponent<FamilyDestinationInfoSectionProps> = (
 export const FamilyDestinationInfoSection: YextComponentConfig<FamilyDestinationInfoSectionProps> =
   {
     label: "Info Section",
-    fields: toPuckFields(fields),
+    fields: toPuckFields<FamilyDestinationInfoSectionProps>(fields),
     defaultProps: {
       section: {
         visibleOnLivePage: true,
