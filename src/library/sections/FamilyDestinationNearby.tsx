@@ -3,6 +3,7 @@ import type { SectionConfig } from "@yext/visual-editor";
 import * as React from "react";
 import type { PuckComponent } from "@puckeditor/core";
 import { Address, AnalyticsScopeProvider, Link } from "@yext/pages-components";
+import { useTranslation } from "react-i18next";
 import {
   Background,
   EntityField,
@@ -24,6 +25,7 @@ import {
   type YextComponentConfig,
   type YextEntityField,
   type YextFields,
+  msg,
 } from "@yext/visual-editor";
 import { createTextField } from "../shared/sectionDefaults";
 import { formatPhoneNumber } from "@yext/visual-editor/section-library-support";
@@ -78,92 +80,92 @@ const defaultSharedTextStyle: SharedTextStyleProps = {
 
 const fields: YextFields<FamilyDestinationNearbyProps> = {
   section: {
-    label: "Section",
+    label: msg("fields.section", "Section"),
     type: "object",
     objectFields: {
       visibleOnLivePage: {
-        label: "Visible on Live Page",
+        label: msg("fields.visibleOnLivePage", "Visible on Live Page"),
         type: "radio",
         options: [
-          { label: "Yes", value: true },
-          { label: "No", value: false },
+          { label: msg("fields.options.yes", "Yes"), value: true },
+          { label: msg("fields.options.no", "No"), value: false },
         ],
       },
       backgroundColor: {
-        label: "Background Color",
+        label: msg("fields.backgroundColor", "Background Color"),
         type: "basicSelector",
         options: "BACKGROUND_COLOR",
       },
     },
   },
   heading: {
-    label: "Section Heading",
+    label: msg("fields.sectionHeading", "Section Heading"),
     type: "object",
     objectFields: {
       text: {
         type: "entityField",
-        label: "Text",
+        label: msg("fields.text", "Text"),
         filter: { types: ["type.string"] },
       },
       styles: {
-        label: "Text Styles",
+        label: msg("fields.textStyles", "Text Styles"),
         type: "styledText",
       },
       fontColor: {
-        label: "Font Color",
+        label: msg("fields.fontColor", "Font Color"),
         type: "basicSelector",
         options: "SITE_COLOR",
       },
     },
   },
-  radius: { label: "Radius Miles", type: "number", min: 1, max: 100 },
-  limit: { label: "Limit", type: "number", min: 1, max: 10 },
+  radius: { label: msg("fields.radiusMiles", "Radius Miles"), type: "number", min: 1, max: 100 },
+  limit: { label: msg("fields.limit", "Limit"), type: "number", min: 1, max: 10 },
   map: {
-    label: "Map",
+    label: msg("fields.map", "Map"),
     type: "object",
     objectFields: {
       coordinate: {
         type: "entityField",
-        label: "Coordinates",
+        label: msg("fields.coordinates", "Coordinates"),
         filter: { types: ["type.coordinate"] },
       },
       mapStyle: {
-        label: "Mapbox Map Style",
+        label: msg("fields.mapboxMapStyle", "Mapbox Map Style"),
         type: "select",
         options: mapboxStaticMapStyleOptions,
       },
-      zoom: { label: "Zoom", type: "number", min: 0, max: 22 },
+      zoom: { label: msg("fields.zoom", "Zoom"), type: "number", min: 0, max: 22 },
     },
   },
   locationCard: {
-    label: "Location Card",
+    label: msg("fields.locationCard", "Location Card"),
     type: "object",
     objectFields: {
       nearbyLocationHeading: {
-        label: "Nearby Location Heading",
+        label: msg("fields.nearbyLocationHeading", "Nearby Location Heading"),
         type: "object",
         objectFields: {
           styles: {
-            label: "Text Styles",
+            label: msg("fields.textStyles", "Text Styles"),
             type: "styledText",
           },
           fontColor: {
-            label: "Font Color",
+            label: msg("fields.fontColor", "Font Color"),
             type: "basicSelector",
             options: "SITE_COLOR",
           },
         },
       },
       nearbyLocationBody: {
-        label: "Nearby Location Body",
+        label: msg("fields.nearbyLocationBody", "Nearby Location Body"),
         type: "object",
         objectFields: {
           styles: {
-            label: "Text Styles",
+            label: msg("fields.textStyles", "Text Styles"),
             type: "styledText",
           },
           fontColor: {
-            label: "Font Color",
+            label: msg("fields.fontColor", "Font Color"),
             type: "basicSelector",
             options: "SITE_COLOR",
           },
@@ -174,6 +176,7 @@ const fields: YextFields<FamilyDestinationNearbyProps> = {
 };
 
 const Component: PuckComponent<FamilyDestinationNearbyProps> = (props) => {
+  const { t } = useTranslation();
   const streamDocument = useDocument<NearbyStreamDocument>();
   const locale = streamDocument.locale ?? "en";
   const { relativePrefixToRoot } = useTemplateProps<{
@@ -305,7 +308,12 @@ const Component: PuckComponent<FamilyDestinationNearbyProps> = (props) => {
             {shouldShowNearbyColumn ? (
               <div className="order-1 flex flex-1 flex-col gap-8 opacity-[0.819] lg:order-2">
                 {status === "pending" ? (
-                  <p>Loading nearby locations</p>
+                  <p>
+                    {t(
+                      "loadingNearbyLocations",
+                      "Loading nearby locations",
+                    )}
+                  </p>
                 ) : docs.length ? (
                   docs.map((locationData, index) => {
                     const resolvedUrl = resolveUrlTemplate(
@@ -369,7 +377,12 @@ const Component: PuckComponent<FamilyDestinationNearbyProps> = (props) => {
                     );
                   })
                 ) : (
-                  <p>No nearby locations found for this location</p>
+                  <p>
+                    {t(
+                      "noNearbyLocationsFoundForThisLocation",
+                      "No nearby locations found for this location",
+                    )}
+                  </p>
                 )}
               </div>
             ) : null}

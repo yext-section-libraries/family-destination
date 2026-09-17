@@ -1,10 +1,12 @@
 import * as React from "react";
-import { EntityField } from "@yext/visual-editor/section-library-support";
+import {
+  EditorButton,
+  EntityField,
+} from "@yext/visual-editor/section-library-support";
 import { pt } from "@yext/visual-editor/section-library-support";
 import { themeManagerCn } from "@yext/visual-editor/section-library-support";
 import { AssetImageType } from "@yext/visual-editor/section-library-support";
 import { ImagePlus } from "lucide-react";
-import { Button } from "@yext/visual-editor/section-library-support";
 import {
   TARGET_ORIGINS,
   useSendMessageToParent,
@@ -44,7 +46,7 @@ export const EmptyImageState: React.FC<EmptyImageStateProps> = ({
 }) => {
   const { sendToParent: openImageAssetSelector } = useSendMessageToParent(
     "constantValueEditorOpened",
-    TARGET_ORIGINS
+    TARGET_ORIGINS,
   );
 
   // Listen for image selection response
@@ -58,7 +60,7 @@ export const EmptyImageState: React.FC<EmptyImageStateProps> = ({
         pendingEmptyImageSession = undefined;
         apply(imagePayload);
       }
-    }
+    },
   );
 
   const handleImageSelection = React.useCallback(() => {
@@ -143,11 +145,11 @@ export const EmptyImageState: React.FC<EmptyImageStateProps> = ({
             className={themeManagerCn(
               containerClassName ||
                 "max-w-full rounded-image-borderRadius w-full",
-              "border-2 border-dashed border-gray-300 flex items-center justify-center bg-gray-50 hover:bg-gray-100 transition-colors overflow-hidden relative"
+              "border-2 border-dashed border-gray-300 flex items-center justify-center bg-gray-50 hover:bg-gray-100 transition-colors overflow-hidden relative",
             )}
             style={containerStyle}
           >
-            <Button
+            <EditorButton
               variant="ghost"
               size="icon"
               className="text-gray-400 hover:text-gray-600 hover:bg-transparent"
@@ -160,7 +162,7 @@ export const EmptyImageState: React.FC<EmptyImageStateProps> = ({
               aria-label={pt("addImage", "Add Image")}
             >
               <ImagePlus size={24} className="stroke-2" />
-            </Button>
+            </EditorButton>
           </div>
         </div>
       </EntityField>

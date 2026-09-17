@@ -2,6 +2,7 @@ import type { SectionConfig } from "@yext/visual-editor";
 
 import * as React from "react";
 import type { PuckComponent } from "@puckeditor/core";
+import { useTranslation } from "react-i18next";
 import {
   AnalyticsScopeProvider,
   type ComplexImageType,
@@ -30,6 +31,7 @@ import {
   type YextComponentConfig,
   type YextEntityField,
   type YextFields,
+  msg,
 } from "@yext/visual-editor";
 import { hasImageSource } from "../shared/imageUtils";
 
@@ -79,123 +81,123 @@ export type FamilyDestinationHeroProps = {
 
 const fields: YextFields<FamilyDestinationHeroProps> = {
   section: {
-    label: "Section",
+    label: msg("fields.section", "Section"),
     type: "object",
     objectFields: {
       visibleOnLivePage: {
-        label: "Visible on Live Page",
+        label: msg("fields.visibleOnLivePage", "Visible on Live Page"),
         type: "radio",
         options: [
-          { label: "Yes", value: true },
-          { label: "No", value: false },
+          { label: msg("fields.options.yes", "Yes"), value: true },
+          { label: msg("fields.options.no", "No"), value: false },
         ],
       },
       backgroundColor: {
-        label: "Background Color",
+        label: msg("fields.backgroundColor", "Background Color"),
         type: "basicSelector",
         options: "BACKGROUND_COLOR",
       },
       badgeBackgroundColor: {
-        label: "Badge Background Color",
+        label: msg("fields.badgeBackgroundColor", "Badge Background Color"),
         type: "basicSelector",
         options: "BACKGROUND_COLOR",
       },
     },
   },
   eyebrow: {
-    label: "Eyebrow",
+    label: msg("fields.eyebrow", "Eyebrow"),
     type: "object",
     objectFields: {
       text: {
         type: "entityField",
-        label: "Text",
+        label: msg("fields.text", "Text"),
         filter: { types: ["type.string"] },
       },
-      styles: { label: "Text Styles", type: "styledText" },
+      styles: { label: msg("fields.textStyles", "Text Styles"), type: "styledText" },
       fontColor: {
-        label: "Font Color",
+        label: msg("fields.fontColor", "Font Color"),
         type: "basicSelector",
         options: "SITE_COLOR",
       },
     },
   },
   heading: {
-    label: "Heading",
+    label: msg("fields.heading", "Heading"),
     type: "object",
     objectFields: {
       text: {
         type: "entityField",
-        label: "Text",
+        label: msg("fields.text", "Text"),
         filter: { types: ["type.string"] },
       },
-      styles: { label: "Text Styles", type: "styledText" },
+      styles: { label: msg("fields.textStyles", "Text Styles"), type: "styledText" },
       fontColor: {
-        label: "Font Color",
+        label: msg("fields.fontColor", "Font Color"),
         type: "basicSelector",
         options: "SITE_COLOR",
       },
     },
   },
   body: {
-    label: "Body",
+    label: msg("fields.body", "Body"),
     type: "object",
     objectFields: {
       text: {
         type: "entityField",
-        label: "Text",
+        label: msg("fields.text", "Text"),
         filter: { types: ["type.rich_text_v2"] },
       },
-      styles: { label: "Text Styles", type: "styledText" },
+      styles: { label: msg("fields.textStyles", "Text Styles"), type: "styledText" },
       fontColor: {
-        label: "Font Color",
+        label: msg("fields.fontColor", "Font Color"),
         type: "basicSelector",
         options: "SITE_COLOR",
       },
     },
   },
   badge: {
-    label: "Badge",
+    label: msg("fields.badge", "Badge"),
     type: "object",
     objectFields: {
       text: {
         type: "entityField",
-        label: "Text",
+        label: msg("fields.text", "Text"),
         filter: { types: ["type.string"] },
       },
-      styles: { label: "Text Styles", type: "styledText" },
+      styles: { label: msg("fields.textStyles", "Text Styles"), type: "styledText" },
       fontColor: {
-        label: "Font Color",
+        label: msg("fields.fontColor", "Font Color"),
         type: "basicSelector",
         options: "SITE_COLOR",
       },
     },
   },
   image: {
-    label: "Hero Image",
+    label: msg("fields.heroImage", "Hero Image"),
     type: "object",
     objectFields: {
       image: {
         type: "entityField",
-        label: "Image",
+        label: msg("fields.image", "Image"),
         filter: { types: ["type.image"] },
       },
       imageConstrain: {
-        label: "Image Constrain",
+        label: msg("fields.imageConstrain", "Image Constrain"),
         type: "select",
         options: [
-          { label: "Fixed", value: "fixed" },
-          { label: "Filled", value: "filled" },
+          { label: msg("fields.options.fixed", "Fixed"), value: "fixed" },
+          { label: msg("fields.options.filled", "Filled"), value: "filled" },
         ],
       },
     },
   },
   primaryCta: {
-    label: "Primary Call to Action",
+    label: msg("fields.primaryCallToAction", "Primary Call to Action"),
     type: "comprehensiveCTA",
     showIncludeCaretField: false,
   },
   secondaryCta: {
-    label: "Secondary Call to Action",
+    label: msg("fields.secondaryCallToAction", "Secondary Call to Action"),
     type: "comprehensiveCTA",
     showIncludeCaretField: false,
   },
@@ -214,6 +216,7 @@ const StarRow = ({ rating }: { rating: number }) => (
 const HeroComponent: PuckComponent<FamilyDestinationHeroProps> = (
   props,
 ) => {
+  const { t } = useTranslation();
   const streamDocument = useDocument();
   const locale = streamDocument.locale ?? "en";
   const image = resolveComponentData(props.image.image, locale, streamDocument);
@@ -417,9 +420,19 @@ const HeroComponent: PuckComponent<FamilyDestinationHeroProps> = (
                 className="flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-2.5"
                 style={bodyTextStyle}
               >
-                <span>{rating.toFixed(1)} stars</span>
+                <span>
+                  {t("ratingInStars", {
+                    defaultValue: "{{rating}} / 5 Stars",
+                    rating: rating.toFixed(1),
+                  })}
+                </span>
                 <StarRow rating={rating} />
-                <span>from {count.toLocaleString()} guest reviews</span>
+                <span>
+                  {t("guestReviews", {
+                    defaultValue: "{{count}} guest reviews",
+                    count,
+                  })}
+                </span>
               </div>
             ) : null}
             <div className="flex flex-col items-start gap-8 sm:flex-row sm:items-center">

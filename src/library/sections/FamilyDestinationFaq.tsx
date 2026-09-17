@@ -21,6 +21,7 @@ import {
   type YextComponentConfig,
   type YextEntityField,
   type YextFields,
+  msg,
 } from "@yext/visual-editor";
 import {
   createRichTextField as createRichTextFieldDefault,
@@ -95,16 +96,16 @@ const createHeadingDefault = (defaultValue: string): StyledTextProps => ({
 
 
 const faqItemsSource = createItemSource<FaqItemProps>({
-  label: "FAQ Items",
+  label: msg("fields.faqItems", "FAQ Items"),
   mappingFields: {
     question: {
       type: "entityField",
-      label: "Question",
+      label: msg("fields.question", "Question"),
       filter: { types: ["type.string"] },
     },
     answer: {
       type: "entityField",
-      label: "Answer",
+      label: msg("fields.answer", "Answer"),
       filter: { types: ["type.rich_text_v2"] },
     },
   },
@@ -150,78 +151,78 @@ const faqItemsSource = createItemSource<FaqItemProps>({
 
 const fields: YextFields<FamilyDestinationFaqProps> = {
   section: {
-    label: "Section",
+    label: msg("fields.section", "Section"),
     type: "object",
     objectFields: {
       visibleOnLivePage: {
-        label: "Visible on Live Page",
+        label: msg("fields.visibleOnLivePage", "Visible on Live Page"),
         type: "radio",
         options: [
-          { label: "Yes", value: true },
-          { label: "No", value: false },
+          { label: msg("fields.options.yes", "Yes"), value: true },
+          { label: msg("fields.options.no", "No"), value: false },
         ],
       },
       backgroundColor: {
-        label: "Background Color",
+        label: msg("fields.backgroundColor", "Background Color"),
         type: "basicSelector",
         options: "BACKGROUND_COLOR",
       },
     },
   },
   heading: {
-    label: "Heading",
+    label: msg("fields.heading", "Heading"),
     type: "object",
     objectFields: {
       text: {
         type: "entityField",
-        label: "Text",
+        label: msg("fields.text", "Text"),
         filter: { types: ["type.string"] },
       },
       styles: {
-        label: "Text Styles",
+        label: msg("fields.textStyles", "Text Styles"),
         type: "styledText",
       },
       fontColor: {
-        label: "Font Color",
+        label: msg("fields.fontColor", "Font Color"),
         type: "basicSelector",
         options: "SITE_COLOR",
       },
     },
   },
   items: {
-    label: "FAQ Items",
+    label: msg("fields.faqItems", "FAQ Items"),
     type: "object",
     objectFields: {
       data: faqItemsSource.field,
       styles: {
-        label: "Styles",
+        label: msg("fields.styles", "Styles"),
         type: "object",
         objectFields: {
           question: {
-            label: "Question",
+            label: msg("fields.question", "Question"),
             type: "object",
             objectFields: {
               styles: {
-                label: "Text Styles",
+                label: msg("fields.textStyles", "Text Styles"),
                 type: "styledText",
               },
               fontColor: {
-                label: "Font Color",
+                label: msg("fields.fontColor", "Font Color"),
                 type: "basicSelector",
                 options: "SITE_COLOR",
               },
             },
           },
           answer: {
-            label: "Answer",
+            label: msg("fields.answer", "Answer"),
             type: "object",
             objectFields: {
               styles: {
-                label: "Text Styles",
+                label: msg("fields.textStyles", "Text Styles"),
                 type: "styledText",
               },
               fontColor: {
-                label: "Font Color",
+                label: msg("fields.fontColor", "Font Color"),
                 type: "basicSelector",
                 options: "SITE_COLOR",
               },

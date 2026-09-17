@@ -31,6 +31,7 @@ import {
   type YextComponentConfig,
   type YextEntityField,
   type YextFields,
+  msg,
 } from "@yext/visual-editor";
 import {
   createCta,
@@ -124,25 +125,25 @@ const createTextCta = (label: string): AuthoredComprehensiveCTAValue =>
 
 
 const amenitiesSource = createItemSource<AmenityItemProps>({
-  label: "Amenities",
+  label: msg("fields.amenities", "Amenities"),
   mappingFields: {
     title: {
       type: "entityField",
-      label: "Title",
+      label: msg("fields.title", "Title"),
       filter: { types: ["type.string"] },
     },
     description: {
       type: "entityField",
-      label: "Description",
+      label: msg("fields.description", "Description"),
       filter: { types: ["type.rich_text_v2"] },
     },
     iconImage: {
       type: "entityField",
-      label: "Icon Image",
+      label: msg("fields.iconImage", "Icon Image"),
       filter: { types: ["type.image"] },
     },
     action: {
-      label: "CTA",
+      label: msg("fields.cta", "CTA"),
       type: "comprehensiveCTA",
     },
   },
@@ -186,90 +187,90 @@ export type FamilyDestinationAmenitiesProps = {
 
 const fields: YextFields<FamilyDestinationAmenitiesProps> = {
   section: {
-    label: "Section",
+    label: msg("fields.section", "Section"),
     type: "object",
     objectFields: {
       visibleOnLivePage: {
-        label: "Visible on Live Page",
+        label: msg("fields.visibleOnLivePage", "Visible on Live Page"),
         type: "radio",
         options: [
-          { label: "Yes", value: true },
-          { label: "No", value: false },
+          { label: msg("fields.options.yes", "Yes"), value: true },
+          { label: msg("fields.options.no", "No"), value: false },
         ],
       },
       backgroundColor: {
-        label: "Background Color",
+        label: msg("fields.backgroundColor", "Background Color"),
         type: "basicSelector",
         options: "BACKGROUND_COLOR",
       },
     },
   },
   heading: {
-    label: "Heading",
+    label: msg("fields.heading", "Heading"),
     type: "object",
     objectFields: {
       text: {
         type: "entityField",
-        label: "Text",
+        label: msg("fields.text", "Text"),
         filter: { types: ["type.string"] },
       },
       styles: {
-        label: "Text Styles",
+        label: msg("fields.textStyles", "Text Styles"),
         type: "styledText",
       },
       fontColor: {
-        label: "Font Color",
+        label: msg("fields.fontColor", "Font Color"),
         type: "basicSelector",
         options: "SITE_COLOR",
       },
     },
   },
   amenities: {
-    label: "Amenities",
+    label: msg("fields.amenities", "Amenities"),
     type: "object",
     objectFields: {
       data: amenitiesSource.field,
       styles: {
-        label: "Styles",
+        label: msg("fields.styles", "Styles"),
         type: "object",
         objectFields: {
           itemTitle: {
-            label: "Item Title",
+            label: msg("fields.itemTitle", "Item Title"),
             type: "object",
             objectFields: {
               styles: {
-                label: "Text Styles",
+                label: msg("fields.textStyles", "Text Styles"),
                 type: "styledText",
               },
               fontColor: {
-                label: "Font Color",
+                label: msg("fields.fontColor", "Font Color"),
                 type: "basicSelector",
                 options: "SITE_COLOR",
               },
             },
           },
           itemDescription: {
-            label: "Item Description",
+            label: msg("fields.itemDescription", "Item Description"),
             type: "object",
             objectFields: {
               styles: {
-                label: "Text Styles",
+                label: msg("fields.textStyles", "Text Styles"),
                 type: "styledText",
               },
               fontColor: {
-                label: "Font Color",
+                label: msg("fields.fontColor", "Font Color"),
                 type: "basicSelector",
                 options: "SITE_COLOR",
               },
             },
           },
           iconBorderColor: {
-            label: "Icon Border Color",
+            label: msg("fields.iconBorderColor", "Icon Border Color"),
             type: "basicSelector",
             options: "SITE_COLOR",
           },
           iconBackgroundColor: {
-            label: "Icon Background Color",
+            label: msg("fields.iconBackgroundColor", "Icon Background Color"),
             type: "basicSelector",
             options: "SITE_COLOR",
           },
@@ -278,20 +279,20 @@ const fields: YextFields<FamilyDestinationAmenitiesProps> = {
     },
   },
   image: {
-    label: "Image",
+    label: msg("fields.image", "Image"),
     type: "object",
     objectFields: {
       image: {
         type: "entityField",
-        label: "Image",
+        label: msg("fields.image", "Image"),
         filter: { types: ["type.image"] },
       },
       imageConstrain: {
-        label: "Image Constrain",
+        label: msg("fields.imageConstrain", "Image Constrain"),
         type: "select",
         options: [
-          { label: "Fixed", value: "fixed" },
-          { label: "Filled", value: "filled" },
+          { label: msg("fields.options.fixed", "Fixed"), value: "fixed" },
+          { label: msg("fields.options.filled", "Filled"), value: "filled" },
         ],
       },
     },
