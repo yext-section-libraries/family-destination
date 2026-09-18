@@ -3,6 +3,7 @@ import type { SectionConfig } from "@yext/visual-editor";
 import * as React from "react";
 import type { PuckComponent } from "@puckeditor/core";
 import { AnalyticsScopeProvider } from "@yext/pages-components";
+import { useTranslation } from "react-i18next";
 import {
   Background,
   EntityField,
@@ -20,6 +21,7 @@ import {
   type YextComponentConfig,
   type YextEntityField,
   type YextFields,
+  msg,
 } from "@yext/visual-editor";
 
 import {
@@ -61,88 +63,88 @@ export type FamilyDestinationReviewsProps = {
 
 const fields: YextFields<FamilyDestinationReviewsProps> = {
   section: {
-    label: "Section",
+    label: msg("fields.section", "Section"),
     type: "object",
     objectFields: {
       visibleOnLivePage: {
-        label: "Visible on Live Page",
+        label: msg("fields.visibleOnLivePage", "Visible on Live Page"),
         type: "radio",
         options: [
-          { label: "Yes", value: true },
-          { label: "No", value: false },
+          { label: msg("fields.options.yes", "Yes"), value: true },
+          { label: msg("fields.options.no", "No"), value: false },
         ],
       },
       backgroundColor: {
-        label: "Background Color",
+        label: msg("fields.backgroundColor", "Background Color"),
         type: "basicSelector",
         options: "BACKGROUND_COLOR",
       },
     },
   },
   heading: {
-    label: "Heading",
+    label: msg("fields.heading", "Heading"),
     type: "object",
     objectFields: {
       text: {
         type: "entityField",
-        label: "Text",
+        label: msg("fields.text", "Text"),
         filter: { types: ["type.string"] },
       },
       styles: {
-        label: "Text Styles",
+        label: msg("fields.textStyles", "Text Styles"),
         type: "styledText",
       },
       fontColor: {
-        label: "Font Color",
+        label: msg("fields.fontColor", "Font Color"),
         type: "basicSelector",
         options: "SITE_COLOR",
       },
     },
   },
   reviewCard: {
-    label: "Review Card",
+    label: msg("fields.reviewCard", "Review Card"),
     type: "object",
     objectFields: {
       stars: {
-        label: "Stars",
+        label: msg("fields.stars", "Stars"),
         type: "object",
         objectFields: {
           styles: {
-            label: "Text Styles",
+            label: msg("fields.textStyles", "Text Styles"),
             type: "styledText",
           },
           fontColor: {
-            label: "Font Color",
+            label: msg("fields.fontColor", "Font Color"),
             type: "basicSelector",
             options: "SITE_COLOR",
           },
         },
       },
       reviewText: {
-        label: "Review Text",
+        label: msg("fields.reviewText", "Review Text"),
         type: "object",
         objectFields: {
           styles: {
-            label: "Text Styles",
+            label: msg("fields.textStyles", "Text Styles"),
             type: "styledText",
           },
           fontColor: {
-            label: "Font Color",
+            label: msg("fields.fontColor", "Font Color"),
             type: "basicSelector",
             options: "SITE_COLOR",
           },
         },
       },
       reviewName: {
-        label: "Review Name",
+        label: msg("fields.reviewName", "Review Name"),
         type: "object",
         objectFields: {
           styles: {
-            label: "Text Styles",
+            label: msg("fields.textStyles", "Text Styles"),
             type: "styledText",
           },
           fontColor: {
-            label: "Font Color",
+            label: msg("fields.fontColor", "Font Color"),
             type: "basicSelector",
             options: "SITE_COLOR",
           },
@@ -189,6 +191,7 @@ const sampleReviews: Review[] = [
 ];
 
 const Component: PuckComponent<FamilyDestinationReviewsProps> = (props) => {
+  const { t } = useTranslation();
   const streamDocument = useDocument<StreamDocumentWithReviews>();
   const locale = streamDocument.locale ?? "en";
   const heading =
@@ -281,11 +284,17 @@ const Component: PuckComponent<FamilyDestinationReviewsProps> = (props) => {
           <div className="flex w-full flex-col items-start gap-5 lg:items-center">
             <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-2.5">
               <span style={starsStyle}>
-                {rating.toFixed(1).replace(/\.0$/, "")} / 5 stars
+                {t("ratingInStars", {
+                  defaultValue: "{{rating}} / 5 Stars",
+                  rating: rating.toFixed(1).replace(/\.0$/, ""),
+                })}
               </span>
               <StarRow rating={rating} style={starsStyle} />
               <span style={starsStyle}>
-                from {count.toLocaleString()} guest reviews
+                {t("guestReviews", {
+                  defaultValue: "{{count}} guest reviews",
+                  count,
+                })}
               </span>
             </div>
             <div className="flex w-full flex-col items-stretch gap-6 lg:flex-row">
@@ -299,7 +308,12 @@ const Component: PuckComponent<FamilyDestinationReviewsProps> = (props) => {
                     className="flex min-h-[22.4px] items-center gap-2"
                     style={starsStyle}
                   >
-                    <span>{review.rating ?? 5} / 5 stars</span>
+                    <span>
+                      {t("ratingInStars", {
+                        defaultValue: "{{rating}} / 5 Stars",
+                        rating: review.rating ?? 5,
+                      })}
+                    </span>
                     <StarRow rating={review.rating ?? 5} style={starsStyle} />
                   </div>
                   <p

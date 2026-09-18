@@ -30,6 +30,7 @@ import {
   type YextComponentConfig,
   type YextEntityField,
   type YextFields,
+  msg,
 } from "@yext/visual-editor";
 import { createCta, createTextField } from "../shared/sectionDefaults";
 import { aspectRatioOptions } from "../shared/fieldOptions";
@@ -90,25 +91,25 @@ const createCtaDefault = (label: string): AuthoredComprehensiveCTAValue =>
   createCta({ label, variant: "link", includeCaret: "none" });
 
 const roomSource = createItemSource<RoomItemProps>({
-  label: "Rooms",
+  label: msg("fields.rooms", "Rooms"),
   mappingFields: {
     title: {
       type: "entityField",
-      label: "Title",
+      label: msg("fields.title", "Title"),
       filter: { types: ["type.string"] },
     },
     description: {
       type: "entityField",
-      label: "Description",
+      label: msg("fields.description", "Description"),
       filter: { types: ["type.string"] },
     },
     image: {
       type: "entityField",
-      label: "Image",
+      label: msg("fields.image", "Image"),
       filter: { types: ["type.image"] },
     },
     cta: {
-      label: "CTA",
+      label: msg("fields.cta", "CTA"),
       type: "comprehensiveCTA",
     },
   },
@@ -172,122 +173,122 @@ export type FamilyDestinationAccommodationsProps = {
 
 const fields: YextFields<FamilyDestinationAccommodationsProps> = {
   section: {
-    label: "Section",
+    label: msg("fields.section", "Section"),
     type: "object",
     objectFields: {
       visibleOnLivePage: {
-        label: "Visible on Live Page",
+        label: msg("fields.visibleOnLivePage", "Visible on Live Page"),
         type: "radio",
         options: [
-          { label: "Yes", value: true },
-          { label: "No", value: false },
+          { label: msg("fields.options.yes", "Yes"), value: true },
+          { label: msg("fields.options.no", "No"), value: false },
         ],
       },
       backgroundColor: {
-        label: "Background Color",
+        label: msg("fields.backgroundColor", "Background Color"),
         type: "basicSelector",
         options: "BACKGROUND_COLOR",
       },
     },
   },
   heading: {
-    label: "Heading",
+    label: msg("fields.heading", "Heading"),
     type: "object",
     objectFields: {
       text: {
         type: "entityField",
-        label: "Text",
+        label: msg("fields.text", "Text"),
         filter: { types: ["type.string"] },
       },
       styles: {
-        label: "Text Styles",
+        label: msg("fields.textStyles", "Text Styles"),
         type: "styledText",
       },
       fontColor: {
-        label: "Font Color",
+        label: msg("fields.fontColor", "Font Color"),
         type: "basicSelector",
         options: "SITE_COLOR",
       },
     },
   },
   description: {
-    label: "Description",
+    label: msg("fields.description", "Description"),
     type: "object",
     objectFields: {
       text: {
         type: "entityField",
-        label: "Text",
+        label: msg("fields.text", "Text"),
         filter: { types: ["type.string"] },
       },
       styles: {
-        label: "Text Styles",
+        label: msg("fields.textStyles", "Text Styles"),
         type: "styledText",
       },
       fontColor: {
-        label: "Font Color",
+        label: msg("fields.fontColor", "Font Color"),
         type: "basicSelector",
         options: "SITE_COLOR",
       },
     },
   },
   rooms: {
-    label: "Rooms",
+    label: msg("fields.rooms", "Rooms"),
     type: "object",
     objectFields: {
       data: roomSource.field,
       styles: {
-        label: "Styles",
+        label: msg("fields.styles", "Styles"),
         type: "object",
         objectFields: {
           heading: {
-            label: "Item Heading",
+            label: msg("fields.itemHeading", "Item Heading"),
             type: "object",
             objectFields: {
               styles: {
-                label: "Text Styles",
+                label: msg("fields.textStyles", "Text Styles"),
                 type: "styledText",
               },
               fontColor: {
-                label: "Font Color",
+                label: msg("fields.fontColor", "Font Color"),
                 type: "basicSelector",
                 options: "SITE_COLOR",
               },
             },
           },
           description: {
-            label: "Item Description",
+            label: msg("fields.itemDescription", "Item Description"),
             type: "object",
             objectFields: {
               styles: {
-                label: "Text Styles",
+                label: msg("fields.textStyles", "Text Styles"),
                 type: "styledText",
               },
               fontColor: {
-                label: "Font Color",
+                label: msg("fields.fontColor", "Font Color"),
                 type: "basicSelector",
                 options: "SITE_COLOR",
               },
             },
           },
           image: {
-            label: "Room Image",
+            label: msg("fields.roomImage", "Room Image"),
             type: "object",
             objectFields: {
               aspectRatio: {
-                label: "Aspect Ratio",
+                label: msg("fields.aspectRatio", "Aspect Ratio"),
                 type: "basicSelector",
                 options: aspectRatioOptions,
               },
               imageConstrain: {
-                label: "Image Constrain",
+                label: msg("fields.imageConstrain", "Image Constrain"),
                 type: "select",
                 options: [
-                  { label: "Fixed", value: "fixed" },
-                  { label: "Filled", value: "filled" },
+                  { label: msg("fields.options.fixed", "Fixed"), value: "fixed" },
+                  { label: msg("fields.options.filled", "Filled"), value: "filled" },
                 ],
               },
               styles: {
-                label: "Image Styles",
+                label: msg("fields.imageStyles", "Image Styles"),
                 type: "styledImage",
               },
             },

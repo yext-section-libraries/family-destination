@@ -25,6 +25,7 @@ import {
   type YextComponentConfig,
   type YextEntityField,
   type YextFields,
+  msg,
 } from "@yext/visual-editor";
 import { createTextField } from "../shared/sectionDefaults";
 import {
@@ -101,83 +102,83 @@ const defaultSharedTextStyle: SharedTextStyleProps = {
 
 const fields: YextFields<FamilyDestinationFooterProps> = {
   section: {
-    label: "Section",
+    label: msg("fields.section", "Section"),
     type: "object",
     objectFields: {
       visibleOnLivePage: {
-        label: "Visible on Live Page",
+        label: msg("fields.visibleOnLivePage", "Visible on Live Page"),
         type: "radio",
         options: [
-          { label: "Yes", value: true },
-          { label: "No", value: false },
+          { label: msg("fields.options.yes", "Yes"), value: true },
+          { label: msg("fields.options.no", "No"), value: false },
         ],
       },
       backgroundColor: {
-        label: "Background Color",
+        label: msg("fields.backgroundColor", "Background Color"),
         type: "basicSelector",
         options: "BACKGROUND_COLOR",
       },
     },
   },
   logo: {
-    label: "Name",
+    label: msg("fields.name", "Name"),
     type: "object",
     objectFields: {
       text: {
         type: "entityField",
-        label: "Text",
+        label: msg("fields.text", "Text"),
         filter: {
           types: ["type.string"],
         },
       },
       styles: {
-        label: "Text Styles",
+        label: msg("fields.textStyles", "Text Styles"),
         type: "styledText",
       },
       fontColor: {
-        label: "Font Color",
+        label: msg("fields.fontColor", "Font Color"),
         type: "basicSelector",
         options: "SITE_COLOR",
       },
     },
   },
   address: {
-    label: "Address",
+    label: msg("fields.address", "Address"),
     type: "object",
     objectFields: {
       address: {
         type: "entityField",
-        label: "Address",
+        label: msg("fields.address", "Address"),
         filter: {
           types: ["type.address"],
         },
       },
       showRegion: {
-        label: "Show Region",
+        label: msg("fields.showRegion", "Show Region"),
         type: "radio",
         options: [
-          { label: "Yes", value: true },
-          { label: "No", value: false },
+          { label: msg("fields.options.yes", "Yes"), value: true },
+          { label: msg("fields.options.no", "No"), value: false },
         ],
       },
       showCountry: {
-        label: "Show Country",
+        label: msg("fields.showCountry", "Show Country"),
         type: "radio",
         options: [
-          { label: "Yes", value: true },
-          { label: "No", value: false },
+          { label: msg("fields.options.yes", "Yes"), value: true },
+          { label: msg("fields.options.no", "No"), value: false },
         ],
       },
       styles: {
-        label: "Location Text",
+        label: msg("fields.locationText", "Location Text"),
         type: "object",
         objectFields: {
           styles: {
-            label: "Text Styles",
+            label: msg("fields.textStyles", "Text Styles"),
             type: "styledText",
           },
           fontColor: {
-            label: "Font Color",
+            label: msg("fields.fontColor", "Font Color"),
             type: "basicSelector",
             options: "SITE_COLOR",
           },
@@ -186,23 +187,23 @@ const fields: YextFields<FamilyDestinationFooterProps> = {
     },
   },
   phone: {
-    label: "Phone",
+    label: msg("fields.phone", "Phone"),
     type: "object",
     objectFields: {
       items: {
-        label: "Items",
+        label: msg("fields.items", "Items"),
         type: "array",
         arrayFields: {
           number: {
             type: "entityField",
-            label: "Number",
+            label: msg("fields.number", "Number"),
             filter: {
               types: ["type.phone"],
             },
           },
           label: {
             type: "entityField",
-            label: "Label",
+            label: msg("fields.label", "Label"),
             filter: {
               types: ["type.string"],
             },
@@ -225,66 +226,66 @@ const fields: YextFields<FamilyDestinationFooterProps> = {
           "Phone",
       },
       phoneFormat: {
-        label: "Phone Format",
+        label: msg("fields.phoneFormat", "Phone Format"),
         type: "radio",
         options: [
-          { label: "Domestic", value: "domestic" },
-          { label: "International", value: "international" },
+          { label: msg("fields.options.domestic", "Domestic"), value: "domestic" },
+          { label: msg("fields.options.international", "International"), value: "international" },
         ],
       },
       includeHyperlink: {
-        label: "Include Hyperlink",
+        label: msg("fields.includeHyperlink", "Include Hyperlink"),
         type: "radio",
         options: [
-          { label: "Yes", value: true },
-          { label: "No", value: false },
+          { label: msg("fields.options.yes", "Yes"), value: true },
+          { label: msg("fields.options.no", "No"), value: false },
         ],
       },
     },
   },
   websiteUrl: {
     type: "entityField",
-    label: "Website URL",
+    label: msg("fields.websiteUrl", "Website URL"),
     filter: {
       types: ["type.string"],
     },
   },
   quickLinks: {
-    label: "Quick Links",
+    label: msg("fields.quickLinks", "Quick Links"),
     type: "object",
     objectFields: {
       title: {
-        label: "Title",
+        label: msg("fields.title", "Title"),
         type: "object",
         objectFields: {
           text: {
             type: "entityField",
-            label: "Text",
+            label: msg("fields.text", "Text"),
             filter: { types: ["type.string"] },
           },
           styles: {
-            label: "Text Styles",
+            label: msg("fields.textStyles", "Text Styles"),
             type: "styledText",
           },
           fontColor: {
-            label: "Font Color",
+            label: msg("fields.fontColor", "Font Color"),
             type: "basicSelector",
             options: "SITE_COLOR",
           },
         },
       },
       data: {
-        label: "Links",
+        label: msg("fields.links", "Links"),
         type: "array",
         arrayFields: {
           label: {
             type: "entityField",
-            label: "Label",
+            label: msg("fields.label", "Label"),
             filter: { types: ["type.string"] },
           },
           link: {
             type: "entityField",
-            label: "Link",
+            label: msg("fields.link", "Link"),
             filter: { types: ["type.string"] },
           },
         },
@@ -300,48 +301,48 @@ const fields: YextFields<FamilyDestinationFooterProps> = {
           "Link",
       },
       fontColor: {
-        label: "Font Color",
+        label: msg("fields.fontColor", "Font Color"),
         type: "basicSelector",
         options: "SITE_COLOR",
       },
     },
   },
   socialLinks: {
-    label: "Social Links",
+    label: msg("fields.socialLinks", "Social Links"),
     type: "object",
     objectFields: {
       title: {
-        label: "Title",
+        label: msg("fields.title", "Title"),
         type: "object",
         objectFields: {
           text: {
             type: "entityField",
-            label: "Text",
+            label: msg("fields.text", "Text"),
             filter: { types: ["type.string"] },
           },
           styles: {
-            label: "Text Styles",
+            label: msg("fields.textStyles", "Text Styles"),
             type: "styledText",
           },
           fontColor: {
-            label: "Font Color",
+            label: msg("fields.fontColor", "Font Color"),
             type: "basicSelector",
             options: "SITE_COLOR",
           },
         },
       },
       data: {
-        label: "Links",
+        label: msg("fields.links", "Links"),
         type: "array",
         arrayFields: {
           label: {
             type: "entityField",
-            label: "Label",
+            label: msg("fields.label", "Label"),
             filter: { types: ["type.string"] },
           },
           link: {
             type: "entityField",
-            label: "Link",
+            label: msg("fields.link", "Link"),
             filter: { types: ["type.string"] },
           },
         },
@@ -357,7 +358,7 @@ const fields: YextFields<FamilyDestinationFooterProps> = {
           "Link",
       },
       fontColor: {
-        label: "Font Color",
+        label: msg("fields.fontColor", "Font Color"),
         type: "basicSelector",
         options: "SITE_COLOR",
       },

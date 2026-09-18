@@ -32,6 +32,7 @@ import {
   type YextComponentConfig,
   type YextEntityField,
   type YextFields,
+  msg,
 } from "@yext/visual-editor";
 import {
   createCta,
@@ -117,25 +118,25 @@ const createCtaDefault = (label: string): AuthoredComprehensiveCTAValue =>
   createCta({ label, variant: "link", includeCaret: "none" });
 
 const blogItemsSource = createItemSource<BlogItemProps>({
-  label: "Articles",
+  label: msg("fields.articles", "Articles"),
   mappingFields: {
     title: {
       type: "entityField",
-      label: "Title",
+      label: msg("fields.title", "Title"),
       filter: { types: ["type.string"] },
     },
     description: {
       type: "entityField",
-      label: "Description",
+      label: msg("fields.description", "Description"),
       filter: { types: ["type.rich_text_v2"] },
     },
     cta: {
-      label: "Call to Action",
+      label: msg("fields.callToAction", "Call to Action"),
       type: "comprehensiveCTA",
     },
     image: {
       type: "entityField",
-      label: "Image",
+      label: msg("fields.image", "Image"),
       filter: { types: ["type.image"] },
     },
   },
@@ -176,99 +177,99 @@ export type FamilyDestinationBlogProps = {
 
 const fields: YextFields<FamilyDestinationBlogProps> = {
   section: {
-    label: "Section",
+    label: msg("fields.section", "Section"),
     type: "object",
     objectFields: {
       visibleOnLivePage: {
-        label: "Visible on Live Page",
+        label: msg("fields.visibleOnLivePage", "Visible on Live Page"),
         type: "radio",
         options: [
-          { label: "Yes", value: true },
-          { label: "No", value: false },
+          { label: msg("fields.options.yes", "Yes"), value: true },
+          { label: msg("fields.options.no", "No"), value: false },
         ],
       },
       backgroundColor: {
-        label: "Background Color",
+        label: msg("fields.backgroundColor", "Background Color"),
         type: "basicSelector",
         options: "BACKGROUND_COLOR",
       },
     },
   },
   heading: {
-    label: "Heading",
+    label: msg("fields.heading", "Heading"),
     type: "object",
     objectFields: {
       text: {
         type: "entityField",
-        label: "Text",
+        label: msg("fields.text", "Text"),
         filter: { types: ["type.string"] },
       },
-      styles: { label: "Text Styles", type: "styledText" },
+      styles: { label: msg("fields.textStyles", "Text Styles"), type: "styledText" },
       fontColor: {
-        label: "Font Color",
+        label: msg("fields.fontColor", "Font Color"),
         type: "basicSelector",
         options: "SITE_COLOR",
       },
     },
   },
   articles: {
-    label: "Articles",
+    label: msg("fields.articles", "Articles"),
     type: "object",
     objectFields: {
       data: blogItemsSource.field,
       styles: {
-        label: "Styles",
+        label: msg("fields.styles", "Styles"),
         type: "object",
         objectFields: {
           itemHeading: {
-            label: "Item Heading",
+            label: msg("fields.itemHeading", "Item Heading"),
             type: "object",
             objectFields: {
               styles: {
-                label: "Text Styles",
+                label: msg("fields.textStyles", "Text Styles"),
                 type: "styledText",
               },
               fontColor: {
-                label: "Font Color",
+                label: msg("fields.fontColor", "Font Color"),
                 type: "basicSelector",
                 options: "SITE_COLOR",
               },
             },
           },
           itemDescription: {
-            label: "Item Description",
+            label: msg("fields.itemDescription", "Item Description"),
             type: "object",
             objectFields: {
               styles: {
-                label: "Text Styles",
+                label: msg("fields.textStyles", "Text Styles"),
                 type: "styledText",
               },
               fontColor: {
-                label: "Font Color",
+                label: msg("fields.fontColor", "Font Color"),
                 type: "basicSelector",
                 options: "SITE_COLOR",
               },
             },
           },
           image: {
-            label: "Image",
+            label: msg("fields.image", "Image"),
             type: "object",
             objectFields: {
               aspectRatio: {
-                label: "Aspect Ratio",
+                label: msg("fields.aspectRatio", "Aspect Ratio"),
                 type: "basicSelector",
                 options: aspectRatioOptions,
               },
               imageConstrain: {
-                label: "Image Constrain",
+                label: msg("fields.imageConstrain", "Image Constrain"),
                 type: "select",
                 options: [
-                  { label: "Fixed", value: "fixed" },
-                  { label: "Filled", value: "filled" },
+                  { label: msg("fields.options.fixed", "Fixed"), value: "fixed" },
+                  { label: msg("fields.options.filled", "Filled"), value: "filled" },
                 ],
               },
               styles: {
-                label: "Image Styles",
+                label: msg("fields.imageStyles", "Image Styles"),
                 type: "styledImage",
               },
             },

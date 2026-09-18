@@ -3,6 +3,7 @@ import type { SectionConfig } from "@yext/visual-editor";
 import * as React from "react";
 import type { PuckComponent } from "@puckeditor/core";
 import { AnalyticsScopeProvider, Link } from "@yext/pages-components";
+import { useTranslation } from "react-i18next";
 import {
   Background,
   EntityField,
@@ -21,6 +22,7 @@ import {
   type YextComponentConfig,
   type YextEntityField,
   type YextFields,
+  msg,
 } from "@yext/visual-editor";
 import { defaultTextStyles } from "../shared/sectionStyles";
 
@@ -47,50 +49,50 @@ export type FamilyDestinationBreadcrumbsProps = {
 
 const fields: YextFields<FamilyDestinationBreadcrumbsProps> = {
   section: {
-    label: "Section",
+    label: msg("fields.section", "Section"),
     type: "object",
     objectFields: {
       visibleOnLivePage: {
-        label: "Visible on Live Page",
+        label: msg("fields.visibleOnLivePage", "Visible on Live Page"),
         type: "radio",
         options: [
-          { label: "Yes", value: true },
-          { label: "No", value: false },
+          { label: msg("fields.options.yes", "Yes"), value: true },
+          { label: msg("fields.options.no", "No"), value: false },
         ],
       },
       backgroundColor: {
-        label: "Background Color",
+        label: msg("fields.backgroundColor", "Background Color"),
         type: "basicSelector",
         options: "BACKGROUND_COLOR",
       },
     },
   },
   rootLabel: {
-    label: "Root Label",
+    label: msg("fields.rootLabel", "Root Label"),
     type: "object",
     objectFields: {
       text: {
         type: "entityField",
-        label: "Text",
+        label: msg("fields.text", "Text"),
         filter: { types: ["type.string"] },
       },
       styles: {
-        label: "Text Styles",
+        label: msg("fields.textStyles", "Text Styles"),
         type: "styledText",
       },
       fontColor: {
-        label: "Font Color",
+        label: msg("fields.fontColor", "Font Color"),
         type: "basicSelector",
         options: "SITE_COLOR",
       },
     },
   },
   includeCurrentLocation: {
-    label: "Include Current Location",
+    label: msg("fields.includeCurrentLocation", "Include Current Location"),
     type: "radio",
     options: [
-      { label: "Yes", value: true },
-      { label: "No", value: false },
+      { label: msg("fields.options.yes", "Yes"), value: true },
+      { label: msg("fields.options.no", "No"), value: false },
     ],
   },
 };
@@ -98,6 +100,7 @@ const fields: YextFields<FamilyDestinationBreadcrumbsProps> = {
 const Component: PuckComponent<FamilyDestinationBreadcrumbsProps> = (
   props,
 ) => {
+  const { t } = useTranslation();
   const streamDocument = useDocument<BreadcrumbsStreamDocument>();
   const locale = streamDocument.locale ?? "en";
   const breadcrumbs = resolveBreadcrumbs(streamDocument);
@@ -151,8 +154,10 @@ const Component: PuckComponent<FamilyDestinationBreadcrumbsProps> = (
           padding: "18px 24px",
         }}
       >
-        No breadcrumbs available (section will be hidden on live page). Create a
-        directory to enable breadcrumbs.
+        {t(
+          "noBreadcrumbs",
+          "No breadcrumbs available (section will be hidden on live page). Create a directory to enable breadcrumbs.",
+        )}
       </p>
     ) : (
       <></>
@@ -173,7 +178,7 @@ const Component: PuckComponent<FamilyDestinationBreadcrumbsProps> = (
           className="px-5 py-4 lg:px-12"
           style={sectionStyle}
         >
-          <nav aria-label="Breadcrumb">
+          <nav aria-label={t("breadcrumb", "Breadcrumb")}>
             <ol
               className="m-0 flex list-none flex-wrap items-center gap-y-1 p-0"
               style={{

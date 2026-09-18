@@ -2,6 +2,7 @@ import type { SectionConfig } from "@yext/visual-editor";
 
 import * as React from "react";
 import type { PuckComponent } from "@puckeditor/core";
+import { useTranslation } from "react-i18next";
 import {
   Address,
   AnalyticsScopeProvider,
@@ -25,6 +26,7 @@ import {
   type YextComponentConfig,
   type YextEntityField,
   type YextFields,
+  msg,
   toPuckFields,
   useDocument,
   VisibilityWrapper,
@@ -128,93 +130,93 @@ const getEntityFieldSummary = (
 
 const fields: YextFields<FamilyDestinationInfoSectionProps> = {
   section: {
-    label: "Section",
+    label: msg("fields.section", "Section"),
     type: "object",
     objectFields: {
       visibleOnLivePage: {
-        label: "Visible on Live Page",
+        label: msg("fields.visibleOnLivePage", "Visible on Live Page"),
         type: "radio",
         options: [
-          { label: "Yes", value: true },
-          { label: "No", value: false },
+          { label: msg("fields.options.yes", "Yes"), value: true },
+          { label: msg("fields.options.no", "No"), value: false },
         ],
       },
       backgroundColor: {
-        label: "Background Color",
+        label: msg("fields.backgroundColor", "Background Color"),
         type: "basicSelector",
         options: "BACKGROUND_COLOR",
       },
       panelBorderColor: {
-        label: "Panel Border Color",
+        label: msg("fields.panelBorderColor", "Panel Border Color"),
         type: "basicSelector",
         options: "BACKGROUND_COLOR",
       },
     },
   },
   summary: {
-    label: "Summary",
+    label: msg("fields.summary", "Summary"),
     type: "object",
     objectFields: {
       heading: {
         type: "entityField",
-        label: "Heading",
+        label: msg("fields.heading", "Heading"),
         filter: { types: ["type.string"] },
       },
       address: {
-        label: "Address",
+        label: msg("fields.address", "Address"),
         type: "object",
         objectFields: {
           subheading: {
             type: "entityField",
-            label: "Subheading",
+            label: msg("fields.subheading", "Subheading"),
             filter: { types: ["type.string"] },
           },
           address: {
             type: "entityField",
-            label: "Address",
+            label: msg("fields.address", "Address"),
             filter: { types: ["type.address"] },
           },
           showRegion: {
-            label: "Show Region",
+            label: msg("fields.showRegion", "Show Region"),
             type: "radio",
             options: [
-              { label: "Yes", value: true },
-              { label: "No", value: false },
+              { label: msg("fields.options.yes", "Yes"), value: true },
+              { label: msg("fields.options.no", "No"), value: false },
             ],
           },
           showCountry: {
-            label: "Show Country",
+            label: msg("fields.showCountry", "Show Country"),
             type: "radio",
             options: [
-              { label: "Yes", value: true },
-              { label: "No", value: false },
+              { label: msg("fields.options.yes", "Yes"), value: true },
+              { label: msg("fields.options.no", "No"), value: false },
             ],
           },
         },
       },
       phone: {
-        label: "Phone",
+        label: msg("fields.phone", "Phone"),
         type: "object",
         objectFields: {
           subheading: {
             type: "entityField",
-            label: "Subheading",
+            label: msg("fields.subheading", "Subheading"),
             filter: { types: ["type.string"] },
           },
           phoneNumbers: {
-            label: "Phone Numbers",
+            label: msg("fields.phoneNumbers", "Phone Numbers"),
             type: "object",
             objectFields: {
               items: {
-                label: "Items",
+                label: msg("fields.items", "Items"),
                 type: "array",
                 arrayFields: {
                   number: {
                     type: "entityField",
-                    label: "Number",
+                    label: msg("fields.number", "Number"),
                     filter: { types: ["type.phone"] },
                   },
-                  label: { label: "Label", type: "text" },
+                  label: { label: msg("fields.label", "Label"), type: "text" },
                 },
                 defaultItemProps: {
                   number: {
@@ -231,19 +233,19 @@ const fields: YextFields<FamilyDestinationInfoSectionProps> = {
                   "Phone",
               },
               phoneFormat: {
-                label: "Phone Format",
+                label: msg("fields.phoneFormat", "Phone Format"),
                 type: "radio",
                 options: [
-                  { label: "Domestic", value: "domestic" },
-                  { label: "International", value: "international" },
+                  { label: msg("fields.options.domestic", "Domestic"), value: "domestic" },
+                  { label: msg("fields.options.international", "International"), value: "international" },
                 ],
               },
               includeHyperlink: {
-                label: "Include Hyperlink",
+                label: msg("fields.includeHyperlink", "Include Hyperlink"),
                 type: "radio",
                 options: [
-                  { label: "Yes", value: true },
-                  { label: "No", value: false },
+                  { label: msg("fields.options.yes", "Yes"), value: true },
+                  { label: msg("fields.options.no", "No"), value: false },
                 ],
               },
             },
@@ -251,68 +253,68 @@ const fields: YextFields<FamilyDestinationInfoSectionProps> = {
         },
       },
       accessibility: {
-        label: "Accessibility",
+        label: msg("fields.accessibility", "Accessibility"),
         type: "object",
         objectFields: {
           subheading: {
             type: "entityField",
-            label: "Subheading",
+            label: msg("fields.subheading", "Subheading"),
             filter: { types: ["type.string"] },
           },
           text: {
             type: "entityField",
-            label: "Text",
+            label: msg("fields.text", "Text"),
             filter: { types: ["type.rich_text_v2"] },
           },
         },
       },
       checkInOut: {
-        label: "Check In/Out",
+        label: msg("fields.checkInOut", "Check In/Out"),
         type: "object",
         objectFields: {
           subheading: {
             type: "entityField",
-            label: "Subheading",
+            label: msg("fields.subheading", "Subheading"),
             filter: { types: ["type.string"] },
           },
           text: {
             type: "entityField",
-            label: "Text",
+            label: msg("fields.text", "Text"),
             filter: { types: ["type.rich_text_v2"] },
           },
         },
       },
       primaryCta: {
-        label: "Primary Call to Action",
+        label: msg("fields.primaryCallToAction", "Primary Call to Action"),
         type: "comprehensiveCTA",
       },
       secondaryCta: {
-        label: "Secondary Call to Action",
+        label: msg("fields.secondaryCallToAction", "Secondary Call to Action"),
         type: "comprehensiveCTA",
       },
     },
   },
   serviceHours: {
-    label: "Service Hours",
+    label: msg("fields.serviceHours", "Service Hours"),
     type: "object",
     objectFields: {
       heading: {
         type: "entityField",
-        label: "Heading",
+        label: msg("fields.heading", "Heading"),
         filter: { types: ["type.string"] },
       },
       items: {
-        label: "Items",
+        label: msg("fields.items", "Items"),
         type: "array",
         arrayFields: {
           label: {
             type: "entityField",
-            label: "Label",
+            label: msg("fields.label", "Label"),
             filter: { types: ["type.string"] },
           },
           value: {
             type: "entityField",
-            label: "Value",
+            label: msg("fields.value", "Value"),
             filter: { types: ["type.string"] },
           },
         },
@@ -325,56 +327,56 @@ const fields: YextFields<FamilyDestinationInfoSectionProps> = {
     },
   },
   complimentaryServices: {
-    label: "Complimentary Services",
+    label: msg("fields.complimentaryServices", "Complimentary Services"),
     type: "object",
     objectFields: {
       heading: {
         type: "entityField",
-        label: "Heading",
+        label: msg("fields.heading", "Heading"),
         filter: { types: ["type.string"] },
       },
       items: {
         type: "entityField",
-        label: "Services",
+        label: msg("fields.services", "Services"),
         filter: { types: ["type.string"], includeListsOnly: true },
       },
     },
   },
   styles: {
-    label: "Styles",
+    label: msg("fields.styles", "Styles"),
     type: "object",
     objectFields: {
       headings: {
-        label: "Headings",
+        label: msg("fields.headings", "Headings"),
         type: "object",
         objectFields: {
-          styles: { label: "Text Styles", type: "styledText" },
+          styles: { label: msg("fields.textStyles", "Text Styles"), type: "styledText" },
           fontColor: {
-            label: "Font Color",
+            label: msg("fields.fontColor", "Font Color"),
             type: "basicSelector",
             options: "SITE_COLOR",
           },
         },
       },
       subheadings: {
-        label: "Subheadings",
+        label: msg("fields.subheadings", "Subheadings"),
         type: "object",
         objectFields: {
-          styles: { label: "Text Styles", type: "styledText" },
+          styles: { label: msg("fields.textStyles", "Text Styles"), type: "styledText" },
           fontColor: {
-            label: "Font Color",
+            label: msg("fields.fontColor", "Font Color"),
             type: "basicSelector",
             options: "SITE_COLOR",
           },
         },
       },
       body: {
-        label: "Body",
+        label: msg("fields.body", "Body"),
         type: "object",
         objectFields: {
-          styles: { label: "Text Styles", type: "styledText" },
+          styles: { label: msg("fields.textStyles", "Text Styles"), type: "styledText" },
           fontColor: {
-            label: "Font Color",
+            label: msg("fields.fontColor", "Font Color"),
             type: "basicSelector",
             options: "SITE_COLOR",
           },
@@ -387,6 +389,7 @@ const fields: YextFields<FamilyDestinationInfoSectionProps> = {
 const InfoComponent: PuckComponent<FamilyDestinationInfoSectionProps> = (
   props,
 ) => {
+  const { t } = useTranslation();
   const streamDocument = useDocument();
   const locale = streamDocument.locale ?? "en";
   const sectionStyle = getSurfaceColorStyle(
@@ -540,7 +543,7 @@ const InfoComponent: PuckComponent<FamilyDestinationInfoSectionProps> = (
           background={props.section.backgroundColor}
           className="yext-family-destination-info-section flex flex-col items-stretch gap-10 px-5 py-10 lg:flex-row lg:gap-20 lg:px-12 lg:py-20"
           style={sectionStyle}
-          aria-label="Hotel information"
+          aria-label={t("hotelInformation", "Hotel information")}
         >
           <article
             className="flex min-w-0 flex-1 flex-col gap-4 border p-5"

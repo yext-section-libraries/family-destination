@@ -28,6 +28,7 @@ import {
   type YextComponentConfig,
   type YextEntityField,
   type YextFields,
+  msg,
 } from "@yext/visual-editor";
 import {
   createCta,
@@ -104,76 +105,76 @@ const createButtonCta = (label: string): AuthoredComprehensiveCTAValue =>
 
 const fields: YextFields<FamilyDestinationEventsProps> = {
   section: {
-    label: "Section",
+    label: msg("fields.section", "Section"),
     type: "object",
     objectFields: {
       visibleOnLivePage: {
-        label: "Visible on Live Page",
+        label: msg("fields.visibleOnLivePage", "Visible on Live Page"),
         type: "radio",
         options: [
-          { label: "Yes", value: true },
-          { label: "No", value: false },
+          { label: msg("fields.options.yes", "Yes"), value: true },
+          { label: msg("fields.options.no", "No"), value: false },
         ],
       },
       panelBackgroundColor: {
-        label: "Panel Background Color",
+        label: msg("fields.panelBackgroundColor", "Panel Background Color"),
         type: "basicSelector",
         options: "BACKGROUND_COLOR",
       },
     },
   },
   heading: {
-    label: "Heading",
+    label: msg("fields.heading", "Heading"),
     type: "object",
     objectFields: {
       text: {
         type: "entityField",
-        label: "Text",
+        label: msg("fields.text", "Text"),
         filter: { types: ["type.string"] },
       },
       styles: {
-        label: "Text Styles",
+        label: msg("fields.textStyles", "Text Styles"),
         type: "styledText",
       },
       fontColor: {
-        label: "Font Color",
+        label: msg("fields.fontColor", "Font Color"),
         type: "basicSelector",
         options: "SITE_COLOR",
       },
     },
   },
   description: {
-    label: "Description",
+    label: msg("fields.description", "Description"),
     type: "object",
     objectFields: {
       text: {
         type: "entityField",
-        label: "Text",
+        label: msg("fields.text", "Text"),
         filter: { types: ["type.rich_text_v2"] },
       },
       styles: {
-        label: "Text Styles",
+        label: msg("fields.textStyles", "Text Styles"),
         type: "styledText",
       },
       fontColor: {
-        label: "Font Color",
+        label: msg("fields.fontColor", "Font Color"),
         type: "basicSelector",
         options: "SITE_COLOR",
       },
     },
   },
   cta: {
-    label: "Call To Action",
+    label: msg("fields.callToAction", "Call to Action"),
     type: "comprehensiveCTA",
     showIncludeCaretField: false,
   },
   image: {
-    label: "Background Image",
+    label: msg("fields.backgroundImage", "Background Image"),
     type: "object",
     objectFields: {
       image: {
         type: "entityField",
-        label: "Image",
+        label: msg("fields.image", "Image"),
         filter: { types: ["type.image"] },
       },
     },
