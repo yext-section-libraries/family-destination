@@ -16,7 +16,6 @@ import {
   getAnalyticsScopeHash,
   getDefaultRTF,
   getSurfaceColorStyle,
-  getThemeColorCssValue,
   Image,
   resolveComponentData,
   type ComprehensiveCTAValue,
@@ -32,13 +31,16 @@ import {
   type YextEntityField,
   type YextFields,
   msg,
+  pt,
 } from "@yext/visual-editor";
 import { hasImageSource } from "../shared/imageUtils";
+import { formatRating, getLocalizedCountOptions } from "../shared/localization";
 
 import {
   defaultTextStyles,
   getScopedTypographyCss,
   renderRichText,
+  resolveRichTextStyles,
   resolveStyledTextStyles,
 } from "../shared/sectionStyles";
 
@@ -47,13 +49,11 @@ const typographyStyles = getScopedTypographyCss("yext-family-destination-hero");
 type StyledTextProps = {
   text: YextEntityField<TranslatableString>;
   styles: StyledTextValue;
-  fontColor?: ThemeColor;
 };
 
 type StyledRichTextProps = {
   text: YextEntityField<TranslatableRichText>;
   styles: StyledTextValue;
-  fontColor?: ThemeColor;
 };
 
 type ImageField = {
@@ -113,12 +113,8 @@ const fields: YextFields<FamilyDestinationHeroProps> = {
         label: msg("fields.text", "Text"),
         filter: { types: ["type.string"] },
       },
-      styles: { label: msg("fields.textStyles", "Text Styles"), type: "styledText" },
-      fontColor: {
-        label: msg("fields.fontColor", "Font Color"),
-        type: "basicSelector",
-        options: "SITE_COLOR",
-      },
+      styles: { label: msg("fields.textStyles", "Text Styles"), type: "styledText",
+        includeColor: true },
     },
   },
   heading: {
@@ -130,12 +126,8 @@ const fields: YextFields<FamilyDestinationHeroProps> = {
         label: msg("fields.text", "Text"),
         filter: { types: ["type.string"] },
       },
-      styles: { label: msg("fields.textStyles", "Text Styles"), type: "styledText" },
-      fontColor: {
-        label: msg("fields.fontColor", "Font Color"),
-        type: "basicSelector",
-        options: "SITE_COLOR",
-      },
+      styles: { label: msg("fields.textStyles", "Text Styles"), type: "styledText",
+        includeColor: true },
     },
   },
   body: {
@@ -147,12 +139,8 @@ const fields: YextFields<FamilyDestinationHeroProps> = {
         label: msg("fields.text", "Text"),
         filter: { types: ["type.rich_text_v2"] },
       },
-      styles: { label: msg("fields.textStyles", "Text Styles"), type: "styledText" },
-      fontColor: {
-        label: msg("fields.fontColor", "Font Color"),
-        type: "basicSelector",
-        options: "SITE_COLOR",
-      },
+      styles: { label: msg("fields.textStyles", "Text Styles"), type: "styledText",
+        includeColor: true },
     },
   },
   badge: {
@@ -164,12 +152,8 @@ const fields: YextFields<FamilyDestinationHeroProps> = {
         label: msg("fields.text", "Text"),
         filter: { types: ["type.string"] },
       },
-      styles: { label: msg("fields.textStyles", "Text Styles"), type: "styledText" },
-      fontColor: {
-        label: msg("fields.fontColor", "Font Color"),
-        type: "basicSelector",
-        options: "SITE_COLOR",
-      },
+      styles: { label: msg("fields.textStyles", "Text Styles"), type: "styledText",
+        includeColor: true },
     },
   },
   image: {
@@ -216,7 +200,7 @@ const StarRow = ({ rating }: { rating: number }) => (
 const HeroComponent: PuckComponent<FamilyDestinationHeroProps> = (
   props,
 ) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const streamDocument = useDocument();
   const locale = streamDocument.locale ?? "en";
   const image = resolveComponentData(props.image.image, locale, streamDocument);
@@ -267,11 +251,11 @@ const HeroComponent: PuckComponent<FamilyDestinationHeroProps> = (
   );
   const bodyTextStyle = resolveStyledTextStyles(
     props.body.styles,
-    props.body?.fontColor,
     panelForeground,
     "var(--fontFamily-body-fontFamily)",
     "var(--fontSize-body-fontSize)",
     "var(--fontWeight-body-fontWeight)",
+    "var(--textTransform-body-textTransform)",
   );
   const primaryCtaValue: Partial<ComprehensiveCTAValue> = {
     data: props.primaryCta.data,
@@ -307,7 +291,7 @@ const HeroComponent: PuckComponent<FamilyDestinationHeroProps> = (
             <div className="h-[327px] w-full sm:h-[724px] lg:h-auto lg:min-h-[852px] lg:flex-1">
               <div className="h-full w-full">
                 <EntityField
-                  displayName="Hero Image"
+                  displayName={pt("fields.heroImage", "Hero Image")}
                   fieldId={props.image.image.field}
                   constantValueEnabled={props.image.image.constantValueEnabled}
                   fullHeight
@@ -342,7 +326,7 @@ const HeroComponent: PuckComponent<FamilyDestinationHeroProps> = (
               style={badgeStyle}
             >
               <EntityField
-                displayName="Badge"
+                displayName={pt("fields.badge", "Badge")}
                 fieldId={props.badge.text.field}
                 constantValueEnabled={props.badge.text.constantValueEnabled}
               >
@@ -350,11 +334,11 @@ const HeroComponent: PuckComponent<FamilyDestinationHeroProps> = (
                   className="m-0"
                   style={resolveStyledTextStyles(
                     props.badge.styles,
-                    props.badge?.fontColor,
                     badgeForeground,
                     "var(--fontFamily-h4-fontFamily), Georgia, serif",
                     "var(--fontSize-h4-fontSize)",
                     "var(--fontWeight-h4-fontWeight)",
+                    "var(--textTransform-h4-textTransform), Georgia, serif",
                   )}
                 >
                   {badge}
@@ -363,7 +347,7 @@ const HeroComponent: PuckComponent<FamilyDestinationHeroProps> = (
             </Background>
             <div className="flex flex-col gap-2.5">
               <EntityField
-                displayName="Eyebrow"
+                displayName={pt("fields.eyebrow", "Eyebrow")}
                 fieldId={props.eyebrow.text.field}
                 constantValueEnabled={props.eyebrow.text.constantValueEnabled}
               >
@@ -371,18 +355,18 @@ const HeroComponent: PuckComponent<FamilyDestinationHeroProps> = (
                   className="m-0"
                   style={resolveStyledTextStyles(
                     props.eyebrow.styles,
-                    props.eyebrow?.fontColor,
                     panelForeground,
                     "var(--fontFamily-h3-fontFamily)",
                     "var(--fontSize-h3-fontSize)",
                     "var(--fontWeight-h3-fontWeight)",
+                    "var(--textTransform-h3-textTransform)",
                   )}
                 >
                   {eyebrow}
                 </p>
               </EntityField>
               <EntityField
-                displayName="Heading"
+                displayName={pt("fields.heading", "Heading")}
                 fieldId={props.heading.text.field}
                 constantValueEnabled={props.heading.text.constantValueEnabled}
               >
@@ -390,11 +374,11 @@ const HeroComponent: PuckComponent<FamilyDestinationHeroProps> = (
                   className="m-0"
                   style={resolveStyledTextStyles(
                     props.heading.styles,
-                    props.heading?.fontColor,
                     panelForeground,
                     "var(--fontFamily-h1-fontFamily)",
                     "var(--fontSize-h1-fontSize)",
                     "var(--fontWeight-h1-fontWeight)",
+                    "var(--textTransform-h1-textTransform)",
                   )}
                 >
                   {heading}
@@ -402,17 +386,12 @@ const HeroComponent: PuckComponent<FamilyDestinationHeroProps> = (
               </EntityField>
             </div>
             <EntityField
-              displayName="Body"
+              displayName={pt("fields.body", "Body")}
               fieldId={props.body.text.field}
               constantValueEnabled={props.body.text.constantValueEnabled}
             >
               <div style={bodyTextStyle}>
-                {renderRichText(body, {
-                  ...props.body.styles,
-                  color:
-                    getThemeColorCssValue(props.body?.fontColor) ??
-                    panelForeground,
-                })}
+                {renderRichText(body, resolveRichTextStyles(props.body.styles))}
               </div>
             </EntityField>
             {rating !== undefined && count !== undefined ? (
@@ -423,13 +402,14 @@ const HeroComponent: PuckComponent<FamilyDestinationHeroProps> = (
                 <span>
                   {t("ratingInStars", {
                     defaultValue: "{{rating}} / 5 Stars",
-                    rating: rating.toFixed(1),
+                    rating: formatRating(rating, i18n.language),
                   })}
                 </span>
                 <StarRow rating={rating} />
                 <span>
                   {t("guestReviews", {
                     defaultValue: "{{count}} guest reviews",
+                    ...getLocalizedCountOptions(count, i18n.language),
                     count,
                   })}
                 </span>
@@ -437,7 +417,10 @@ const HeroComponent: PuckComponent<FamilyDestinationHeroProps> = (
             ) : null}
             <div className="flex flex-col items-start gap-8 sm:flex-row sm:items-center">
               <EntityField
-                displayName="Primary Call to Action"
+                displayName={pt(
+                  "fields.primaryCallToAction",
+                  "Primary Call to Action",
+                )}
                 fieldId={props.primaryCta.data.cta.field}
                 constantValueEnabled={
                   props.primaryCta.data.cta.constantValueEnabled
@@ -454,7 +437,10 @@ const HeroComponent: PuckComponent<FamilyDestinationHeroProps> = (
                 />
               </EntityField>
               <EntityField
-                displayName="Secondary Call to Action"
+                displayName={pt(
+                  "fields.secondaryCallToAction",
+                  "Secondary Call to Action",
+                )}
                 fieldId={props.secondaryCta.data.cta.field}
                 constantValueEnabled={
                   props.secondaryCta.data.cta.constantValueEnabled
@@ -480,7 +466,7 @@ const HeroComponent: PuckComponent<FamilyDestinationHeroProps> = (
 
 export const FamilyDestinationHero: YextComponentConfig<FamilyDestinationHeroProps> =
   {
-    label: "Hero",
+    label: msg("components.hero", "Hero"),
     fields: toPuckFields<FamilyDestinationHeroProps>(fields),
     defaultProps: {
       eyebrow: {
@@ -490,7 +476,6 @@ export const FamilyDestinationHero: YextComponentConfig<FamilyDestinationHeroPro
           constantValueEnabled: false,
         },
         styles: defaultTextStyles,
-        fontColor: undefined,
       },
       heading: {
         text: {
@@ -499,7 +484,6 @@ export const FamilyDestinationHero: YextComponentConfig<FamilyDestinationHeroPro
           constantValueEnabled: false,
         },
         styles: defaultTextStyles,
-        fontColor: undefined,
       },
       body: {
         text: {
@@ -513,7 +497,6 @@ export const FamilyDestinationHero: YextComponentConfig<FamilyDestinationHeroPro
           constantValueEnabled: true,
         },
         styles: defaultTextStyles,
-        fontColor: undefined,
       },
       badge: {
         text: {
@@ -525,7 +508,6 @@ export const FamilyDestinationHero: YextComponentConfig<FamilyDestinationHeroPro
           constantValueEnabled: true,
         },
         styles: defaultTextStyles,
-        fontColor: undefined,
       },
       image: {
         image: {

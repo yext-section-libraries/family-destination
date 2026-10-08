@@ -22,6 +22,7 @@ import {
   type YextEntityField,
   type YextFields,
   msg,
+  pt,
 } from "@yext/visual-editor";
 import {
   createRichTextField as createRichTextFieldDefault,
@@ -32,6 +33,7 @@ import {
   defaultTextStyles,
   getScopedTypographyCss,
   renderRichText,
+  resolveRichTextStyles,
   resolveStyledTextStyles,
 } from "../shared/sectionStyles";
 
@@ -40,17 +42,14 @@ const typographyStyles = getScopedTypographyCss("yext-family-destination-faq");
 type StyledTextProps = {
   text: YextEntityField<TranslatableString>;
   styles: StyledTextValue;
-  fontColor?: ThemeColor;
 };
 
 type SharedTextStyleProps = {
   styles: StyledTextValue;
-  fontColor?: ThemeColor;
 };
 
 type SharedRtfStyleProps = {
   styles: StyledTextValue;
-  fontColor?: ThemeColor;
 };
 
 type FaqItemProps = {
@@ -77,12 +76,10 @@ export type FamilyDestinationFaqProps = {
 
 const defaultSharedTextStyle: SharedTextStyleProps = {
   styles: defaultTextStyles,
-  fontColor: undefined,
 };
 
 const defaultSharedRtfStyle: SharedRtfStyleProps = {
   styles: defaultTextStyles,
-  fontColor: undefined,
 };
 
 
@@ -90,7 +87,6 @@ const defaultSharedRtfStyle: SharedRtfStyleProps = {
 const createHeadingDefault = (defaultValue: string): StyledTextProps => ({
   text: createStringFieldDefault(defaultValue),
   styles: defaultTextStyles,
-  fontColor: undefined,
 });
 
 
@@ -181,11 +177,7 @@ const fields: YextFields<FamilyDestinationFaqProps> = {
       styles: {
         label: msg("fields.textStyles", "Text Styles"),
         type: "styledText",
-      },
-      fontColor: {
-        label: msg("fields.fontColor", "Font Color"),
-        type: "basicSelector",
-        options: "SITE_COLOR",
+        includeColor: true,
       },
     },
   },
@@ -205,11 +197,7 @@ const fields: YextFields<FamilyDestinationFaqProps> = {
               styles: {
                 label: msg("fields.textStyles", "Text Styles"),
                 type: "styledText",
-              },
-              fontColor: {
-                label: msg("fields.fontColor", "Font Color"),
-                type: "basicSelector",
-                options: "SITE_COLOR",
+                includeColor: true,
               },
             },
           },
@@ -220,11 +208,7 @@ const fields: YextFields<FamilyDestinationFaqProps> = {
               styles: {
                 label: msg("fields.textStyles", "Text Styles"),
                 type: "styledText",
-              },
-              fontColor: {
-                label: msg("fields.fontColor", "Font Color"),
-                type: "basicSelector",
-                options: "SITE_COLOR",
+                includeColor: true,
               },
             },
           },
@@ -276,11 +260,11 @@ const FaqRow = ({
           className="flex cursor-pointer list-none items-center justify-between gap-2.5 marker:hidden"
           style={resolveStyledTextStyles(
             styles.question.styles,
-            styles.question?.fontColor,
             textColor,
             "var(--fontFamily-body-fontFamily)",
             "var(--fontSize-body-fontSize)",
             "var(--fontWeight-body-fontWeight)",
+            "var(--textTransform-body-textTransform)",
           )}
         >
           {question}
@@ -290,19 +274,16 @@ const FaqRow = ({
           style={{
             ...resolveStyledTextStyles(
               styles.answer.styles,
-              styles.answer?.fontColor,
               textColor,
               "var(--fontFamily-body-fontFamily)",
               "var(--fontSize-body-fontSize)",
               "var(--fontWeight-body-fontWeight)",
+              "var(--textTransform-body-textTransform)",
             ),
             lineHeight: "22px",
           }}
         >
-          {renderRichText(answer, {
-            ...styles.answer.styles,
-            color: getThemeColorCssValue(styles.answer?.fontColor) ?? textColor,
-          })}
+          {renderRichText(answer, resolveRichTextStyles(styles.answer.styles))}
         </div>
       </details>
       <hr
@@ -326,7 +307,8 @@ const Component: PuckComponent<FamilyDestinationFaqProps> = (props) => {
   const sectionDefaultForeground = sectionStyle?.color ?? "currentColor";
   const dividerColor = sectionDefaultForeground;
   const headingForeground =
-    getThemeColorCssValue(props.heading?.fontColor) ?? sectionDefaultForeground;
+    getThemeColorCssValue(props.heading?.styles.color) ??
+    sectionDefaultForeground;
 
   return (
     <VisibilityWrapper
@@ -344,7 +326,7 @@ const Component: PuckComponent<FamilyDestinationFaqProps> = (props) => {
         >
           <style>{typographyStyles}</style>
           <EntityField
-            displayName="Heading"
+            displayName={pt("fields.heading", "Heading")}
             fieldId={props.heading.text.field}
             constantValueEnabled={props.heading.text.constantValueEnabled}
           >
@@ -352,11 +334,11 @@ const Component: PuckComponent<FamilyDestinationFaqProps> = (props) => {
               className="m-0 w-full lg:text-center"
               style={resolveStyledTextStyles(
                 props.heading.styles,
-                props.heading?.fontColor,
                 headingForeground,
                 "var(--fontFamily-h2-fontFamily)",
                 "var(--fontSize-h2-fontSize)",
                 "var(--fontWeight-h2-fontWeight)",
+                "var(--textTransform-h2-textTransform)",
               )}
             >
               {heading}
@@ -364,7 +346,7 @@ const Component: PuckComponent<FamilyDestinationFaqProps> = (props) => {
           </EntityField>
           <div className="flex w-full max-w-[900px] flex-col gap-8">
             <EntityField
-              displayName="Frequently Asked Questions"
+              displayName={pt("fields.faqItems", "FAQ Items")}
               fieldId={props.items.data?.field}
               constantValueEnabled={props.items.data?.constantValueEnabled}
               className="flex flex-col gap-8"
@@ -391,7 +373,7 @@ const Component: PuckComponent<FamilyDestinationFaqProps> = (props) => {
 
 export const FamilyDestinationFaq: YextComponentConfig<FamilyDestinationFaqProps> =
   {
-    label: "Faq",
+    label: msg("components.faqs", "FAQs"),
     fields: toPuckFields<FamilyDestinationFaqProps>(fields),
     defaultProps: {
       heading: createHeadingDefault("Frequently Asked Questions"),
@@ -415,7 +397,7 @@ export const FamilyDestinationFaq: YextComponentConfig<FamilyDestinationFaqProps
 
 export const config: SectionConfig = {
   id: "FamilyDestinationFaq",
-  displayName: "Faq",
-  description: "Faq",
+  displayName: "FAQs",
+  description: "FAQs",
   pageSetTypes: ["ENTITY"],
 };

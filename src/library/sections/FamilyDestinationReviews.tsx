@@ -22,7 +22,9 @@ import {
   type YextEntityField,
   type YextFields,
   msg,
+  pt,
 } from "@yext/visual-editor";
+import { formatRating, getLocalizedCountOptions } from "../shared/localization";
 
 import {
   defaultTextStyles,
@@ -35,12 +37,10 @@ const typographyStyles = getScopedTypographyCss("yext-family-destination-reviews
 type StyledTextProps = {
   text: YextEntityField<TranslatableString>;
   styles: StyledTextValue;
-  fontColor?: ThemeColor;
 };
 
 type SharedTextStyleProps = {
   styles: StyledTextValue;
-  fontColor?: ThemeColor;
 };
 
 type Review = { authorName?: string; rating?: number; content?: string };
@@ -93,11 +93,7 @@ const fields: YextFields<FamilyDestinationReviewsProps> = {
       styles: {
         label: msg("fields.textStyles", "Text Styles"),
         type: "styledText",
-      },
-      fontColor: {
-        label: msg("fields.fontColor", "Font Color"),
-        type: "basicSelector",
-        options: "SITE_COLOR",
+        includeColor: true,
       },
     },
   },
@@ -112,11 +108,7 @@ const fields: YextFields<FamilyDestinationReviewsProps> = {
           styles: {
             label: msg("fields.textStyles", "Text Styles"),
             type: "styledText",
-          },
-          fontColor: {
-            label: msg("fields.fontColor", "Font Color"),
-            type: "basicSelector",
-            options: "SITE_COLOR",
+            includeColor: true,
           },
         },
       },
@@ -127,11 +119,7 @@ const fields: YextFields<FamilyDestinationReviewsProps> = {
           styles: {
             label: msg("fields.textStyles", "Text Styles"),
             type: "styledText",
-          },
-          fontColor: {
-            label: msg("fields.fontColor", "Font Color"),
-            type: "basicSelector",
-            options: "SITE_COLOR",
+            includeColor: true,
           },
         },
       },
@@ -142,11 +130,7 @@ const fields: YextFields<FamilyDestinationReviewsProps> = {
           styles: {
             label: msg("fields.textStyles", "Text Styles"),
             type: "styledText",
-          },
-          fontColor: {
-            label: msg("fields.fontColor", "Font Color"),
-            type: "basicSelector",
-            options: "SITE_COLOR",
+            includeColor: true,
           },
         },
       },
@@ -191,7 +175,7 @@ const sampleReviews: Review[] = [
 ];
 
 const Component: PuckComponent<FamilyDestinationReviewsProps> = (props) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const streamDocument = useDocument<StreamDocumentWithReviews>();
   const locale = streamDocument.locale ?? "en";
   const heading =
@@ -216,31 +200,31 @@ const Component: PuckComponent<FamilyDestinationReviewsProps> = (props) => {
   );
   const sectionForeground = sectionStyle?.color ?? "currentColor";
   const headingForeground =
-    getThemeColorCssValue(props.heading?.fontColor) ?? sectionForeground;
+    getThemeColorCssValue(props.heading?.styles.color) ?? sectionForeground;
   const reviewCardBorderColor = sectionForeground;
   const starsStyle = resolveStyledTextStyles(
     props.reviewCard.stars.styles,
-    props.reviewCard.stars?.fontColor,
     sectionForeground,
     "var(--fontFamily-body-fontFamily)",
     "var(--fontSize-body-fontSize)",
     "var(--fontWeight-body-fontWeight)",
+    "var(--textTransform-body-textTransform)",
   );
   const reviewTextStyle = resolveStyledTextStyles(
     props.reviewCard.reviewText.styles,
-    props.reviewCard.reviewText?.fontColor,
     sectionForeground,
     "var(--fontFamily-body-fontFamily)",
     "var(--fontSize-body-fontSize)",
     "var(--fontWeight-body-fontWeight)",
+    "var(--textTransform-body-textTransform)",
   );
   const reviewNameStyle = resolveStyledTextStyles(
     props.reviewCard.reviewName.styles,
-    props.reviewCard.reviewName?.fontColor,
     sectionForeground,
     "var(--fontFamily-body-fontFamily)",
     "var(--fontSize-body-fontSize)",
     "var(--fontWeight-body-fontWeight)",
+    "var(--textTransform-body-textTransform)",
   );
 
   if (!displayedReviews.length) {
@@ -263,7 +247,7 @@ const Component: PuckComponent<FamilyDestinationReviewsProps> = (props) => {
         >
           <style>{typographyStyles}</style>
           <EntityField
-            displayName="Heading"
+            displayName={pt("fields.heading", "Heading")}
             fieldId={props.heading.text.field}
             constantValueEnabled={props.heading.text.constantValueEnabled}
           >
@@ -271,11 +255,11 @@ const Component: PuckComponent<FamilyDestinationReviewsProps> = (props) => {
               className="m-0 w-full lg:text-center"
               style={resolveStyledTextStyles(
                 props.heading.styles,
-                props.heading?.fontColor,
                 headingForeground,
                 "var(--fontFamily-h2-fontFamily)",
                 "var(--fontSize-h2-fontSize)",
                 "var(--fontWeight-h2-fontWeight)",
+                "var(--textTransform-h2-textTransform)",
               )}
             >
               {heading}
@@ -286,13 +270,14 @@ const Component: PuckComponent<FamilyDestinationReviewsProps> = (props) => {
               <span style={starsStyle}>
                 {t("ratingInStars", {
                   defaultValue: "{{rating}} / 5 Stars",
-                  rating: rating.toFixed(1).replace(/\.0$/, ""),
+                  rating: formatRating(rating, i18n.language),
                 })}
               </span>
               <StarRow rating={rating} style={starsStyle} />
               <span style={starsStyle}>
                 {t("guestReviews", {
                   defaultValue: "{{count}} guest reviews",
+                  ...getLocalizedCountOptions(count, i18n.language),
                   count,
                 })}
               </span>
@@ -311,7 +296,7 @@ const Component: PuckComponent<FamilyDestinationReviewsProps> = (props) => {
                     <span>
                       {t("ratingInStars", {
                         defaultValue: "{{rating}} / 5 Stars",
-                        rating: review.rating ?? 5,
+                        rating: formatRating(review.rating ?? 5, i18n.language),
                       })}
                     </span>
                     <StarRow rating={review.rating ?? 5} style={starsStyle} />
@@ -340,7 +325,7 @@ const Component: PuckComponent<FamilyDestinationReviewsProps> = (props) => {
 
 export const FamilyDestinationReviews: YextComponentConfig<FamilyDestinationReviewsProps> =
   {
-    label: "Reviews",
+    label: msg("components.reviews", "Reviews"),
     fields: toPuckFields<FamilyDestinationReviewsProps>(fields),
     defaultProps: {
       heading: {
@@ -353,20 +338,16 @@ export const FamilyDestinationReviews: YextComponentConfig<FamilyDestinationRevi
           constantValueEnabled: true,
         },
         styles: defaultTextStyles,
-        fontColor: undefined,
       },
       reviewCard: {
         stars: {
           styles: defaultTextStyles,
-          fontColor: undefined,
         },
         reviewText: {
           styles: defaultTextStyles,
-          fontColor: undefined,
         },
         reviewName: {
           styles: defaultTextStyles,
-          fontColor: undefined,
         },
       },
       section: {

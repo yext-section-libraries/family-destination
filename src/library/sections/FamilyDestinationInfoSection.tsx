@@ -18,7 +18,6 @@ import {
   getThemeColorCssValue,
   resolveComponentData,
   type ComprehensiveCTAValue,
-  type MaybeRTFProps,
   type StyledTextValue,
   type ThemeColor,
   type TranslatableRichText,
@@ -27,6 +26,7 @@ import {
   type YextEntityField,
   type YextFields,
   msg,
+  pt,
   toPuckFields,
   useDocument,
   VisibilityWrapper,
@@ -40,6 +40,7 @@ import { formatPhoneNumber } from "@yext/visual-editor/section-library-support";
 import {
   defaultTextStyles,
   renderRichText,
+  resolveRichTextStyles,
   resolveStyledTextStyles,
 } from "../shared/sectionStyles";
 
@@ -56,7 +57,6 @@ type PhoneFieldProps = {
 
 type SharedTextStyles = {
   styles: StyledTextValue;
-  fontColor?: ThemeColor;
 };
 
 type ServiceHourItem = {
@@ -108,9 +108,6 @@ export type FamilyDestinationInfoSectionProps = {
   };
 };
 
-type RichTextStyleOverrides = NonNullable<
-  MaybeRTFProps["richTextStyleOverrides"]
->;
 
 
 
@@ -230,7 +227,7 @@ const fields: YextFields<FamilyDestinationInfoSectionProps> = {
                   item.label ||
                   item.number.constantValue ||
                   item.number.field ||
-                  "Phone",
+                  pt("fields.phone", "Phone"),
               },
               phoneFormat: {
                 label: msg("fields.phoneFormat", "Phone Format"),
@@ -322,7 +319,8 @@ const fields: YextFields<FamilyDestinationInfoSectionProps> = {
           label: createTextField("Service"),
           value: createTextField("Hours"),
         },
-        getItemSummary: (item) => getEntityFieldSummary(item.label, "Service"),
+        getItemSummary: (item) =>
+          getEntityFieldSummary(item.label, pt("fields.services", "Services")),
       },
     },
   },
@@ -350,36 +348,24 @@ const fields: YextFields<FamilyDestinationInfoSectionProps> = {
         label: msg("fields.headings", "Headings"),
         type: "object",
         objectFields: {
-          styles: { label: msg("fields.textStyles", "Text Styles"), type: "styledText" },
-          fontColor: {
-            label: msg("fields.fontColor", "Font Color"),
-            type: "basicSelector",
-            options: "SITE_COLOR",
-          },
+          styles: { label: msg("fields.textStyles", "Text Styles"), type: "styledText",
+        includeColor: true },
         },
       },
       subheadings: {
         label: msg("fields.subheadings", "Subheadings"),
         type: "object",
         objectFields: {
-          styles: { label: msg("fields.textStyles", "Text Styles"), type: "styledText" },
-          fontColor: {
-            label: msg("fields.fontColor", "Font Color"),
-            type: "basicSelector",
-            options: "SITE_COLOR",
-          },
+          styles: { label: msg("fields.textStyles", "Text Styles"), type: "styledText",
+        includeColor: true },
         },
       },
       body: {
         label: msg("fields.body", "Body"),
         type: "object",
         objectFields: {
-          styles: { label: msg("fields.textStyles", "Text Styles"), type: "styledText" },
-          fontColor: {
-            label: msg("fields.fontColor", "Font Color"),
-            type: "basicSelector",
-            options: "SITE_COLOR",
-          },
+          styles: { label: msg("fields.textStyles", "Text Styles"), type: "styledText",
+        includeColor: true },
         },
       },
     },
@@ -399,32 +385,31 @@ const InfoComponent: PuckComponent<FamilyDestinationInfoSectionProps> = (
   const sectionForeground = sectionStyle?.color ?? "currentColor";
   const headingStyles = resolveStyledTextStyles(
     props.styles?.headings.styles,
-    props.styles?.headings.fontColor,
     sectionForeground,
     "var(--fontFamily-h2-fontFamily)",
     "var(--fontSize-h2-fontSize)",
     "var(--fontWeight-h2-fontWeight)",
+    "var(--textTransform-h2-textTransform)",
   );
   const subheadingStyles = resolveStyledTextStyles(
     props.styles?.subheadings.styles,
-    props.styles?.subheadings.fontColor,
     sectionForeground,
     "var(--fontFamily-body-fontFamily)",
     "var(--fontSize-body-fontSize)",
     "var(--fontWeight-body-fontWeight)",
+    "var(--textTransform-body-textTransform)",
   );
   const bodyStyles = resolveStyledTextStyles(
     props.styles?.body.styles,
-    props.styles?.body.fontColor,
     sectionForeground,
     "var(--fontFamily-body-fontFamily)",
     "var(--fontSize-body-fontSize)",
     "var(--fontWeight-body-fontWeight)",
+    "var(--textTransform-body-textTransform)",
   );
-  const richTextStyleOverrides: RichTextStyleOverrides = {
-    ...props.styles?.body?.styles,
-    color: bodyStyles.color,
-  };
+  const richTextStyleOverrides = resolveRichTextStyles(
+    props.styles.body.styles,
+  );
   const panelStyle: React.CSSProperties = {
     borderColor:
       getThemeColorCssValue(props.section.panelBorderColor) ??
@@ -550,7 +535,7 @@ const InfoComponent: PuckComponent<FamilyDestinationInfoSectionProps> = (
             style={panelStyle}
           >
             <EntityField
-              displayName="Summary Heading"
+              displayName={pt("fields.heading", "Heading")}
               fieldId={props.summary.heading.field}
               constantValueEnabled={props.summary.heading.constantValueEnabled}
             >
@@ -561,7 +546,7 @@ const InfoComponent: PuckComponent<FamilyDestinationInfoSectionProps> = (
 
             <div className="flex flex-col gap-1">
               <EntityField
-                displayName="Address Subheading"
+                displayName={pt("fields.subheading", "Subheading")}
                 fieldId={props.summary.address.subheading.field}
                 constantValueEnabled={
                   props.summary.address.subheading.constantValueEnabled
@@ -573,7 +558,7 @@ const InfoComponent: PuckComponent<FamilyDestinationInfoSectionProps> = (
               </EntityField>
               {resolvedAddress ? (
                 <EntityField
-                  displayName="Address"
+                  displayName={pt("fields.address", "Address")}
                   fieldId={props.summary.address.address.field}
                   constantValueEnabled={
                     props.summary.address.address.constantValueEnabled
@@ -592,7 +577,7 @@ const InfoComponent: PuckComponent<FamilyDestinationInfoSectionProps> = (
 
             <div className="flex flex-col gap-1">
               <EntityField
-                displayName="Phone Subheading"
+                displayName={pt("fields.subheading", "Subheading")}
                 fieldId={props.summary.phone.subheading.field}
                 constantValueEnabled={
                   props.summary.phone.subheading.constantValueEnabled
@@ -610,7 +595,7 @@ const InfoComponent: PuckComponent<FamilyDestinationInfoSectionProps> = (
                 return (
                   <EntityField
                     key={`${item.number}-${index}`}
-                    displayName="Phone Number"
+                    displayName={pt("fields.phoneNumber", "Phone Number")}
                     fieldId={item.field.field}
                     constantValueEnabled={item.field.constantValueEnabled}
                   >
@@ -636,7 +621,7 @@ const InfoComponent: PuckComponent<FamilyDestinationInfoSectionProps> = (
 
             <div className="flex flex-col gap-1">
               <EntityField
-                displayName="Accessibility Subheading"
+                displayName={pt("fields.subheading", "Subheading")}
                 fieldId={props.summary.accessibility.subheading.field}
                 constantValueEnabled={
                   props.summary.accessibility.subheading.constantValueEnabled
@@ -647,24 +632,21 @@ const InfoComponent: PuckComponent<FamilyDestinationInfoSectionProps> = (
                 </p>
               </EntityField>
               <EntityField
-                displayName="Accessibility Text"
+                displayName={pt("fields.text", "Text")}
                 fieldId={props.summary.accessibility.text.field}
                 constantValueEnabled={
                   props.summary.accessibility.text.constantValueEnabled
                 }
               >
                 <div className="tracking-[0.25px]" style={bodyStyles}>
-                  {renderRichText(
-                    accessibilityText,
-                    richTextStyleOverrides,
-                  )}
+                  {renderRichText(accessibilityText, richTextStyleOverrides)}
                 </div>
               </EntityField>
             </div>
 
             <div className="flex flex-col gap-1">
               <EntityField
-                displayName="Check In/Out Subheading"
+                displayName={pt("fields.subheading", "Subheading")}
                 fieldId={props.summary.checkInOut.subheading.field}
                 constantValueEnabled={
                   props.summary.checkInOut.subheading.constantValueEnabled
@@ -675,24 +657,24 @@ const InfoComponent: PuckComponent<FamilyDestinationInfoSectionProps> = (
                 </p>
               </EntityField>
               <EntityField
-                displayName="Check In/Out Text"
+                displayName={pt("fields.text", "Text")}
                 fieldId={props.summary.checkInOut.text.field}
                 constantValueEnabled={
                   props.summary.checkInOut.text.constantValueEnabled
                 }
               >
                 <div className="tracking-[0.25px]" style={bodyStyles}>
-                  {renderRichText(
-                    checkInOutText,
-                    richTextStyleOverrides,
-                  )}
+                  {renderRichText(checkInOutText, richTextStyleOverrides)}
                 </div>
               </EntityField>
             </div>
 
             <div className="flex flex-wrap gap-5">
               <EntityField
-                displayName="Primary Call to Action"
+                displayName={pt(
+                  "fields.primaryCallToAction",
+                  "Primary Call to Action",
+                )}
                 fieldId={props.summary.primaryCta.data.cta.field}
                 constantValueEnabled={
                   props.summary.primaryCta.data.cta.constantValueEnabled
@@ -709,7 +691,10 @@ const InfoComponent: PuckComponent<FamilyDestinationInfoSectionProps> = (
                 />
               </EntityField>
               <EntityField
-                displayName="Secondary Call to Action"
+                displayName={pt(
+                  "fields.secondaryCallToAction",
+                  "Secondary Call to Action",
+                )}
                 fieldId={props.summary.secondaryCta.data.cta.field}
                 constantValueEnabled={
                   props.summary.secondaryCta.data.cta.constantValueEnabled
@@ -733,7 +718,7 @@ const InfoComponent: PuckComponent<FamilyDestinationInfoSectionProps> = (
             style={panelStyle}
           >
             <EntityField
-              displayName="Service Hours Heading"
+              displayName={pt("fields.heading", "Heading")}
               fieldId={props.serviceHours.heading.field}
               constantValueEnabled={
                 props.serviceHours.heading.constantValueEnabled
@@ -755,7 +740,7 @@ const InfoComponent: PuckComponent<FamilyDestinationInfoSectionProps> = (
                   className="flex flex-col gap-1"
                 >
                   <EntityField
-                    displayName="Service Label"
+                    displayName={pt("fields.label", "Label")}
                     fieldId={item.label.field}
                     constantValueEnabled={item.label.constantValueEnabled}
                   >
@@ -767,7 +752,7 @@ const InfoComponent: PuckComponent<FamilyDestinationInfoSectionProps> = (
                     </p>
                   </EntityField>
                   <EntityField
-                    displayName="Service Hours"
+                    displayName={pt("fields.serviceHours", "Service Hours")}
                     fieldId={item.value.field}
                     constantValueEnabled={item.value.constantValueEnabled}
                   >
@@ -785,7 +770,7 @@ const InfoComponent: PuckComponent<FamilyDestinationInfoSectionProps> = (
             style={panelStyle}
           >
             <EntityField
-              displayName="Complimentary Services Heading"
+              displayName={pt("fields.heading", "Heading")}
               fieldId={props.complimentaryServices.heading.field}
               constantValueEnabled={
                 props.complimentaryServices.heading.constantValueEnabled
@@ -796,7 +781,10 @@ const InfoComponent: PuckComponent<FamilyDestinationInfoSectionProps> = (
               </h2>
             </EntityField>
             <EntityField
-              displayName="Complimentary Services"
+              displayName={pt(
+                "fields.complimentaryServices",
+                "Complimentary Services",
+              )}
               fieldId={props.complimentaryServices.items.field}
               constantValueEnabled={
                 props.complimentaryServices.items.constantValueEnabled
@@ -820,7 +808,7 @@ const InfoComponent: PuckComponent<FamilyDestinationInfoSectionProps> = (
 
 export const FamilyDestinationInfoSection: YextComponentConfig<FamilyDestinationInfoSectionProps> =
   {
-    label: "Info Section",
+    label: msg("components.info", "Info"),
     fields: toPuckFields<FamilyDestinationInfoSectionProps>(fields),
     defaultProps: {
       section: {
@@ -927,9 +915,9 @@ export const FamilyDestinationInfoSection: YextComponentConfig<FamilyDestination
         },
       },
       styles: {
-        headings: { styles: {...defaultTextStyles, fontSize: "24px"}, fontColor: undefined },
-        subheadings: { styles: defaultTextStyles, fontColor: undefined },
-        body: { styles: defaultTextStyles, fontColor: undefined },
+        headings: { styles: { ...defaultTextStyles, fontSize: "24px" } },
+        subheadings: { styles: defaultTextStyles },
+        body: { styles: defaultTextStyles },
       },
     },
     render: (props) => <InfoComponent {...props} />,
@@ -937,7 +925,7 @@ export const FamilyDestinationInfoSection: YextComponentConfig<FamilyDestination
 
 export const config: SectionConfig = {
   id: "FamilyDestinationInfoSection",
-  displayName: "Info Section",
-  description: "Info Section",
+  displayName: "Info",
+  description: "Info",
   pageSetTypes: ["ENTITY"],
 };

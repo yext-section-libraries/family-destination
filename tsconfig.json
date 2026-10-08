@@ -3,6 +3,8 @@
     "target": "ESNext",
     "strict": true,
     "moduleResolution": "Bundler",
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
     "forceConsistentCasingInFileNames": true,
     "jsx": "react-jsx",
     "rootDir": "./src",

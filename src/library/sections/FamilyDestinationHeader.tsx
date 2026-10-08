@@ -29,6 +29,7 @@ import {
   type YextEntityField,
   type YextFields,
   msg,
+  pt,
   getAnalyticsScopeHash,
   getSurfaceColorStyle,
   getThemeColorCssValue,
@@ -354,8 +355,8 @@ const FamilyDestinationHeaderFields: YextFields<FamilyDestinationHeaderProps> =
             normalizeLink: false,
             openInNewTab: false,
           }),
-          getItemSummary: (item: SharedHeaderLink, index?: number) =>
-            getTranslatableSummary(item.label, `Link ${index ?? 0}`),
+          getItemSummary: (item: SharedHeaderLink) =>
+            getTranslatableSummary(item.label, pt("fields.link", "Link")),
         },
         fontColor: {
           label: msg("fields.fontColor", "Font Color"),
@@ -453,8 +454,11 @@ const FamilyDestinationHeaderFields: YextFields<FamilyDestinationHeaderProps> =
             normalizeLink: false,
             openInNewTab: false,
           }),
-          getItemSummary: (item: SharedHeaderAction, index?: number) =>
-            getTranslatableSummary(item.label, `Action ${index ?? 0}`),
+          getItemSummary: (item: SharedHeaderAction) =>
+            getTranslatableSummary(
+              item.label,
+              pt("fields.utilityIcons", "Utility Icons"),
+            ),
         },
       },
     },
@@ -510,13 +514,10 @@ const FamilyDestinationHeaderFields: YextFields<FamilyDestinationHeaderProps> =
               },
             },
           },
-          getItemSummary: (
-            item: { cta?: ComprehensiveCTAValue },
-            index?: number,
-          ) =>
+          getItemSummary: (item: { cta?: ComprehensiveCTAValue }) =>
             getTranslatableSummary(
               item.cta?.data?.cta?.constantValue?.label,
-              `CTA ${index ?? 0}`,
+              pt("fields.cta", "CTA"),
             ),
         },
       },
@@ -692,7 +693,7 @@ const FamilyDestinationHeaderComponent: PuckComponent<
     if (!hasImageSource(iconImage)) {
       return (
         <EntityField
-          displayName="Utility Icon"
+          displayName={pt("fields.icon", "Icon")}
           fieldId={iconImageProps.image.field}
           constantValueEnabled={iconImageProps.image.constantValueEnabled}
         >
@@ -717,7 +718,7 @@ const FamilyDestinationHeaderComponent: PuckComponent<
     if (!iconUrl) {
       return (
         <EntityField
-          displayName="Utility Icon"
+          displayName={pt("fields.icon", "Icon")}
           fieldId={iconImageProps.image.field}
           constantValueEnabled={iconImageProps.image.constantValueEnabled}
         >
@@ -742,7 +743,7 @@ const FamilyDestinationHeaderComponent: PuckComponent<
 
     return (
       <EntityField
-        displayName="Utility Icon"
+        displayName={pt("fields.icon", "Icon")}
         fieldId={iconImageProps.image.field}
         constantValueEnabled={iconImageProps.image.constantValueEnabled}
       >
@@ -793,7 +794,7 @@ const FamilyDestinationHeaderComponent: PuckComponent<
           {ctaItems.map((item, index) => (
             <EntityField
               key={`desktop-cta-${index}`}
-              displayName="Header Call to Action"
+              displayName={pt("fields.callToAction", "Call To Action")}
               fieldId={item.cta.data.cta.field}
               constantValueEnabled={item.cta.data.cta.constantValueEnabled}
             >
@@ -852,7 +853,7 @@ const FamilyDestinationHeaderComponent: PuckComponent<
 
     const logoContent = (
       <EntityField
-        displayName="Logo Image"
+        displayName={pt("fields.logoImage", "Logo Image")}
         fieldId={props.logoImage.image.field}
         constantValueEnabled={props.logoImage.image.constantValueEnabled}
       >
@@ -978,7 +979,7 @@ const FamilyDestinationHeaderComponent: PuckComponent<
           {showCta && topBarCtaItem ? (
             <div className="hidden items-center gap-3 md:flex">
               <EntityField
-                displayName="Header Call to Action"
+                displayName={pt("fields.callToAction", "Call To Action")}
                 fieldId={topBarCtaItem.cta.data.cta.field}
                 constantValueEnabled={
                   topBarCtaItem.cta.data.cta.constantValueEnabled
@@ -1055,7 +1056,10 @@ const FamilyDestinationHeaderComponent: PuckComponent<
                       {drawerCtaItems.map((item, index) => (
                         <EntityField
                           key={`tablet-cta-${index}`}
-                          displayName="Header Call to Action"
+                          displayName={pt(
+                            "fields.callToAction",
+                            "Call To Action",
+                          )}
                           fieldId={item.cta.data.cta.field}
                           constantValueEnabled={
                             item.cta.data.cta.constantValueEnabled
@@ -1079,7 +1083,10 @@ const FamilyDestinationHeaderComponent: PuckComponent<
                       {mobileDrawerCtaItems.map((item, index) => (
                         <EntityField
                           key={`mobile-cta-${index}`}
-                          displayName="Header Call to Action"
+                          displayName={pt(
+                            "fields.callToAction",
+                            "Call To Action",
+                          )}
                           fieldId={item.cta.data.cta.field}
                           constantValueEnabled={
                             item.cta.data.cta.constantValueEnabled
@@ -1150,7 +1157,7 @@ const FamilyDestinationHeaderComponent: PuckComponent<
 
 export const FamilyDestinationHeader: YextComponentConfig<FamilyDestinationHeaderProps> =
   {
-    label: "Header",
+    label: msg("components.header", "Header"),
     fields: FamilyDestinationHeaderFields,
     defaultProps: {
       variant: "logoLeftInlineNav",

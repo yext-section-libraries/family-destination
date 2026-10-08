@@ -1,8 +1,9 @@
 import * as React from "react";
 import {
-  getThemeColorCssValue,
   MaybeRTF,
-  type MaybeRTFProps,
+  getThemeColorCssValue,
+  normalizeThemeColorToken,
+  renderStyledRichText,
   type RichText,
   type StyledTextValue,
   type ThemeColor,
@@ -16,58 +17,84 @@ export const defaultTextStyles: StyledTextValue = {
   textTransform: "default",
 };
 
+const isRichText = (value: unknown): value is RichText =>
+  Boolean(
+    value &&
+    typeof value === "object" &&
+    (("html" in value && typeof value.html === "string") ||
+      ("json" in value && typeof value.json === "string")),
+  );
+
+export const renderRichText = (
+  value: unknown,
+  text: StyledTextValue,
+  className?: string,
+): React.ReactNode => {
+  const content = isRichText(value) ? (
+    <MaybeRTF data={value} />
+  ) : React.isValidElement(value) || typeof value === "string" ? (
+    value
+  ) : null;
+
+  const rendered = renderStyledRichText({ content, text, className });
+  if (!React.isValidElement<{ className?: string }>(rendered)) {
+    return rendered;
+  }
+
+  // A new .components scope resets these variables to !important editor theme
+  // defaults. Inherit the section's theme so the selected typography can apply.
+  return React.cloneElement(rendered, {
+    className: rendered.props.className
+      ?.split(/\s+/)
+      .filter((name) => name !== "components")
+      .join(" "),
+  });
+};
+
+/** Use the selected text color, otherwise the section's contrasting color. */
+export const resolveTextColor = (
+  styles: Pick<StyledTextValue, "color">,
+  fallbackColor?: ThemeColor | string,
+): ThemeColor | undefined => {
+  if (normalizeThemeColorToken(styles.color)) {
+    return styles.color;
+  }
+  const fallbackToken = normalizeThemeColorToken(fallbackColor);
+  return fallbackToken
+    ? typeof fallbackColor === "string"
+      ? { selectedColor: fallbackToken, contrastingColor: "default" }
+      : fallbackColor
+    : undefined;
+};
+
+export const resolveRichTextStyles = (
+  styles: StyledTextValue,
+  fallbackColor?: ThemeColor | string,
+): StyledTextValue => ({
+  ...styles,
+  color: resolveTextColor(styles, fallbackColor),
+});
+
 export const resolveStyledTextStyles = (
-  styles: StyledTextValue | undefined,
-  fontColor: ThemeColor | undefined,
+  styles: StyledTextValue,
   fallbackColor: string,
   fallbackFontFamily: string,
   fallbackFontSize: string,
   fallbackFontWeight: React.CSSProperties["fontWeight"],
+  fallbackTextTransform?: React.CSSProperties["textTransform"],
 ): React.CSSProperties => ({
-  color: getThemeColorCssValue(fontColor) ?? fallbackColor,
+  color: getThemeColorCssValue(resolveTextColor(styles)) ?? fallbackColor,
   fontFamily:
-    !styles?.fontFamily || styles.fontFamily === "default"
-      ? fallbackFontFamily
-      : styles.fontFamily,
-  fontSize:
-    !styles?.fontSize || styles.fontSize === "default"
-      ? fallbackFontSize
-      : styles.fontSize,
+    styles.fontFamily === "default" ? fallbackFontFamily : styles.fontFamily,
+  fontSize: styles.fontSize === "default" ? fallbackFontSize : styles.fontSize,
   fontWeight:
-    !styles?.fontWeight || styles.fontWeight === "default"
-      ? fallbackFontWeight
-      : styles.fontWeight,
-  fontStyle:
-    !styles?.fontStyle || styles.fontStyle === "default"
-      ? undefined
-      : styles.fontStyle,
+    styles.fontWeight === "default" ? fallbackFontWeight : styles.fontWeight,
+  fontStyle: styles.fontStyle === "default" ? undefined : styles.fontStyle,
   textTransform:
-    !styles?.textTransform || styles.textTransform === "default"
-      ? undefined
+    styles.textTransform === "default"
+      ? fallbackTextTransform
       : styles.textTransform,
 });
-
-export const renderRichText = (
-  value: unknown,
-  richTextStyleOverrides?: MaybeRTFProps["richTextStyleOverrides"],
-): React.ReactNode => {
-  if (React.isValidElement(value)) {
-    return value;
-  }
-
-  const data =
-    typeof value === "string" ||
-    (typeof value === "object" && value !== null && "html" in value)
-      ? (value as RichText | string)
-      : undefined;
-
-  return (
-    <MaybeRTF
-      data={data}
-      richTextStyleOverrides={richTextStyleOverrides}
-    />
-  );
-};
 
 export const getScopedTypographyCss = (scopeClass: string): string => `
 .${scopeClass} p,
