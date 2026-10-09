@@ -13,7 +13,6 @@ import {
   EntityField,
   getAnalyticsScopeHash,
   getSurfaceColorStyle,
-  getThemeColorCssValue,
   Image,
   resolveComponentData,
   type ComprehensiveCTAValue,
@@ -29,6 +28,7 @@ import {
   type YextEntityField,
   type YextFields,
   msg,
+  pt,
 } from "@yext/visual-editor";
 import {
   createCta,
@@ -41,6 +41,7 @@ import {
   defaultTextStyles,
   getScopedTypographyCss,
   renderRichText,
+  resolveRichTextStyles,
   resolveStyledTextStyles,
 } from "../shared/sectionStyles";
 
@@ -49,13 +50,11 @@ const typographyStyles = getScopedTypographyCss("yext-family-destination-events"
 type StyledTextProps = {
   text: YextEntityField<TranslatableString>;
   styles: StyledTextValue;
-  fontColor?: ThemeColor;
 };
 
 type RichTextProps = {
   text: YextEntityField<TranslatableRichText>;
   styles: StyledTextValue;
-  fontColor?: ThemeColor;
 };
 
 type ImageField = {
@@ -83,13 +82,11 @@ export type FamilyDestinationEventsProps = {
 const createHeadingDefault = (value: string): StyledTextProps => ({
   text: createStringField(value),
   styles: defaultTextStyles,
-  fontColor: undefined,
 });
 
 const createDescriptionDefault = (value: string): RichTextProps => ({
   text: createRichTextField(value),
   styles: defaultTextStyles,
-  fontColor: undefined,
 });
 
 const createButtonCta = (label: string): AuthoredComprehensiveCTAValue =>
@@ -135,11 +132,7 @@ const fields: YextFields<FamilyDestinationEventsProps> = {
       styles: {
         label: msg("fields.textStyles", "Text Styles"),
         type: "styledText",
-      },
-      fontColor: {
-        label: msg("fields.fontColor", "Font Color"),
-        type: "basicSelector",
-        options: "SITE_COLOR",
+        includeColor: true,
       },
     },
   },
@@ -155,11 +148,7 @@ const fields: YextFields<FamilyDestinationEventsProps> = {
       styles: {
         label: msg("fields.textStyles", "Text Styles"),
         type: "styledText",
-      },
-      fontColor: {
-        label: msg("fields.fontColor", "Font Color"),
-        type: "basicSelector",
-        options: "SITE_COLOR",
+        includeColor: true,
       },
     },
   },
@@ -211,7 +200,7 @@ const Component: PuckComponent<FamilyDestinationEventsProps> = (props) => {
           <style>{typographyStyles}</style>
           {hasImageSource(image) ? (
             <EntityField
-              displayName="Background Image"
+              displayName={pt("fields.backgroundImage", "Background Image")}
               fieldId={props.image.image.field}
               constantValueEnabled={props.image.image.constantValueEnabled}
               fullHeight
@@ -230,7 +219,7 @@ const Component: PuckComponent<FamilyDestinationEventsProps> = (props) => {
             style={panelStyle}
           >
             <EntityField
-              displayName="Heading"
+              displayName={pt("fields.heading", "Heading")}
               fieldId={props.heading.text.field}
               constantValueEnabled={props.heading.text.constantValueEnabled}
             >
@@ -238,11 +227,11 @@ const Component: PuckComponent<FamilyDestinationEventsProps> = (props) => {
                 className="m-0"
                 style={resolveStyledTextStyles(
                   props.heading.styles,
-                  props.heading?.fontColor,
                   panelForeground,
                   "var(--fontFamily-h2-fontFamily)",
                   "var(--fontSize-h2-fontSize)",
                   "var(--fontWeight-h2-fontWeight)",
+                  "var(--textTransform-h2-textTransform)",
                 )}
               >
                 {heading}
@@ -250,7 +239,7 @@ const Component: PuckComponent<FamilyDestinationEventsProps> = (props) => {
             </EntityField>
             <div className="flex flex-col gap-5">
               <EntityField
-                displayName="Description"
+                displayName={pt("fields.description", "Description")}
                 fieldId={props.description.text.field}
                 constantValueEnabled={
                   props.description.text.constantValueEnabled
@@ -260,26 +249,24 @@ const Component: PuckComponent<FamilyDestinationEventsProps> = (props) => {
                   style={{
                     ...resolveStyledTextStyles(
                       props.description.styles,
-                      props.description?.fontColor,
                       panelForeground,
                       "var(--fontFamily-body-fontFamily)",
                       "var(--fontSize-body-fontSize)",
                       "var(--fontWeight-body-fontWeight)",
+                      "var(--textTransform-body-textTransform)",
                     ),
                     lineHeight: "30px",
                     letterSpacing: "0.25px",
                   }}
                 >
-                  {renderRichText(description, {
-                    ...props.description.styles,
-                    color:
-                      getThemeColorCssValue(props.description?.fontColor) ??
-                      "currentColor",
-                  })}
+                  {renderRichText(
+                    description,
+                    resolveRichTextStyles(props.description.styles),
+                  )}
                 </div>
               </EntityField>
               <EntityField
-                displayName="Call to Action"
+                displayName={pt("fields.callToAction", "Call To Action")}
                 fieldId={props.cta.data.cta.field}
                 constantValueEnabled={props.cta.data.cta.constantValueEnabled}
               >
@@ -308,7 +295,7 @@ const Component: PuckComponent<FamilyDestinationEventsProps> = (props) => {
 
 export const FamilyDestinationEvents: YextComponentConfig<FamilyDestinationEventsProps> =
   {
-    label: "Events",
+    label: msg("components.events", "Events"),
     fields: toPuckFields<FamilyDestinationEventsProps>(fields),
     defaultProps: {
       heading: createHeadingDefault("Special Events & Celebrations"),

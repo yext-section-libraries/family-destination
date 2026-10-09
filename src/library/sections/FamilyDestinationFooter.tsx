@@ -26,6 +26,7 @@ import {
   type YextEntityField,
   type YextFields,
   msg,
+  pt,
 } from "@yext/visual-editor";
 import { createTextField } from "../shared/sectionDefaults";
 import {
@@ -43,12 +44,10 @@ const typographyStyles = getScopedTypographyCss("yext-family-destination-footer"
 type StyledTextProps = {
   text: YextEntityField<TranslatableString>;
   styles: StyledTextValue;
-  fontColor?: ThemeColor;
 };
 
 type SharedTextStyleProps = {
   styles: StyledTextValue;
-  fontColor?: ThemeColor;
 };
 
 type FooterLink = {
@@ -95,7 +94,6 @@ export type FamilyDestinationFooterProps = {
 
 const defaultSharedTextStyle: SharedTextStyleProps = {
   styles: defaultTextStyles,
-  fontColor: undefined,
 };
 
 
@@ -134,11 +132,7 @@ const fields: YextFields<FamilyDestinationFooterProps> = {
       styles: {
         label: msg("fields.textStyles", "Text Styles"),
         type: "styledText",
-      },
-      fontColor: {
-        label: msg("fields.fontColor", "Font Color"),
-        type: "basicSelector",
-        options: "SITE_COLOR",
+        includeColor: true,
       },
     },
   },
@@ -176,11 +170,7 @@ const fields: YextFields<FamilyDestinationFooterProps> = {
           styles: {
             label: msg("fields.textStyles", "Text Styles"),
             type: "styledText",
-          },
-          fontColor: {
-            label: msg("fields.fontColor", "Font Color"),
-            type: "basicSelector",
-            options: "SITE_COLOR",
+            includeColor: true,
           },
         },
       },
@@ -223,7 +213,7 @@ const fields: YextFields<FamilyDestinationFooterProps> = {
             : item.label?.constantValue?.defaultValue) ||
           item.number?.constantValue ||
           item.number?.field ||
-          "Phone",
+          pt("fields.phone", "Phone"),
       },
       phoneFormat: {
         label: msg("fields.phoneFormat", "Phone Format"),
@@ -266,11 +256,7 @@ const fields: YextFields<FamilyDestinationFooterProps> = {
           styles: {
             label: msg("fields.textStyles", "Text Styles"),
             type: "styledText",
-          },
-          fontColor: {
-            label: msg("fields.fontColor", "Font Color"),
-            type: "basicSelector",
-            options: "SITE_COLOR",
+            includeColor: true,
           },
         },
       },
@@ -298,7 +284,7 @@ const fields: YextFields<FamilyDestinationFooterProps> = {
             ? item.label.constantValue
             : item.label.constantValue?.defaultValue) ||
           item.label.field ||
-          "Link",
+          pt("fields.link", "Link"),
       },
       fontColor: {
         label: msg("fields.fontColor", "Font Color"),
@@ -323,11 +309,7 @@ const fields: YextFields<FamilyDestinationFooterProps> = {
           styles: {
             label: msg("fields.textStyles", "Text Styles"),
             type: "styledText",
-          },
-          fontColor: {
-            label: msg("fields.fontColor", "Font Color"),
-            type: "basicSelector",
-            options: "SITE_COLOR",
+            includeColor: true,
           },
         },
       },
@@ -355,7 +337,7 @@ const fields: YextFields<FamilyDestinationFooterProps> = {
             ? item.label.constantValue
             : item.label.constantValue?.defaultValue) ||
           item.label.field ||
-          "Link",
+          pt("fields.link", "Link"),
       },
       fontColor: {
         label: msg("fields.fontColor", "Font Color"),
@@ -369,7 +351,6 @@ const fields: YextFields<FamilyDestinationFooterProps> = {
 const LinkColumn = ({
   title,
   titleField,
-  displayName,
   titleStyle,
   links,
   eventPrefix,
@@ -379,7 +360,6 @@ const LinkColumn = ({
 }: {
   title: string;
   titleField: YextEntityField<TranslatableString>;
-  displayName: string;
   titleStyle: React.CSSProperties;
   links: FooterLink[];
   eventPrefix: string;
@@ -389,7 +369,7 @@ const LinkColumn = ({
 }) => (
   <div className="flex min-w-0 flex-1 basis-[200px] flex-col gap-4 lg:max-w-[346px]">
     <EntityField
-      displayName={`${displayName} Title`}
+      displayName={pt("fields.title", "Title")}
       fieldId={titleField.field}
       constantValueEnabled={titleField.constantValueEnabled}
     >
@@ -414,7 +394,7 @@ const LinkColumn = ({
       return (
         <EntityField
           key={`${label}-${index}`}
-          displayName={`${displayName} Link`}
+          displayName={pt("fields.link", "Link")}
           fieldId={link.label.field}
           constantValueEnabled={link.label.constantValueEnabled}
         >
@@ -451,11 +431,11 @@ const Component: PuckComponent<FamilyDestinationFooterProps> = (props) => {
   const sectionForeground = sectionStyle?.color ?? "currentColor";
   const locationInfoStyle = resolveStyledTextStyles(
     props.address.styles.styles,
-    props.address.styles?.fontColor,
     sectionForeground,
     "var(--fontFamily-body-fontFamily)",
     "var(--fontSize-body-fontSize)",
     "var(--fontWeight-body-fontWeight)",
+    "var(--textTransform-body-textTransform)",
   );
   const quickLinksColor =
     getThemeColorCssValue(props.quickLinks?.fontColor) ?? sectionForeground;
@@ -472,19 +452,19 @@ const Component: PuckComponent<FamilyDestinationFooterProps> = (props) => {
     ) || "";
   const quickLinksTitleStyle = resolveStyledTextStyles(
     props.quickLinks.title.styles,
-    props.quickLinks.title?.fontColor,
     quickLinksColor,
     "var(--fontFamily-h2-fontFamily)",
     "var(--fontSize-h2-fontSize)",
     "var(--fontWeight-h2-fontWeight)",
+    "var(--textTransform-h2-textTransform)",
   );
   const socialLinksTitleStyle = resolveStyledTextStyles(
     props.socialLinks.title.styles,
-    props.socialLinks.title?.fontColor,
     socialLinksColor,
     "var(--fontFamily-h2-fontFamily)",
     "var(--fontSize-h2-fontSize)",
     "var(--fontWeight-h2-fontWeight)",
+    "var(--textTransform-h2-textTransform)",
   );
   const resolvedPhoneItems = (props.phone.items ?? [])
     .map((item) => {
@@ -547,7 +527,7 @@ const Component: PuckComponent<FamilyDestinationFooterProps> = (props) => {
           <div className="flex flex-col gap-10 lg:flex-row lg:flex-nowrap lg:justify-between lg:gap-8">
             <div className="flex min-w-0 flex-1 basis-1/3 flex-col gap-5 lg:max-w-[346px]">
               <EntityField
-                displayName="Name"
+                displayName={pt("fields.name", "Name")}
                 fieldId={props.logo.text.field}
                 constantValueEnabled={props.logo.text.constantValueEnabled}
               >
@@ -555,11 +535,11 @@ const Component: PuckComponent<FamilyDestinationFooterProps> = (props) => {
                   className="leading-none"
                   style={resolveStyledTextStyles(
                     props.logo.styles,
-                    props.logo?.fontColor,
                     sectionForeground,
                     "var(--fontFamily-h4-fontFamily), Georgia, serif",
                     "var(--fontSize-h4-fontSize)",
                     "var(--fontWeight-h4-fontWeight)",
+                    "var(--textTransform-h4-textTransform), Georgia, serif",
                   )}
                 >
                   {logoText}
@@ -568,7 +548,7 @@ const Component: PuckComponent<FamilyDestinationFooterProps> = (props) => {
               <div className="flex flex-col gap-2.5">
                 {resolvedAddress ? (
                   <EntityField
-                    displayName="Address"
+                    displayName={pt("fields.address", "Address")}
                     fieldId={props.address.address.field}
                     constantValueEnabled={
                       props.address.address.constantValueEnabled
@@ -592,7 +572,7 @@ const Component: PuckComponent<FamilyDestinationFooterProps> = (props) => {
                       {item.label && item.labelField ? (
                         <>
                           <EntityField
-                            displayName="Phone Label"
+                            displayName={pt("fields.label", "Label")}
                             fieldId={item.labelField.field}
                             constantValueEnabled={
                               item.labelField.constantValueEnabled
@@ -604,7 +584,7 @@ const Component: PuckComponent<FamilyDestinationFooterProps> = (props) => {
                         </>
                       ) : null}
                       <EntityField
-                        displayName="Phone Number"
+                        displayName={pt("fields.phoneNumber", "Phone Number")}
                         fieldId={item.numberField.field}
                         constantValueEnabled={
                           item.numberField.constantValueEnabled
@@ -640,7 +620,7 @@ const Component: PuckComponent<FamilyDestinationFooterProps> = (props) => {
                 })}
                 {websiteUrl ? (
                   <EntityField
-                    displayName="Website URL"
+                    displayName={pt("fields.websiteUrl", "Website URL")}
                     fieldId={props.websiteUrl.field}
                     constantValueEnabled={props.websiteUrl.constantValueEnabled}
                   >
@@ -659,7 +639,6 @@ const Component: PuckComponent<FamilyDestinationFooterProps> = (props) => {
             <LinkColumn
               title={quickLinksTitle}
               titleField={props.quickLinks.title.text}
-              displayName="Quick Links"
               titleStyle={quickLinksTitleStyle}
               links={props.quickLinks.data ?? []}
               eventPrefix="quickLink"
@@ -670,7 +649,6 @@ const Component: PuckComponent<FamilyDestinationFooterProps> = (props) => {
             <LinkColumn
               title={socialLinksTitle}
               titleField={props.socialLinks.title.text}
-              displayName="Social Links"
               titleStyle={socialLinksTitleStyle}
               links={props.socialLinks.data ?? []}
               eventPrefix="socialLink"
@@ -687,7 +665,7 @@ const Component: PuckComponent<FamilyDestinationFooterProps> = (props) => {
 
 export const FamilyDestinationFooter: YextComponentConfig<FamilyDestinationFooterProps> =
   {
-    label: "Footer",
+    label: msg("components.footer", "Footer"),
     fields: toPuckFields<FamilyDestinationFooterProps>(fields),
     defaultProps: {
       logo: {
@@ -700,7 +678,6 @@ export const FamilyDestinationFooter: YextComponentConfig<FamilyDestinationFoote
           constantValueEnabled: true,
         },
         styles: defaultTextStyles,
-        fontColor: undefined,
       },
       address: {
         address: {
@@ -739,7 +716,6 @@ export const FamilyDestinationFooter: YextComponentConfig<FamilyDestinationFoote
         title: {
           text: createTextField("Quick Links"),
           styles: defaultTextStyles,
-          fontColor: undefined,
         },
         data: [
           {
@@ -760,7 +736,6 @@ export const FamilyDestinationFooter: YextComponentConfig<FamilyDestinationFoote
         title: {
           text: createTextField("Social Links"),
           styles: defaultTextStyles,
-          fontColor: undefined,
         },
         data: [
           { label: createTextField("Instagram"), link: createTextField("#") },

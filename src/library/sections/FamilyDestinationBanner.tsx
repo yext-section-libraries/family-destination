@@ -20,13 +20,13 @@ import {
   type YextEntityField,
   type YextFields,
   msg,
+  pt,
 } from "@yext/visual-editor";
 import { defaultTextStyles } from "../shared/sectionStyles";
 
 type StyledTextProps = {
   text: YextEntityField<TranslatableString>;
   styles: StyledTextValue;
-  fontColor?: ThemeColor;
 };
 
 export type FamilyDestinationBannerProps = {
@@ -70,11 +70,7 @@ const fields: YextFields<FamilyDestinationBannerProps> = {
       styles: {
         label: msg("fields.textStyles", "Text Styles"),
         type: "styledText",
-      },
-      fontColor: {
-        label: msg("fields.fontColor", "Font Color"),
-        type: "basicSelector",
-        options: "SITE_COLOR",
+        includeColor: true,
       },
     },
   },
@@ -92,7 +88,8 @@ const Component: PuckComponent<FamilyDestinationBannerProps> = (props) => {
   const sectionForeground = sectionStyle?.color ?? "currentColor";
   const textStyle: React.CSSProperties = {
     color:
-      getThemeColorCssValue(props.bannerText?.fontColor) ?? sectionForeground,
+      getThemeColorCssValue(props.bannerText?.styles.color) ??
+      sectionForeground,
     fontFamily:
       props.bannerText.styles.fontFamily === "default"
         ? "var(--fontFamily-h2-fontFamily)"
@@ -131,7 +128,7 @@ const Component: PuckComponent<FamilyDestinationBannerProps> = (props) => {
           style={sectionStyle}
         >
           <EntityField
-            displayName="Banner Text"
+            displayName={pt("fields.bannerText", "Banner Text")}
             fieldId={props.bannerText.text.field}
             constantValueEnabled={props.bannerText.text.constantValueEnabled}
           >
@@ -147,7 +144,7 @@ const Component: PuckComponent<FamilyDestinationBannerProps> = (props) => {
 
 export const FamilyDestinationBanner: YextComponentConfig<FamilyDestinationBannerProps> =
   {
-    label: "Banner",
+    label: msg("components.banner", "Banner"),
     fields: toPuckFields<FamilyDestinationBannerProps>(fields),
     defaultProps: {
       bannerText: {
@@ -160,7 +157,6 @@ export const FamilyDestinationBanner: YextComponentConfig<FamilyDestinationBanne
           constantValueEnabled: true,
         },
         styles: defaultTextStyles,
-        fontColor: undefined,
       },
       section: {
         visibleOnLivePage: true,

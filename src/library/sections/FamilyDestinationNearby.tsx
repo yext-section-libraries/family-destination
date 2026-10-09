@@ -26,6 +26,7 @@ import {
   type YextEntityField,
   type YextFields,
   msg,
+  pt,
 } from "@yext/visual-editor";
 import { createTextField } from "../shared/sectionDefaults";
 import { formatPhoneNumber } from "@yext/visual-editor/section-library-support";
@@ -40,7 +41,6 @@ const typographyStyles = getScopedTypographyCss("yext-family-destination-nearby"
 
 type SharedTextStyleProps = {
   styles: StyledTextValue;
-  fontColor?: ThemeColor;
 };
 
 type StyledTextProps = SharedTextStyleProps & {
@@ -73,7 +73,6 @@ type NearbyStreamDocument = {
 
 const defaultSharedTextStyle: SharedTextStyleProps = {
   styles: defaultTextStyles,
-  fontColor: undefined,
 };
 
 
@@ -110,11 +109,7 @@ const fields: YextFields<FamilyDestinationNearbyProps> = {
       styles: {
         label: msg("fields.textStyles", "Text Styles"),
         type: "styledText",
-      },
-      fontColor: {
-        label: msg("fields.fontColor", "Font Color"),
-        type: "basicSelector",
-        options: "SITE_COLOR",
+        includeColor: true,
       },
     },
   },
@@ -148,11 +143,7 @@ const fields: YextFields<FamilyDestinationNearbyProps> = {
           styles: {
             label: msg("fields.textStyles", "Text Styles"),
             type: "styledText",
-          },
-          fontColor: {
-            label: msg("fields.fontColor", "Font Color"),
-            type: "basicSelector",
-            options: "SITE_COLOR",
+            includeColor: true,
           },
         },
       },
@@ -163,11 +154,7 @@ const fields: YextFields<FamilyDestinationNearbyProps> = {
           styles: {
             label: msg("fields.textStyles", "Text Styles"),
             type: "styledText",
-          },
-          fontColor: {
-            label: msg("fields.fontColor", "Font Color"),
-            type: "basicSelector",
-            options: "SITE_COLOR",
+            includeColor: true,
           },
         },
       },
@@ -221,19 +208,19 @@ const Component: PuckComponent<FamilyDestinationNearbyProps> = (props) => {
   const sectionForeground = sectionStyle?.color ?? "currentColor";
   const nearbyLocationHeadingStyle = resolveStyledTextStyles(
     props.locationCard.nearbyLocationHeading.styles,
-    props.locationCard.nearbyLocationHeading?.fontColor,
     sectionForeground,
     "var(--fontFamily-h4-fontFamily)",
     "var(--fontSize-h4-fontSize)",
     "var(--fontWeight-h4-fontWeight)",
+    "var(--textTransform-h4-textTransform)",
   );
   const nearbyLocationBodyStyle = resolveStyledTextStyles(
     props.locationCard.nearbyLocationBody.styles,
-    props.locationCard.nearbyLocationBody?.fontColor,
     sectionForeground,
     "var(--fontFamily-body-fontFamily)",
     "var(--fontSize-body-fontSize)",
     "var(--fontWeight-body-fontWeight)",
+    "var(--textTransform-body-textTransform)",
   );
   const shouldShowSection = props.puck.isEditing || hasNearbyLocations;
   const shouldShowNearbyColumn = props.puck.isEditing || hasNearbyLocations;
@@ -261,7 +248,7 @@ const Component: PuckComponent<FamilyDestinationNearbyProps> = (props) => {
         >
           <style>{typographyStyles}</style>
           <EntityField
-            displayName="Heading"
+            displayName={pt("fields.heading", "Heading")}
             fieldId={props.heading.text.field}
             constantValueEnabled={props.heading.text.constantValueEnabled}
           >
@@ -269,11 +256,11 @@ const Component: PuckComponent<FamilyDestinationNearbyProps> = (props) => {
               className="m-0 w-full leading-10 lg:text-center"
               style={resolveStyledTextStyles(
                 props.heading.styles,
-                props.heading.fontColor,
                 sectionForeground,
                 "var(--fontFamily-h2-fontFamily)",
                 "var(--fontSize-h2-fontSize)",
                 "var(--fontWeight-h2-fontWeight)",
+                "var(--textTransform-h2-textTransform)",
               )}
             >
               {heading}
@@ -286,7 +273,7 @@ const Component: PuckComponent<FamilyDestinationNearbyProps> = (props) => {
               <div className="h-full min-h-[472px] w-full [&_.mapbox-static-map-image]:h-full [&_.mapbox-static-map-image]:w-full [&_.mapbox-static-map-image]:object-cover [&_.mapbox-static-map-picture]:h-full [&_.mapbox-static-map-picture]:w-full [&_.mapbox-static-map-shell]:h-full [&_.mapbox-static-map-shell]:w-full">
                 {enabled || props.puck.isEditing ? (
                   <EntityField
-                    displayName="Map Location"
+                    displayName={pt("fields.coordinates", "Coordinates")}
                     fieldId={props.map.coordinate.field}
                     constantValueEnabled={
                       props.map.coordinate.constantValueEnabled
@@ -367,7 +354,7 @@ const Component: PuckComponent<FamilyDestinationNearbyProps> = (props) => {
                             eventName={`getDirections-${index}`}
                             className="inline-flex min-h-12 items-center self-start border-b border-current py-4 font-bold leading-5 no-underline hover:no-underline"
                           >
-                            Get Directions
+                            {t("getDirections", "Get Directions")}
                           </Link>
                         </article>
                         {index < docs.length - 1 ? (
@@ -395,7 +382,7 @@ const Component: PuckComponent<FamilyDestinationNearbyProps> = (props) => {
 
 export const FamilyDestinationNearby: YextComponentConfig<FamilyDestinationNearbyProps> =
   {
-    label: "Nearby",
+    label: msg("components.nearby", "Nearby"),
     fields: toPuckFields<FamilyDestinationNearbyProps>(fields),
     defaultProps: {
       heading: {

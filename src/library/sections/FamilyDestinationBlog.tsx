@@ -14,7 +14,6 @@ import {
   EntityField,
   getAnalyticsScopeHash,
   getSurfaceColorStyle,
-  getThemeColorCssValue,
   Image,
   isLocalizedAssetImage,
   resolveComponentData,
@@ -33,6 +32,7 @@ import {
   type YextEntityField,
   type YextFields,
   msg,
+  pt,
 } from "@yext/visual-editor";
 import {
   createCta,
@@ -46,6 +46,7 @@ import {
   defaultTextStyles,
   getScopedTypographyCss,
   renderRichText,
+  resolveRichTextStyles,
   resolveStyledTextStyles,
 } from "../shared/sectionStyles";
 
@@ -54,12 +55,10 @@ const typographyStyles = getScopedTypographyCss("yext-family-destination-blog");
 type StyledTextProps = {
   text: YextEntityField<TranslatableString>;
   styles: StyledTextValue;
-  fontColor?: ThemeColor;
 };
 
 type SharedTextStyleProps = {
   styles: StyledTextValue;
-  fontColor?: ThemeColor;
 };
 
 type ImageField = {
@@ -96,7 +95,6 @@ const defaultImageStyles: StyledImageValue = {
 
 const defaultSharedTextStyle: SharedTextStyleProps = {
   styles: defaultTextStyles,
-  fontColor: undefined,
 };
 
 
@@ -204,12 +202,8 @@ const fields: YextFields<FamilyDestinationBlogProps> = {
         label: msg("fields.text", "Text"),
         filter: { types: ["type.string"] },
       },
-      styles: { label: msg("fields.textStyles", "Text Styles"), type: "styledText" },
-      fontColor: {
-        label: msg("fields.fontColor", "Font Color"),
-        type: "basicSelector",
-        options: "SITE_COLOR",
-      },
+      styles: { label: msg("fields.textStyles", "Text Styles"), type: "styledText",
+        includeColor: true },
     },
   },
   articles: {
@@ -228,11 +222,7 @@ const fields: YextFields<FamilyDestinationBlogProps> = {
               styles: {
                 label: msg("fields.textStyles", "Text Styles"),
                 type: "styledText",
-              },
-              fontColor: {
-                label: msg("fields.fontColor", "Font Color"),
-                type: "basicSelector",
-                options: "SITE_COLOR",
+                includeColor: true,
               },
             },
           },
@@ -243,11 +233,7 @@ const fields: YextFields<FamilyDestinationBlogProps> = {
               styles: {
                 label: msg("fields.textStyles", "Text Styles"),
                 type: "styledText",
-              },
-              fontColor: {
-                label: msg("fields.fontColor", "Font Color"),
-                type: "basicSelector",
-                options: "SITE_COLOR",
+                includeColor: true,
               },
             },
           },
@@ -350,7 +336,7 @@ const Component: PuckComponent<FamilyDestinationBlogProps> = (props) => {
         >
           <style>{typographyStyles}</style>
           <EntityField
-            displayName="Heading"
+            displayName={pt("fields.heading", "Heading")}
             fieldId={props.heading.text.field}
             constantValueEnabled={props.heading.text.constantValueEnabled}
           >
@@ -358,18 +344,18 @@ const Component: PuckComponent<FamilyDestinationBlogProps> = (props) => {
               className="m-0 w-full lg:text-center"
               style={resolveStyledTextStyles(
                 props.heading.styles,
-                props.heading?.fontColor,
                 sectionForeground,
                 "var(--fontFamily-h2-fontFamily)",
                 "var(--fontSize-h2-fontSize)",
                 "var(--fontWeight-h2-fontWeight)",
+                "var(--textTransform-h2-textTransform)",
               )}
             >
               {heading}
             </h2>
           </EntityField>
           <EntityField
-            displayName="Articles"
+            displayName={pt("fields.articles", "Articles")}
             fieldId={props.articles.data?.field}
             constantValueEnabled={props.articles.data?.constantValueEnabled}
             className="flex w-full flex-col gap-8"
@@ -408,11 +394,11 @@ const Component: PuckComponent<FamilyDestinationBlogProps> = (props) => {
                       className="m-0"
                       style={resolveStyledTextStyles(
                         props.articles.styles.itemHeading.styles,
-                        props.articles.styles.itemHeading?.fontColor,
                         sectionForeground,
                         "var(--fontFamily-h3-fontFamily)",
                         "var(--fontSize-h3-fontSize)",
                         "var(--fontWeight-h3-fontWeight)",
+                        "var(--textTransform-h3-textTransform)",
                       )}
                     >
                       {title}
@@ -421,26 +407,28 @@ const Component: PuckComponent<FamilyDestinationBlogProps> = (props) => {
                       style={{
                         ...resolveStyledTextStyles(
                           props.articles.styles.itemDescription.styles,
-                          props.articles.styles.itemDescription?.fontColor,
                           sectionForeground,
                           "var(--fontFamily-body-fontFamily)",
                           "var(--fontSize-body-fontSize)",
                           "var(--fontWeight-body-fontWeight)",
+                          "var(--textTransform-body-textTransform)",
                         ),
                         lineHeight: "26px",
                       }}
                     >
-                      {renderRichText(description, {
-                        ...props.articles.styles.itemDescription.styles,
-                        color:
-                          getThemeColorCssValue(
-                            props.articles.styles.itemDescription?.fontColor,
-                          ) ?? sectionForeground,
-                      })}
+                      {renderRichText(
+                        description,
+                        resolveRichTextStyles(
+                          props.articles.styles.itemDescription.styles,
+                        ),
+                      )}
                     </div>
                     {authoredArticle?.cta ? (
                       <EntityField
-                        displayName="Article Call to Action"
+                        displayName={pt(
+                          "fields.callToAction",
+                          "Call To Action",
+                        )}
                         fieldId={authoredArticle.cta.data.cta.field}
                         constantValueEnabled={
                           authoredArticle.cta.data.cta.constantValueEnabled
@@ -483,7 +471,7 @@ const Component: PuckComponent<FamilyDestinationBlogProps> = (props) => {
 
 export const FamilyDestinationBlog: YextComponentConfig<FamilyDestinationBlogProps> =
   {
-    label: "Blog",
+    label: msg("components.blog", "Blog"),
     fields: toPuckFields<FamilyDestinationBlogProps>(fields),
     defaultProps: {
       heading: {
@@ -496,7 +484,6 @@ export const FamilyDestinationBlog: YextComponentConfig<FamilyDestinationBlogPro
           constantValueEnabled: true,
         },
         styles: defaultTextStyles,
-        fontColor: undefined,
       },
       articles: {
         data: blogItemsSource.defaultValue,

@@ -32,6 +32,7 @@ import {
   type YextEntityField,
   type YextFields,
   msg,
+  pt,
 } from "@yext/visual-editor";
 import {
   createCta,
@@ -44,6 +45,7 @@ import {
   defaultTextStyles,
   getScopedTypographyCss,
   renderRichText,
+  resolveRichTextStyles,
   resolveStyledTextStyles,
 } from "../shared/sectionStyles";
 
@@ -52,12 +54,10 @@ const typographyStyles = getScopedTypographyCss("yext-family-destination-ameniti
 type StyledTextProps = {
   text: YextEntityField<TranslatableString>;
   styles: StyledTextValue;
-  fontColor?: ThemeColor;
 };
 
 type SharedTextStyleProps = {
   styles: StyledTextValue;
-  fontColor?: ThemeColor;
 };
 
 type ImageField = {
@@ -86,7 +86,6 @@ type AmenitiesStyles = {
 
 const defaultSharedTextStyle: SharedTextStyleProps = {
   styles: defaultTextStyles,
-  fontColor: undefined,
 };
 
 const defaultIconBorderColor: ThemeColor = {
@@ -116,7 +115,6 @@ const createIconImageDefault = (
 const createHeadingDefault = (defaultValue: string): StyledTextProps => ({
   text: createStringFieldDefault(defaultValue),
   styles: defaultTextStyles,
-  fontColor: undefined,
 });
 
 const createTextCta = (label: string): AuthoredComprehensiveCTAValue =>
@@ -217,11 +215,7 @@ const fields: YextFields<FamilyDestinationAmenitiesProps> = {
       styles: {
         label: msg("fields.textStyles", "Text Styles"),
         type: "styledText",
-      },
-      fontColor: {
-        label: msg("fields.fontColor", "Font Color"),
-        type: "basicSelector",
-        options: "SITE_COLOR",
+        includeColor: true,
       },
     },
   },
@@ -241,11 +235,7 @@ const fields: YextFields<FamilyDestinationAmenitiesProps> = {
               styles: {
                 label: msg("fields.textStyles", "Text Styles"),
                 type: "styledText",
-              },
-              fontColor: {
-                label: msg("fields.fontColor", "Font Color"),
-                type: "basicSelector",
-                options: "SITE_COLOR",
+                includeColor: true,
               },
             },
           },
@@ -256,11 +246,7 @@ const fields: YextFields<FamilyDestinationAmenitiesProps> = {
               styles: {
                 label: msg("fields.textStyles", "Text Styles"),
                 type: "styledText",
-              },
-              fontColor: {
-                label: msg("fields.fontColor", "Font Color"),
-                type: "basicSelector",
-                options: "SITE_COLOR",
+                includeColor: true,
               },
             },
           },
@@ -325,11 +311,12 @@ const Component: PuckComponent<FamilyDestinationAmenitiesProps> = (
     ? resolvedImage
     : undefined;
   const itemTitleColor =
-    getThemeColorCssValue(props.amenities.styles.itemTitle?.fontColor) ??
+    getThemeColorCssValue(props.amenities.styles.itemTitle?.styles.color) ??
     sectionForeground;
   const itemDescriptionColor =
-    getThemeColorCssValue(props.amenities.styles.itemDescription?.fontColor) ??
-    sectionForeground;
+    getThemeColorCssValue(
+      props.amenities.styles.itemDescription?.styles.color,
+    ) ?? sectionForeground;
   const iconBorderColor =
     getThemeColorCssValue(props.amenities.styles.iconBorderColor) ??
     getThemeColorCssValue(defaultIconBorderColor) ??
@@ -362,7 +349,7 @@ const Component: PuckComponent<FamilyDestinationAmenitiesProps> = (
             style={sectionStyle}
           >
             <EntityField
-              displayName="Heading"
+              displayName={pt("fields.heading", "Heading")}
               fieldId={props.heading.text.field}
               constantValueEnabled={props.heading.text.constantValueEnabled}
             >
@@ -370,11 +357,11 @@ const Component: PuckComponent<FamilyDestinationAmenitiesProps> = (
                 className="m-0"
                 style={resolveStyledTextStyles(
                   props.heading.styles,
-                  props.heading?.fontColor,
                   sectionForeground,
                   "var(--fontFamily-h2-fontFamily)",
                   "var(--fontSize-h2-fontSize)",
                   "var(--fontWeight-h2-fontWeight)",
+                  "var(--textTransform-h2-textTransform)",
                 )}
               >
                 {heading}
@@ -382,7 +369,7 @@ const Component: PuckComponent<FamilyDestinationAmenitiesProps> = (
             </EntityField>
             <div className="m-0 flex flex-col gap-10 p-0 lg:gap-[50px]">
               <EntityField
-                displayName="Amenities"
+                displayName={pt("fields.amenities", "Amenities")}
                 fieldId={props.amenities.data?.field}
                 constantValueEnabled={
                   props.amenities.data?.constantValueEnabled
@@ -440,11 +427,11 @@ const Component: PuckComponent<FamilyDestinationAmenitiesProps> = (
                           className="m-0"
                           style={resolveStyledTextStyles(
                             props.amenities.styles.itemTitle.styles,
-                            props.amenities.styles.itemTitle?.fontColor,
                             itemTitleColor,
                             "var(--fontFamily-h4-fontFamily)",
                             "var(--fontSize-h4-fontSize)",
                             "var(--fontWeight-h4-fontWeight)",
+                            "var(--textTransform-h4-textTransform)",
                           )}
                         >
                           {title}
@@ -454,20 +441,28 @@ const Component: PuckComponent<FamilyDestinationAmenitiesProps> = (
                           style={{
                             ...resolveStyledTextStyles(
                               props.amenities.styles.itemDescription.styles,
-                              props.amenities.styles.itemDescription?.fontColor,
                               itemDescriptionColor,
                               "var(--fontFamily-body-fontFamily)",
                               "var(--fontSize-body-fontSize)",
                               "var(--fontWeight-body-fontWeight)",
+                              "var(--textTransform-body-textTransform)",
                             ),
                             lineHeight: "1.5rem",
                           }}
                         >
-                          {renderRichText(description)}
+                          {renderRichText(
+                            description,
+                            resolveRichTextStyles(
+                              props.amenities.styles.itemDescription.styles,
+                            ),
+                          )}
                         </div>
                         {authoredAmenity?.action ? (
                           <EntityField
-                            displayName="Amenity Call to Action"
+                            displayName={pt(
+                              "fields.callToAction",
+                              "Call To Action",
+                            )}
                             fieldId={authoredAmenity.action.data.cta.field}
                             constantValueEnabled={
                               authoredAmenity.action.data.cta
@@ -501,7 +496,7 @@ const Component: PuckComponent<FamilyDestinationAmenitiesProps> = (
           {sectionImage ? (
             <figure className="relative m-0 h-80 overflow-hidden sm:h-[500px] lg:order-1 lg:h-auto lg:self-stretch">
               <EntityField
-                displayName="Image"
+                displayName={pt("fields.image", "Image")}
                 fieldId={props.image.image.field}
                 constantValueEnabled={props.image.image.constantValueEnabled}
                 fullHeight
@@ -530,7 +525,7 @@ const Component: PuckComponent<FamilyDestinationAmenitiesProps> = (
 
 export const FamilyDestinationAmenities: YextComponentConfig<FamilyDestinationAmenitiesProps> =
   {
-    label: "Amenities",
+    label: msg("components.amenities", "Amenities"),
     fields: toPuckFields<FamilyDestinationAmenitiesProps>(fields),
     defaultProps: {
       heading: createHeadingDefault("Resort Amenities"),

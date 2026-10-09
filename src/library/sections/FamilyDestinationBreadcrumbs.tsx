@@ -23,13 +23,13 @@ import {
   type YextEntityField,
   type YextFields,
   msg,
+  pt,
 } from "@yext/visual-editor";
 import { defaultTextStyles } from "../shared/sectionStyles";
 
 type StyledTextProps = {
   text: YextEntityField<TranslatableString>;
   styles: StyledTextValue;
-  fontColor?: ThemeColor;
 };
 
 type BreadcrumbsStreamDocument = {
@@ -79,11 +79,7 @@ const fields: YextFields<FamilyDestinationBreadcrumbsProps> = {
       styles: {
         label: msg("fields.textStyles", "Text Styles"),
         type: "styledText",
-      },
-      fontColor: {
-        label: msg("fields.fontColor", "Font Color"),
-        type: "basicSelector",
-        options: "SITE_COLOR",
+        includeColor: true,
       },
     },
   },
@@ -123,7 +119,7 @@ const Component: PuckComponent<FamilyDestinationBreadcrumbsProps> = (
   const sectionForeground = sectionStyle?.color ?? "currentColor";
   const rootLabelStyle: React.CSSProperties = {
     color:
-      getThemeColorCssValue(props.rootLabel?.fontColor) ?? sectionForeground,
+      getThemeColorCssValue(props.rootLabel?.styles.color) ?? sectionForeground,
     fontFamily:
       props.rootLabel.styles.fontFamily === "default"
         ? undefined
@@ -205,7 +201,10 @@ const Component: PuckComponent<FamilyDestinationBreadcrumbsProps> = (
                     : name;
                 const breadcrumbContent = isCurrentPage ? (
                   <EntityField
-                    displayName="Current Page"
+                    displayName={pt(
+                      "fields.currentPageLinkLabel",
+                      "Current Page Link Label",
+                    )}
                     fieldId="name"
                     constantValueEnabled={false}
                   >
@@ -238,7 +237,7 @@ const Component: PuckComponent<FamilyDestinationBreadcrumbsProps> = (
                     <wbr />
                     {isRoot ? (
                       <EntityField
-                        displayName="Root Label"
+                        displayName={pt("fields.rootLabel", "Root Label")}
                         fieldId={props.rootLabel.text.field}
                         constantValueEnabled={
                           props.rootLabel.text.constantValueEnabled
@@ -262,7 +261,7 @@ const Component: PuckComponent<FamilyDestinationBreadcrumbsProps> = (
 
 export const FamilyDestinationBreadcrumbs: YextComponentConfig<FamilyDestinationBreadcrumbsProps> =
   {
-    label: "Breadcrumbs",
+    label: msg("components.breadcrumbs", "Breadcrumbs"),
     fields: toPuckFields<FamilyDestinationBreadcrumbsProps>(fields),
     defaultProps: {
       rootLabel: {
@@ -275,7 +274,6 @@ export const FamilyDestinationBreadcrumbs: YextComponentConfig<FamilyDestination
           constantValueEnabled: true,
         },
         styles: defaultTextStyles,
-        fontColor: undefined,
       },
       includeCurrentLocation: true,
       section: {
