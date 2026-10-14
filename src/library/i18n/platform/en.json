@@ -326,5 +326,6 @@
   },
   "useOurLocatorToFindALocationNearYou": "Use our locator to find a location near you",
   "visitPage": "Visit Page",
-  "visitPageForName": "Visit Page for {{name}}"
+  "visitPageForName": "Visit Page for {{name}}",
+  "mapRequiresWebGL": "The map is unavailable because WebGL is unavailable."
 }
