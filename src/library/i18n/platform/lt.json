@@ -119,6 +119,7 @@
     "logoImage": "Logotipo vaizdas",
     "longitude": "Ilguma",
     "map": "Žemėlapis",
+    "mapStartingZoom": "Pradinis žemėlapio mastelio lygis",
     "mapboxMapStyle": "„Mapbox“ žemėlapio stilius",
     "mapStyle": "Žemėlapio stilius",
     "name": "Vardas",

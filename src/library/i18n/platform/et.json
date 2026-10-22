@@ -119,6 +119,7 @@
     "logoImage": "Logo pilt",
     "longitude": "Pikkuskraad",
     "map": "Kaart",
+    "mapStartingZoom": "Kaardi algne suumitase",
     "mapboxMapStyle": "Mapboxi kaardistiil",
     "mapStyle": "Kaardistiil",
     "name": "Nimi",
