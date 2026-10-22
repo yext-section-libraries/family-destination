@@ -119,6 +119,7 @@
     "logoImage": "Obrázok loga",
     "longitude": "Dĺžka",
     "map": "Mapa",
+    "mapStartingZoom": "Počiatočné priblíženie mapy",
     "mapboxMapStyle": "Štýl mapy Mapbox",
     "mapStyle": "Mapový štýl",
     "name": "Meno",
