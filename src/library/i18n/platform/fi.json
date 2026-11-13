@@ -49,6 +49,7 @@
     "answer": "Vastaus",
     "articles": "Artikkelit",
     "aspectRatio": "Kuvasuhde",
+    "autoSearchOnMapMove": "Hae automaattisesti kartan liikkeestä",
     "backgroundColor": "Taustaväri",
     "backgroundImage": "Taustakuva",
     "badge": "Merkki",
