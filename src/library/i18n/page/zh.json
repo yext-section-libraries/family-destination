@@ -30,6 +30,7 @@
   "locationsWithinDistanceOf_other": "“{{name}}”的 {{distance}} {{unit}} 内有 {{count}} 个位置",
   "logo": "标识",
   "mapRequiresOptIn": "该地图仅在启用cookies的情况下才能显示",
+  "mapRequiresWebGL": "由于 WebGL 不可用，无法显示地图。",
   "mile_other": "英里",
   "mile_zero": "英里",
   "noBreadcrumbs": "没有可用的面包屑导航（该分区将在已发布页面上隐藏）。创建目录以启用面包屑导航。",
