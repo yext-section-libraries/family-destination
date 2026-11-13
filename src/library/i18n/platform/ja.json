@@ -49,6 +49,7 @@
     "answer": "回答",
     "articles": "記事",
     "aspectRatio": "アスペクト比",
+    "autoSearchOnMapMove": "地図移動時に自動検索",
     "backgroundColor": "背景色",
     "backgroundImage": "背景画像",
     "badge": "バッジ",
